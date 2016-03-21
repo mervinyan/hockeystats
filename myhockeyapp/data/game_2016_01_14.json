@@ -1,0 +1,224 @@
+[
+        {
+            "eventId": "fe44ba78-8c04-4a40-9a6b-0c441fff43d0",
+            "eventType": "GameStarted",
+            "data": {
+                "number": "18",
+                "date": "2016-01-14",
+                "time": "18:00",
+                "type": "regular session",
+                "homeaway": "away",
+                "opponent": "shamrocks",
+                "arena": "al"
+            }
+        },   
+        {
+            "eventId": "46c7c4e7-d22a-40f9-b09d-f05e9cc943bd",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "1",
+                "time": "19:06",
+                "kind": "even",
+                "score": "12",
+                "assist1": "5",
+                "assist2": "6"
+            }
+        }, 
+        {
+            "eventId": "54821399-e431-4a30-8a90-b9ecdc991257",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "1",
+                "time": "12:46",
+                "kind": "even",
+                "score": "5",
+                "assist1": "12",
+                "assist2": ""
+            }
+        }, 
+        {
+            "eventId": "f6d3c6b2-800e-41b9-a941-826421e72887",
+            "eventType": "PenaltyTaken",
+            "data": {
+                "period": "1",
+                "time": "3:10",
+                "player": "5",
+                "offense": "Body Contact",
+                "min": "2",
+                "off": "3:10",
+                "on": "1:20"
+            }
+        },           
+        {
+            "eventId": "94bf1e67-da78-4fdd-92c7-3fd5b3a7ff20",
+            "eventType": "OpponentGoalScored",
+            "data": {
+                "period": "1",
+                "time": "1:20",
+                "kind": "pp",
+                "score": "10",
+                "assist1": "19",
+                "assist2": "13"
+            }
+        },    
+        {
+            "eventId": "c88ebccc-c5a3-471f-82c4-b68b39a56894",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "15:04",
+                "player": "14",
+                "offense": "Body Contact",
+                "min": "2",
+                "off": "15:04",
+                "on": "13:04"
+            }
+        },                 
+        {
+            "eventId": "c72f2c72-2310-42cf-91a4-9c17829358a4",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "2",
+                "time": "8:32",
+                "kind": "even",
+                "score": "9",
+                "assist1": "5",
+                "assist2": "17"
+            }
+        },    
+        {
+            "eventId": "4b36c143-6a66-4433-999e-545077f4e066",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "6:46",
+                "player": "10",
+                "offense": "Hooking",
+                "min": "2",
+                "off": "6:46",
+                "on": "4:46"
+            }
+        },            
+        {
+            "eventId": "3966d717-1be0-4333-b3c5-0dda1ea5c171",
+            "eventType": "OpponentGoalScored",
+            "data": {
+                "period": "2",
+                "time": "4:07",
+                "kind": "even",
+                "score": "10",
+                "assist1": "19",
+                "assist2": "13"
+            }
+        },            
+        {
+            "eventId": "8967f30a-00cc-4f0a-a43d-710e0a80e701",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "2",
+                "time": "0:18",
+                "kind": "even",
+                "score": "9",
+                "assist1": "17",
+                "assist2": ""
+            }
+        },  
+        {
+            "eventId": "18f9e43d-4b56-4605-b1d9-2b3629a119ba",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "0:18",
+                "player": "4",
+                "offense": "Hooking",
+                "min": "2",
+                "off": "0:18",
+                "on": ""
+            }
+        },            
+        {
+            "eventId": "6cc26fcb-563d-4edb-8218-6031772d0ad8",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "17:18",
+                "kind": "even",
+                "score": "10",
+                "assist1": "19",
+                "assist2": ""
+            }
+        },                               
+        {
+            "eventId": "ee8e59ca-2ed1-4614-8324-aaeaacf88e59",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "3",
+                "time": "15:51",
+                "player": "15",
+                "offense": "Cross Checking",
+                "min": "2",
+                "off": "15:51",
+                "on": "13:51"
+            }
+        },           
+        {
+            "eventId": "64d34ea1-1e4c-44d1-ae5e-d37c523ed6be",
+            "eventType": "PenaltyTaken",
+            "data": {
+                "period": "3",
+                "time": "7:53",
+                "player": "17",
+                "offense": "Body Contact",
+                "min": "2",
+                "off": "7:53",
+                "on": "5:53"
+            }
+        },           
+        {
+            "eventId": "c74f7d9c-3c4b-4acd-84c5-65d64614a877",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "3",
+                "time": "7:44",
+                "player": "4",
+                "offense": "Cross Checking",
+                "min": "2",
+                "off": "7:44",
+                "on": "5:44"
+            }
+        },   
+        {
+            "eventId": "74cbe128-ecbe-4d0a-bfcc-8c73a2ca5157",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "3",
+                "time": "7:03",
+                "player": "19",
+                "offense": "Body Contact",
+                "min": "2",
+                "off": "7:03",
+                "on": "5:03"
+            }
+        }, 
+        {
+            "eventId": "69debdcd-2d84-4f94-9b59-203884f29ebb",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "3",
+                "time": "2:13",
+                "player": "7",
+                "offense": "Tripping",
+                "min": "2",
+                "off": "2:13",
+                "on": "0:13"
+            }
+        },        
+        {
+            "eventId": "ea85cb9d-f892-4077-bb03-2194222d0627",
+            "eventType": "GameEnded",
+            "data": {
+                "date": "2016-01-14",
+                "time": "19:45"
+            }
+        }
+]

@@ -1,0 +1,97 @@
+[
+        {
+            "eventId": "7a6d259c-f36f-414e-9a2c-c2f90e682391",
+            "eventType": "GameStarted",
+            "data": {
+                "number": "1",
+                "date": "2015-10-23",
+                "time": "18:00",
+                "type": "regular session",
+                "homeaway": "home",
+                "opponent": "royals",
+                "arena": "c2"
+            }
+        },
+        {
+            "eventId": "1b61b742-b543-4333-85c7-f6e907162c9b",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "1",
+                "time": "5:26",
+                "kind": "even",
+                "score": "10",
+                "assist1": "19",
+                "assist2": ""
+            }
+        },
+        {
+            "eventId": "e1c943e4-ab37-4512-bde4-ae5c421c2abd",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "2",
+                "time": "17:14",
+                "kind": "even",
+                "score": "9",
+                "assist1": "17",
+                "assist2": ""
+            }
+        },
+        {
+            "eventId": "a604c21e-477c-4986-a6ac-b1ff1e3ef290",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "2",
+                "time": "4:42",
+                "kind": "even",
+                "score": "12",
+                "assist1": "5",
+                "assist2": ""
+            }
+        },
+        {
+            "eventId": "48e4dc87-f14f-455f-81ba-ce9a4e4c8625",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "0:25",
+                "player": "16",
+                "offense": "Body Contact",
+                "min": "5",
+                "off": "0:25",
+                "on": ""
+            }
+        },
+        {
+            "eventId": "9f2b3956-96a6-4c5f-9ae9-0ff0baf8c7e8",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "13:31",
+                "kind": "even",
+                "score": "6",
+                "assist1": "",
+                "assist2": ""
+            }
+        },
+        {
+            "eventId": "dcd615ef-b502-4b49-8372-3e253f5278c3",
+            "eventType": "PenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "8:04",
+                "player": "16",
+                "offense": "Roughing",
+                "min": "5",
+                "off": "8:04",
+                "on": "3:04"
+            }
+        },
+        {
+            "eventId": "640fb94c-9208-405b-88ab-cb06260679e3",
+            "eventType": "GameEnded",
+            "data": {
+                "date": "2015-10-23",
+                "time": "19:50"
+            }
+        }
+]

@@ -1,0 +1,52 @@
+curl –i –d @stats/game_2015_10_23.json http://127.0.0.1:2113/streams/game-2015_10_23 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_10_24.json http://127.0.0.1:2113/streams/game-2015_10_24 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_10_31.json http://127.0.0.1:2113/streams/game-2015_10_31 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_11_01.json http://127.0.0.1:2113/streams/game-2015_11_01 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_11_13.json http://127.0.0.1:2113/streams/game-2015_11_13 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_11_14.json http://127.0.0.1:2113/streams/game-2015_11_14 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_11_18.json http://127.0.0.1:2113/streams/game-2015_11_18 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_11_22.json http://127.0.0.1:2113/streams/game-2015_11_22 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_11_25.json http://127.0.0.1:2113/streams/game-2015_11_25 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_11_29.json http://127.0.0.1:2113/streams/game-2015_11_29 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_11_30.json http://127.0.0.1:2113/streams/game-2015_11_30 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_12_07.json http://127.0.0.1:2113/streams/game-2015_12_07 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_12_12.json http://127.0.0.1:2113/streams/game-2015_12_12 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_12_18.json http://127.0.0.1:2113/streams/game-2015_12_18 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2015_12_19.json http://127.0.0.1:2113/streams/game-2015_12_19 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_01_08.json http://127.0.0.1:2113/streams/game-2016_01_08 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_01_09.json http://127.0.0.1:2113/streams/game-2016_01_09 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_01_14.json http://127.0.0.1:2113/streams/game-2016_01_14 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_01_15.json http://127.0.0.1:2113/streams/game-2016_01_15 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_01_18.json http://127.0.0.1:2113/streams/game-2016_01_18 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_02_13.json http://127.0.0.1:2113/streams/game-2016_02_13 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_02_14.json http://127.0.0.1:2113/streams/game-2016_02_13 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_02_16.json http://127.0.0.1:2113/streams/game-2016_02_16 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_02_20.json http://127.0.0.1:2113/streams/game-2016_02_20 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_02_27.json http://127.0.0.1:2113/streams/game-2016_02_27 -H “Content-Type:application/vnd.eventstore.events+json”
+
+curl –i –d @stats/game_2016_02_29.json http://127.0.0.1:2113/streams/game-2016_02_29 -H “Content-Type:application/vnd.eventstore.events+json”
+

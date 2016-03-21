@@ -1,0 +1,172 @@
+[
+        {
+            "eventId": "f7b2134b-5554-4524-8464-9c6c3f9a4640",
+            "eventType": "GameStarted",
+            "data": {
+                "number": "24",
+                "date": "2016-02-20",
+                "time": "12:00",
+                "type": "regular session",
+                "homeaway": "away",
+                "opponent": "blues",
+                "arena": "op"
+            }
+        },  
+        {
+            "eventId": "af40a604-adf2-4737-b006-5d1a5ed405f5",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "1",
+                "time": "12:21",
+                "player": "18",
+                "offense": "Slashing",
+                "min": "2",
+                "off": "12:21",
+                "on": "10:21"
+            }
+        },          
+        {
+            "eventId": "1a0805a2-067d-40e2-885a-1b914371ab13",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "1",
+                "time": "4:42",
+                "kind": "even",
+                "score": "8",
+                "assist1": "12",
+                "assist2": "7"
+            }
+        },   
+        {
+            "eventId": "f5ad5a15-751b-4c92-906d-50bb610b5240",
+            "eventType": "PenaltyTaken",
+            "data": {
+                "period": "1",
+                "time": "1:35",
+                "player": "9",
+                "offense": "Hooking",
+                "min": "2",
+                "off": "1:35",
+                "on": ""
+            }
+        },      
+        {
+            "eventId": "45533ed9-88d8-45ab-86aa-f8b270f4adff",
+            "eventType": "PenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "8:42",
+                "player": "12",
+                "offense": "Slashing",
+                "min": "2",
+                "off": "8:42",
+                "on": "6:42"
+            }
+        },      
+        {
+            "eventId": "992223b5-3ef0-457b-8adf-a64f0707b528",
+            "eventType": "PenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "1:08",
+                "player": "10",
+                "offense": "Slashing",
+                "min": "2",
+                "off": "1:08",
+                "on": ""
+            }
+        },                  
+        {
+            "eventId": "9cbe00cb-f232-4d00-b864-e0f78b62f504",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "2",
+                "time": "4:27",
+                "kind": "even",
+                "score": "9",
+                "assist1": "13",
+                "assist2": ""
+            }
+        },   
+        {
+            "eventId": "fb63c7ce-2973-45b5-8049-19a9d70e1e43",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "18:12",
+                "kind": "even",
+                "score": "5",
+                "assist1": "12",
+                "assist2": ""
+            }
+        },   
+        {
+            "eventId": "7ba5ed17-093d-4cf9-93fa-94a358dd07df",
+            "eventType": "OpponentGoalScored",
+            "data": {
+                "period": "3",
+                "time": "9:45",
+                "kind": "even",
+                "score": "9",
+                "assist1": "13",
+                "assist2": "14"
+            }
+        },   
+        {
+            "eventId": "7d940c0a-c33c-4002-9c2d-df8bfaa1fa6a",
+            "eventType": "PenaltyTaken",
+            "data": {
+                "period": "3",
+                "time": "9:24",
+                "player": "19",
+                "offense": "Head Contact",
+                "min": "4",
+                "off": "9:24",
+                "on": "7:24"
+            }
+        },          
+        {
+            "eventId": "f93032f8-8bfd-4a06-9f10-b304aceaa6b3",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "7:14",
+                "kind": "eveshn",
+                "score": "5",
+                "assist1": "",
+                "assist2": ""
+            }
+        },  
+        {
+            "eventId": "608d19c1-fac9-4cf1-8e51-35035fbcabdd",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "3:25",
+                "kind": "even",
+                "score": "12",
+                "assist1": "8",
+                "assist2": ""
+            }
+        },  
+        {
+            "eventId": "430af474-7f53-4f60-b27a-515de0ddeb1e",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "0:36",
+                "kind": "even",
+                "score": "7",
+                "assist1": "",
+                "assist2": ""
+            }
+        },                          
+        {
+            "eventId": "0a5fa6d5-06b2-4ecd-ba9a-0843273d628e",
+            "eventType": "GameEnded",
+            "data": {
+                "date": "2016-02-20",
+                "time": "13:45"
+            }
+        }
+]

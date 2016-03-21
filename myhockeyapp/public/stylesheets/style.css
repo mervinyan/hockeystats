@@ -1,0 +1,20 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.c3-region.region-period1 {
+  fill: red;
+}
+
+.c3-region.region-period2 {
+  fill: blue;
+}
+
+.c3-region.region-period3 {
+  fill: yellow;
+}

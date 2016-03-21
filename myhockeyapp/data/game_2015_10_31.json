@@ -1,0 +1,146 @@
+[
+        {
+            "eventId": "ca13cd75-e2a8-45f1-954f-5de12edf41d6",
+            "eventType": "GameStarted",
+            "data": {
+                "number": "3",
+                "date": "2015-10-31",
+                "time": "13:45",
+                "type": "regular session",
+                "homeaway": "away",
+                "opponent": "capitals",
+                "arena": "al"
+            }
+        },
+        {
+            "eventId": "7eb412fd-bed8-4686-b215-5f72890e882c",
+            "eventType": "OpponentGoalScored",
+            "data": {
+                "period": "1",
+                "time": "13:42",
+                "kind": "even",
+                "score": "5",
+                "assist1": "2",
+                "assist2": ""
+            }
+        },
+        {
+            "eventId": "5933383d-0ca9-40c5-adf2-8db0217767a1",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "1",
+                "time": "10:00",
+                "player": "8",
+                "offense": "Boarding",
+                "min": "2",
+                "off": "10:00",
+                "on": "9:42"
+            }
+        },
+        {
+            "eventId": "f1c20d5f-382c-41b7-96d0-a494785551bb",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "1",
+                "time": "9:42",
+                "kind": "pp",
+                "score": "9",
+                "assist1": "13",
+                "assist2": ""
+            }
+        },
+        {
+            "eventId": "0cd79f4f-5eed-41f1-bafd-c5bd34cd04f5",
+            "eventType": "PenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "19:12",
+                "player": "7",
+                "offense": "Tripping",
+                "min": "2",
+                "off": "19:12",
+                "on": "17:12"
+            }
+        },
+        {
+            "eventId": "5933383d-0ca9-40c5-adf2-8db0217767a1",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "14:13",
+                "player": "9",
+                "offense": "High Sticking",
+                "min": "2",
+                "off": "14:13",
+                "on": "12:13"
+            }
+        },
+        {
+            "eventId": "e527796b-d1b6-45a9-b25e-78f20fa09961",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "2",
+                "time": "5:52",
+                "kind": "even",
+                "score": "12",
+                "assist1": "2",
+                "assist2": ""
+            }
+        },
+        {
+            "eventId": "2675cb76-7d44-4d75-9949-cfa843ab889c",
+            "eventType": "OpponentGoalScored",
+            "data": {
+                "period": "2",
+                "time": "4:48",
+                "kind": "even",
+                "score": "7",
+                "assist1": "8",
+                "assist2": ""
+            }
+        },
+        {
+            "eventId": "ae49098f-1b9a-405f-bb1d-fd0504dfdee6",
+            "eventType": "OpponentGoalScored",
+            "data": {
+                "period": "3",
+                "time": "14:48",
+                "kind": "even",
+                "score": "5",
+                "assist1": "2",
+                "assist2": ""
+            }
+        },
+        {
+            "eventId": "dcef73e2-5aec-47d7-8554-f589f1973d91",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "6:30",
+                "kind": "even",
+                "score": "5",
+                "assist1": "12",
+                "assist2": ""
+            }
+        },
+        {
+            "eventId": "7000f71e-7fe9-46de-8a04-61b63917266e",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "0:22",
+                "kind": "even",
+                "score": "8",
+                "assist1": "16",
+                "assist2": "2"
+            }
+        },
+        {
+            "eventId": "58faa6aa-61b5-418d-86da-43a94323617e",
+            "eventType": "GameEnded",
+            "data": {
+                "date": "2015-10-31",
+                "time": "15:30"
+            }
+        }
+]

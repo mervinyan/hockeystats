@@ -1,0 +1,26 @@
+1.	How to enable the projections?
+EventStore.ClusterNode.exe --db ./db --log ./logs –start-standard-projections=true –run-projections=all
+
+2.	How to write to stream?
+curl –i –d @stats/game_2015_10_31.json http://127.0.0.1:2113/streams/game-2015_10_31_1 -H “Content-Type:application/vnd.eventstore.events+json”
+
+3.	How to delete stream?
+•	Soft delete
+curl –v –X DELETE http://127.0.0.1:2113/streams/game-2015_10_31
+•	Hard delete
+curl –v –X DELETE http://127.0.0.1:2113/streams/game-2015_10_31 -H “ES-HardDelete:true”
+
+4. How to read stream?
+curl -i -H "Accept:application/vnd.eventstore.atom+json" "http://127.0.0.1:2113/streams/game-2015_10_31"
+curl -i -H "Accept:application/json" "http://127.0.0.1:2113/streams/game-2015_10_31"
+
+5. How to read all events?
+curl -i -H "Accept:application/vnd.eventstore.atom+json" "http://127.0.0.1:2113/$all" -u admin:changeit
+
+6. Embedding Data into Stream?
+curl -i -H "Accept:application/vnd.eventstore.atom+json" "http://127.0.0.1:2113/streams/game-2015_10_23?embed=rich"
+curl -i -H "Accepp:application/vnd.eventstore.atom+json" "http://127.0.0,1:2113/streams/game-2015_10_23?embed=body"
+
+
+
+ 

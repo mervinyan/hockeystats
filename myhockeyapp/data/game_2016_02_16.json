@@ -1,0 +1,157 @@
+[
+        {
+            "eventId": "ab90a612-ef9c-4567-8945-f3cf6e10c344",
+            "eventType": "GameStarted",
+            "data": {
+                "number": "23",
+                "date": "2016-02-16",
+                "time": "18:00",
+                "type": "regular session",
+                "homeaway": "home",
+                "opponent": "lumsden",
+                "arena": "al"
+            }
+        },  
+        {
+            "eventId": "bda7b1b1-ca75-4c8d-8da0-b438847614fe",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "1",
+                "time": "16:17",
+                "kind": "even",
+                "score": "5",
+                "assist1": "2",
+                "assist2": ""
+            }
+        },   
+        {
+            "eventId": "2dd97398-cef3-4c2f-bf6f-efb627d997fb",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "1",
+                "time": "14:46",
+                "kind": "even",
+                "score": "8",
+                "assist1": "2",
+                "assist2": ""
+            }
+        },   
+        {
+            "eventId": "fd75458a-fa15-4f3d-adaa-138708fd27ce",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "1",
+                "time": "10:32",
+                "kind": "even",
+                "score": "8",
+                "assist1": "15",
+                "assist2": "13"
+            }
+        },   
+        {
+            "eventId": "d586ee7c-d766-4e31-80e0-bbaec283bc8b",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "1",
+                "time": "8:46",
+                "kind": "even",
+                "score": "12",
+                "assist1": "5",
+                "assist2": "2"
+            }
+        },   
+        {
+            "eventId": "7dd62682-c0cf-4833-9a64-26348b61e5f6",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "2",
+                "time": "19:48",
+                "kind": "even",
+                "score": "5",
+                "assist1": "7",
+                "assist2": "12"
+            }
+        },   
+        {
+            "eventId": "af4f5615-13c7-4f9f-b625-6cff89a0a30e",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "2",
+                "time": "13:35",
+                "kind": "even",
+                "score": "15",
+                "assist1": "13",
+                "assist2": "8"
+            }
+        },   
+        {
+            "eventId": "13cdff7d-98b8-4261-87e0-c48e35d6638c",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "11:11",
+                "player": "6",
+                "offense": "Slashing",
+                "min": "2",
+                "off": "11:11",
+                "on": "9:11"
+            }
+        },    
+        {
+            "eventId": "e5eb8e2f-8d8b-4a06-b5b7-655ae6223d2d",
+            "eventType": "OpponentPenaltyTaken",
+            "data": {
+                "period": "2",
+                "time": "2:14",
+                "player": "13",
+                "offense": "Body Contact",
+                "min": "2",
+                "off": "2:14",
+                "on": "0:14"
+            }
+        },            
+        {
+            "eventId": "e58f727c-8e8f-48fa-bcaa-6c6195a0554e",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "14:52",
+                "kind": "even",
+                "score": "12",
+                "assist1": "5",
+                "assist2": ""
+            }
+        },   
+        {
+            "eventId": "efde416e-1169-449d-8e63-043a4c50f5dd",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "10:22",
+                "kind": "even",
+                "score": "12",
+                "assist1": "5",
+                "assist2": ""
+            }
+        },   
+        {
+            "eventId": "c1017aa3-3b13-465a-a0fd-be9ed8e07b3b",
+            "eventType": "GoalScored",
+            "data": {
+                "period": "3",
+                "time": "5:34",
+                "kind": "even",
+                "score": "12",
+                "assist1": "",
+                "assist2": ""
+            }
+        },             
+        {
+            "eventId": "41de9b98-80eb-4971-9c10-71e5819dbcef",
+            "eventType": "GameEnded",
+            "data": {
+                "date": "2016-02-16",
+                "time": "19:45"
+            }
+        }
+]
