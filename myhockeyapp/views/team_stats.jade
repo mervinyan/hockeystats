@@ -40,14 +40,14 @@ block content
                     td #{game.pim}
     
     
-    div(id='chart' class='c3chart' data-layout='bar' data-xvalue='date' data-yvalues='gf|ga') 
+    div(id='chart00' class='c3chart' data-layout='bar' data-xvalue='date' data-yvalues='gf|ga') 
     script(type='text/javascript').
-        var chartdiv = d3.select('#chart');
+        var chartdiv = d3.select('#chart00');
         var layout = chartdiv.attr('data-layout');
         var xvalue = chartdiv.attr('data-xvalue');
         var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
         var chart = c3.generate({
-            bindto: '#chart',
+            bindto: '#chart00',
             data: {
                 json: !{JSON.stringify(game_stats)},
                 keys: {
@@ -61,14 +61,14 @@ block content
             }
         });   
                            
-    div(id='chart1' class='c3chart' data-layout='timeseries' data-xvalue='date' data-yvalues='gf|ga|pim')                                      
+    div(id='chart10' class='c3chart' data-layout='timeseries' data-xvalue='date' data-yvalues='gf|ga|pim')                                      
     script(type='text/javascript').
-        var chartdiv1 = d3.select('#chart1');
+        var chartdiv1 = d3.select('#chart10');
         var layout1 = chartdiv1.attr('data-layout');
         var xvalue1 = chartdiv1.attr('data-xvalue');
         var yvalues1 = chartdiv1.attr('data-yvalues')?chartdiv1.attr('data-yvalues').split('|'):null;
         var chart1 = c3.generate({
-            bindto: '#chart1',
+            bindto: '#chart10',
             data: {
                 json: !{JSON.stringify(game_stats)},
                 keys: {
@@ -85,10 +85,10 @@ block content
                 }
             }
         });
-    div(id='chart2' class='c3chart') 
+    div(id='chart20' class='c3chart') 
     script(type='text/javascript').
             var chart = c3.generate({
-                bindto: '#chart2',
+                bindto: '#chart20',
                 data: {
                     json: !{JSON.stringify(team_time_stats)},
                     keys: {
@@ -135,15 +135,13 @@ block content
                     }
                 }
             });                           
-    table
-        tbody
-            tr
-                td(width='50%')  
+    div(style='width:100%;white-space:nowrap')
+        div(style='display:inline-block;width:32%')   
                     div Goal By Period          
-                    div(id='chart3' class='c3chart') 
+                    div(id='chart30' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart3',
+                                bindto: '#chart30',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -160,12 +158,13 @@ block content
                                     }
                                 }
                             });              
-                td(width='350%')     
+        div(style='display:inline-block;width:2%')  
+        div(style='display:inline-block;width:32%')  
                     div Goal By Kind              
-                    div(id='chart4' class='c3chart') 
+                    div(id='chart31' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart4',
+                                bindto: '#chart31',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -182,13 +181,13 @@ block content
                                     }
                                 }
                             });   
-            tr                                        
-                td(width='50%')        
+    div(style='width:100%;white-space:nowrap')
+        div(style='display:inline-block;width:32%')     
                     div Penalty By Period                      
-                    div(id='chart6' class='c3chart') 
+                    div(id='chart40' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart6',
+                                bindto: '#chart40',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -205,35 +204,13 @@ block content
                                     }
                                 }
                             });                               
-                td(width='50%')        
-                    div Penalty in Minutes By Period                      
-                    div(id='chart7' class='c3chart') 
-                    script(type='text/javascript').
-                            var chart = c3.generate({
-                                bindto: '#chart7',
-                                size: {
-                                    height: 240,
-                                    width: 240
-                                },                                
-                                data: {
-                                    json: !{JSON.stringify(pimbyperiod)},
-                                    type: 'pie',
-                                },
-                                pie: {
-                                    label: {
-                                        format: function(value, ration, id) {
-                                            return value;
-                                        }
-                                    }
-                                }
-                            }); 
-            tr                             
-                td(width='50%')        
+        div(style='display:inline-block;width:2%')  
+        div(style='display:inline-block;width:32%')   
                     div Penalty By Kind                      
-                    div(id='chart8' class='c3chart') 
+                    div(id='chart41' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart8',
+                                bindto: '#chart41',
                                 size: {
                                     height: 240,
                                     width: 480
@@ -253,12 +230,36 @@ block content
                                     }
                                 }
                             });       
-                td(width='50%')                                                           
-                    div Penalty in Minutes By Kind                      
-                    div(id='chart9' class='c3chart') 
+    div(style='width:100%;white-space:nowrap')
+        div(style='display:inline-block;width:32%')
+                    div Penalty in Minutes By Period                      
+                    div(id='chart50' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart9',
+                                bindto: '#chart50',
+                                size: {
+                                    height: 240,
+                                    width: 240
+                                },                                
+                                data: {
+                                    json: !{JSON.stringify(pimbyperiod)},
+                                    type: 'pie',
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
+                                    }
+                                }
+                            });                  
+        div(style='display:inline-block;width:2%')  
+        div(style='display:inline-block;width:32%')                                                         
+                    div Penalty in Minutes By Kind                      
+                    div(id='chart51' class='c3chart') 
+                    script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart51',
                                 size: {
                                     height: 240,
                                     width: 480
@@ -279,10 +280,10 @@ block content
                                 }
                             });                               
 
-    div(id='chart10' class='c3chart') 
+    div(id='chart60' class='c3chart') 
     script(type='text/javascript').
         var chart = c3.generate({
-            bindto: '#chart10',
+            bindto: '#chart60',
             data: {
                 json: !{JSON.stringify(pimbyplayer)},
                 type: 'bar'

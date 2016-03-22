@@ -19,7 +19,8 @@ router.get('/:player_number', function(req, res, next) {
     var pimbyperiod = {};
     var penaltybykind = {};
     var pimbykind = {};
-
+    var gamestats = [];
+    
     var connection = ges({host:'127.0.0.1'});
     connection.on('connect', function() {
         console.log('connecting to geteventstore...');
@@ -122,11 +123,18 @@ router.get('/:player_number', function(req, res, next) {
                     
                 }
             }
-            console.log(penaltybyperiod);
-            console.log(pimbyperiod);
-            console.log(penaltybykind);
-            console.log(pimbykind);            
-            res.render('player_stats', { title: 'Player Stats', player_id: player_number, data: stats, 'goalbykind': goalbykind, 'homescore': homescore, 'goalbyperiod': goalbyperiod, 'assistbyperiod': assistbyperiod, 'pointbyperiod': pointbyperiod, 'assistfrombyplayer': assistfrombyplayer, 'assisttobyplayer': assisttobyplayer, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind});        
+            connection.readStreamEventsForward('player_'+player_number+'_gamestats', {start: 0, count: 1000, resolveLinkTos: true}, function(err, readResult) {
+                if (err) return console.log('Ooops!', err)
+                for (var i = 0; i < readResult.Events.length; i++) 
+                {
+                    // console.log(readResult.Events[i]);
+                    var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
+                    // console.log(eventDataStr);
+                    var eventDataJson = JSON.parse(eventDataStr)
+                    gamestats[i] = eventDataJson;
+                }
+                res.render('player_stats', { title: 'Player Stats', player_id: player_number, data: stats, 'goalbykind': goalbykind, 'homescore': homescore, 'goalbyperiod': goalbyperiod, 'assistbyperiod': assistbyperiod, 'pointbyperiod': pointbyperiod, 'assistfrombyplayer': assistfrombyplayer, 'assisttobyplayer': assisttobyplayer, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind, 'gamestats': gamestats});        
+            });
         });
         
     });

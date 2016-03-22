@@ -37,10 +37,10 @@ block content
                         td 
                         td assist
     div Goals and Assists
-    div(id='chart' class='c3chart') 
+    div(id='chart00' class='c3chart') 
     script(type='text/javascript').
             var chart = c3.generate({
-                bindto: '#chart',
+                bindto: '#chart00',
                 data: {
                     json: !{JSON.stringify(homescore)},
                     keys: {
@@ -87,38 +87,57 @@ block content
                         }
                     }
                 }
-            });                           
-    table
-        tbody
-            tr
-                td(width='33%')  
-                    div Goal By Period          
-                    div(id='chart1' class='c3chart') 
-                    script(type='text/javascript').
-                            var chart = c3.generate({
-                                bindto: '#chart1',
-                                size: {
-                                    height: 240,
-                                    width: 240
-                                },
-                                data: {
-                                    json: !{JSON.stringify(goalbyperiod)},
-                                    type: 'pie',
-                                },
-                                pie: {
-                                    label: {
-                                        format: function(value, ration, id) {
-                                            return value;
-                                        }
-                                    }
-                                }
-                            });              
-                td(width='33%')     
+            });  
+    div(id='chart10' class='c3chart')                                      
+    script(type='text/javascript').
+        var chart0 = c3.generate({
+            bindto: '#chart10',
+            data: {
+                json: !{JSON.stringify(gamestats)},
+                keys: {
+                    x: 'date',
+                    value: ['g', 'a', 'ppg', 'shg', 'eng', 'pts', 'pim']
+                }
+            },
+            axis: {
+                x: {
+                    type: 'timeseries',
+                    tick: {
+                        format: '%Y-%m-%d'
+                    }
+                }
+            }
+        });
+    div(style='width:100%;white-space:nowrap')
+        div(style='display:inline-block;width:32%')                                     
+            div Goal By Period          
+            div(id='chart20' class='c3chart') 
+            script(type='text/javascript').
+                var chart = c3.generate({
+                    bindto: '#chart20',
+                    size: {
+                        height: 240,
+                        width: 240
+                    },
+                    data: {
+                        json: !{JSON.stringify(goalbyperiod)},
+                        type: 'pie',
+                    },
+                    pie: {
+                        label: {
+                            format: function(value, ration, id) {
+                                return value;
+                            }
+                        }
+                    }
+                });              
+        div(style='display:inline-block;width:2%')  
+        div(style='display:inline-block;width:32%')           
                     div Assist By Period              
-                    div(id='chart2' class='c3chart') 
+                    div(id='chart21' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart2',
+                                bindto: '#chart21',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -135,12 +154,13 @@ block content
                                     }
                                 }
                             });               
-                td(width='33%')        
+        div(style='display:inline-block;width:2%')  
+        div(style='display:inline-block;width:32%')     
                     div Point By Period                      
-                    div(id='chart3' class='c3chart') 
+                    div(id='chart22' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart3',
+                                bindto: '#chart22',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -157,13 +177,13 @@ block content
                                     }
                                 }
                             });                               
-            tr
-                td(width='33%')  
+    div(style='width:100%;white-space:nowrap')
+        div(style='display:inline-block;width:32%')    
                     div Goal By Kind          
-                    div(id='chart4' class='c3chart') 
+                    div(id='chart30' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart4',
+                                bindto: '#chart30',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -180,12 +200,13 @@ block content
                                     }
                                 }
                             });                          
-                td(width='33%')  
+        div(style='display:inline-block;width:2%')  
+        div(style='display:inline-block;width:32%')  
                     div Assist From By Player          
-                    div(id='chart5' class='c3chart') 
+                    div(id='chart31' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart5',
+                                bindto: '#chart31',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -202,12 +223,13 @@ block content
                                     }
                                 }
                             });              
-                td(width='33%')     
+        div(style='display:inline-block;width:2%')  
+        div(style='display:inline-block;width:32%')    
                     div Assist To By Player              
-                    div(id='chart6' class='c3chart') 
+                    div(id='chart32' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart6',
+                                bindto: '#chart32',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -224,13 +246,13 @@ block content
                                     }
                                 }
                             });               
-            tr                                        
-                td(width='33%')        
+    div(style='width:100%;white-space:nowrap')
+        div(style='display:inline-block;width:32%')     
                     div Penalty By Period                      
-                    div(id='chart7' class='c3chart') 
+                    div(id='chart40' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart7',
+                                bindto: '#chart40',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -247,36 +269,13 @@ block content
                                     }
                                 }
                             });      
-                td(width='33%')        
-                    div Penalty in Minutes By Period                      
-                    div(id='chart8' class='c3chart') 
-                    script(type='text/javascript').
-                            var chart = c3.generate({
-                                bindto: '#chart8',
-                                size: {
-                                    height: 240,
-                                    width: 240
-                                },                                
-                                data: {
-                                    json: !{JSON.stringify(pimbyperiod)},
-                                    type: 'pie',
-                                },
-                                pie: {
-                                    label: {
-                                        format: function(value, ration, id) {
-                                            return value;
-                                        }
-                                    }
-                                }
-                            });   
-                td(width='33%')
-            tr                            
-                td(width='33%')        
+        div(style='display:inline-block;width:2%')  
+        div(style='display:inline-block;width:32%')    
                     div Penalty By Kind                      
-                    div(id='chart9' class='c3chart') 
+                    div(id='chart50' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart9',
+                                bindto: '#chart50',
                                 size: {
                                     height: 240,
                                     width: 480
@@ -296,12 +295,37 @@ block content
                                     }
                                 }
                             });              
-                td(width='33%')        
-                    div Penalty in Minutes By Kind                      
-                    div(id='chart10' class='c3chart') 
+    div(style='width:100%;white-space:nowrap')
+        div(style='display:inline-block;width:32%') 
+            
+                    div Penalty in Minutes By Period                      
+                    div(id='chart41' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart10',
+                                bindto: '#chart41',
+                                size: {
+                                    height: 240,
+                                    width: 240
+                                },                                
+                                data: {
+                                    json: !{JSON.stringify(pimbyperiod)},
+                                    type: 'pie',
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
+                                    }
+                                }
+                            });                   
+        div(style='display:inline-block;width:2%')  
+        div(style='display:inline-block;width:32%')       
+                    div Penalty in Minutes By Kind                      
+                    div(id='chart51' class='c3chart') 
+                    script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart51',
                                 size: {
                                     height: 240,
                                     width: 480
@@ -321,5 +345,5 @@ block content
                                     }
                                 }
                             });   
-                td(width='33%')        
+     
                                                                    
