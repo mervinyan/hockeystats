@@ -21,6 +21,18 @@ curl -i -H "Accept:application/vnd.eventstore.atom+json" "http://127.0.0.1:2113/
 curl -i -H "Accept:application/vnd.eventstore.atom+json" "http://127.0.0.1:2113/streams/game-2015_10_23?embed=rich"
 curl -i -H "Accepp:application/vnd.eventstore.atom+json" "http://127.0.0,1:2113/streams/game-2015_10_23?embed=body"
 
+7. Create a local .gitignore
+If you create a file in your repository named .gitignore, Git uses it to determine which files and 
+directories to ignore, before you make a commit.
+A .gitignore file should be committed into your repository, in order to share the ignore rules with any other users 
+that clone the repository
 
+In Terminal, navigate to the location of your Git repository
+Enter touch .gitignore to create a .gitignore file
+
+8. Remove directory from git and local
+git rm -r one-of-the-directories
+git commit -m "Remove duplicated directories"
+git push origin master
 
  

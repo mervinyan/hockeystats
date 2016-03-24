@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var ges = require('ges-client');
+
+var uuid = require('node-uuid');
     
 router.get('/', function(req, res, next) {
     // res.send({ title: 'Express' });
@@ -11,26 +13,26 @@ router.get('/', function(req, res, next) {
 
 router.post('/gamestart', function(req, res, next) {
     var stream = "game-"+req.body.date.replace('-', '_').replace('-', '_'); //2016_03_24
-    var event = {
-        'eventId': uuid.v1(),
-        'eventType': 'GameStart',
-        'data': {
-            'number': req.body.number,
-            'date': req.body.date,
-            'time': req.body.time,
-            'type': req.body.type,
-            'homeaway': req.body.homeaway,
-            'opponent': req.body.opponent,
-            'arena': req.body.arena
-        }
-    };
-    console.log(event);
     var connection = ges({host:'127.0.0.1'});
     connection.on('connect', function() {
         console.log('connecting to geteventstore...');
         var appendData = {
           expectedVersion: ges.expectedVersion.emptyStream,
-          events: [event]  
+          events: [
+               {
+                    'eventId': uuid.v4(),
+                    'eventType': 'GameStart',
+                    'data': {
+                        'number': req.body.number,
+                        'date': req.body.date,
+                        'time': req.body.time,
+                        'type': req.body.type,
+                        'homeaway': req.body.homeaway,
+                        'opponent': req.body.opponent,
+                        'arena': req.body.arena
+                    }
+                }
+          ]  
         };
         connection.appendToStream(stream, appendData, function(err, appendResult) {
             if (err) return console.log('Oops!', err);
