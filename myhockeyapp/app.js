@@ -9,12 +9,28 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var team_stats = require('./routes/team_stats');
 var player_stats = require('./routes/player_stats');
+var game_entry = require('./routes/game_entry');
+var todos = require('./routes/todos');
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/todoApp', function(err) {
+    if(err) {
+        console.log('connection error', err);
+    } else {
+        console.log('connection successful');
+    }
+});
 
 var app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('view engine', 'jade');
+
+// view engine setup
+var engines = require('consolidate');
+app.engine('jade', engines.jade);
+app.engine('ejs', engines.ejs);
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -28,6 +44,8 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/teamstats', team_stats);
 app.use('/playerstats', player_stats);
+app.use('/gameentry', game_entry);
+app.use('/todos', todos);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

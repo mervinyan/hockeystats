@@ -84,8 +84,7 @@ router.get('/', function(req, res, next) {
 
                     }
                 }
-                console.log(team_time_stats);
-                res.render('team_stats', { title: 'Team Stats', 'game_stats': game_stats, 'team_time_stats': team_time_stats, 'goalbyperiod': goalbyperiod, 'goalbykind': goalbykind, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbyplayer': pimbyplayer, 'pimbykind': pimbykind });        
+                res.render('team_stats.jade', { title: 'Team Stats', 'game_stats': game_stats, 'team_time_stats': team_time_stats, 'goalbyperiod': goalbyperiod, 'goalbykind': goalbykind, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbyplayer': pimbyplayer, 'pimbykind': pimbykind });        
 
             });
         });

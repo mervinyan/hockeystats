@@ -12,9 +12,17 @@ How to run the project:
     curl –i –d @game_2015_10_23.json http://127.0.0.1:2113/streams/game-2015_10_23 -H “Content-Type:application/vnd.eventstore.events+json”
 4. Add new projection in GetEventStore (for each file in the projections folder)
     Login to GetEventStore web console, click the Projections tab and click the "New Projection" button. Copy the content from file projection_game_stats.js and paste to the "Source" textbox, in the Name box enter a name you prefer, and choose "Continuous" in the Mode dropdown list, and check the "Emit Enabled" checkbox
-5. Run the web app either from Visual Studio Code from Node.ss command line 
+5. Install Express: npm install express --save
+6. Install Express Generator: npm install express-generator -g
+7. Generate Application: express myhockeyapp
+8. Install dependencies: npm install
+9. Install C3 Chart: npm install c3-chart
+10. Install Mongoose: npm install mongoose --save
+11. Install Consolidate: npm install consolidate
+12. Run the web app either from Visual Studio Code from Node.ss command line 
      $ cd myhockeyapp 
      $ node app.js
-6. The url to check team stats: http://host:port/teamstats (e.g. http://localhost:3000/teamstats)
-7. The url to check player stats: http://host:port/playerstats/12 (e.g. http://localhost:3000/playerstats/12)
+13. The url to check team stats: http://host:port/teamstats (e.g. http://localhost:3000/teamstats)
+14. The url to check player stats: http://host:port/playerstats/12 (e.g. http://localhost:3000/playerstats/12)
+
 
