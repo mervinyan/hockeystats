@@ -7,7 +7,7 @@ How to run the project:
 
 1. Download the EventStore from https://geteventstore.com/. 
 2. Start the GetEventStore with the following command
-    EventStore.ClusterNode.exe --db ./db --log ./logs –start-standard-projections=true –run-projections=all
+    EventStore.ClusterNode.exe --db ./db --log ./logs –-start-standard-projections=true –-run-projections=all
 3. Post events to EventStore (for each file in the data folder), e.g. for the game of 2015-10-23
     curl –i –d @game_2015_10_23.json http://127.0.0.1:2113/streams/game-2015_10_23 -H “Content-Type:application/vnd.eventstore.events+json”
 4. Add new projection in GetEventStore (for each file in the projections folder)

@@ -1,5 +1,10 @@
 1.	How to enable the projections?
-EventStore.ClusterNode.exe --db ./db --log ./logs –start-standard-projections=true –run-projections=all
+open cmd window with "Run as administrator"
+
+EventStore.ClusterNode.exe --db ./db --log ./logs –-start-standard-projections=true –-run-projections=all
+
+run following command if the http server failed to start due to access denied
+netsh http add urlacl url=http://127.0.0.1:2113/ user=DOMAIN\usernam
 
 2.	How to write to stream?
 curl –i –d @stats/game_2015_10_31.json http://127.0.0.1:2113/streams/game-2015_10_31_1 -H “Content-Type:application/vnd.eventstore.events+json”

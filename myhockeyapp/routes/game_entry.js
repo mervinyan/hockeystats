@@ -7,8 +7,8 @@ var uuid = require('node-uuid');
     
 router.get('/', function(req, res, next) {
     // res.send({ title: 'Express' });
-    res.json('game entry');
-    
+    // res.json('game entry');
+    res.render('game_entry.jade')
 });
 
 router.post('/gamestart', function(req, res, next) {
@@ -20,16 +20,16 @@ router.post('/gamestart', function(req, res, next) {
           expectedVersion: ges.expectedVersion.emptyStream,
           events: [
                {
-                    'eventId': uuid.v4(),
-                    'eventType': 'GameStart',
-                    'data': {
-                        'number': req.body.number,
-                        'date': req.body.date,
-                        'time': req.body.time,
-                        'type': req.body.type,
-                        'homeaway': req.body.homeaway,
-                        'opponent': req.body.opponent,
-                        'arena': req.body.arena
+                    EventId: uuid.v4(),
+                    Type: 'GameStart',
+                    Data: {
+                        number: req.body.number,
+                        date: req.body.date,
+                        time: req.body.time,
+                        type: req.body.type,
+                        homeaway: req.body.homeaway,
+                        opponent: req.body.opponent,
+                        arena: req.body.arena
                     }
                 }
           ]  
