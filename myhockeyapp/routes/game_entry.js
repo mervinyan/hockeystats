@@ -21,8 +21,8 @@ router.post('/gamestart', function(req, res, next) {
           events: [
                {
                     EventId: uuid.v4(),
-                    Type: 'GameStart',
-                    Data: {
+                    Type: 'GameStarted',
+                    Data: new Buffer(JSON.stringify({
                         number: req.body.number,
                         date: req.body.date,
                         time: req.body.time,
@@ -30,48 +30,185 @@ router.post('/gamestart', function(req, res, next) {
                         homeaway: req.body.homeaway,
                         opponent: req.body.opponent,
                         arena: req.body.arena
-                    }
+                    }))
                 }
           ]  
         };
         connection.appendToStream(stream, appendData, function(err, appendResult) {
             if (err) return console.log('Oops!', err);
             console.log(appendResult);
-            connection.readStreamEventsForward(stream, {start: 0, count: 1000}, function(err, readResult) {
-                if (err) return console.log('Oops!', err);
-                console.log(readResult.Events);
-                res.json(readResult.Events);
-            });
+            res.json(appendResult.Events);
         });
     });
 });
 
 router.post('/homescore', function (req, res, next) {
-    res.json('homescore');
+    var stream = req.body.streamId;
+    var connection = ges({host:'127.0.0.1'});
+    connection.on('connect', function() {
+        console.log('connecting to geteventstore...');
+         connection.readStreamEventsForward(stream, {start: 0, count: 1000}, function(err, readResult) {
+            if (err) return console.log('Ooops!', err);
+            var appendData = {
+                expectedVersion: readResult.Events.length -1,
+                events: [
+                    {
+                            EventId: uuid.v4(),
+                            Type: 'GoalScored',
+                            Data: new Buffer(JSON.stringify({
+                                period: req.body.period,
+                                time: req.body.time,
+                                kind: req.body.kind,
+                                score: req.body.score,
+                                assist1: req.body.assist1,
+                                assist2: req.body.assist2
+                            }))
+                        }
+                ]  
+            };
+            connection.appendToStream(stream, appendData, function(err, appendResult) {
+                if (err) return console.log('Oops!', err);
+                console.log(appendResult);
+                res.json(appendResult.Events);
+            });
+
+         });
+                    
+    });
 });
 
 router.post('/homepenalty', function (req, res, next) {
-    res.json('homepenalty');
+    var stream = req.body.streamId;
+    var connection = ges({host:'127.0.0.1'});
+    connection.on('connect', function() {
+        console.log('connecting to geteventstore...');
+        connection.readStreamEventsForward(stream, {start: 0, count: 1000}, function(err, readResult) {
+            if (err) return console.log('Ooops!', err);
+            var appendData = {
+                expectedVersion: readResult.Events.length -1,
+                events: [
+                    {
+                            EventId: uuid.v4(),
+                            Type: 'PenaltyTaken',
+                            Data: new Buffer(JSON.stringify({
+                                period: req.body.period,
+                                time: req.body.time,
+                                player: req.body.player,
+                                offense: req.body.offense,
+                                min: req.body.min,
+                                off: req.body.off,
+                                on: req.body.on
+                            }))
+                        }
+                ]  
+            };
+            connection.appendToStream(stream, appendData, function(err, appendResult) {
+                if (err) return console.log('Oops!', err);
+                console.log(appendResult);
+                res.json(appendResult.Events);
+            });
+            
+        });
+    });
 });
 
 router.post('/guestcore', function (req, res, next) {
-    res.json('guestscore');
+    var stream = req.body.streamId;
+    var connection = ges({host:'127.0.0.1'});
+    connection.on('connect', function() {
+        console.log('connecting to geteventstore...');
+         connection.readStreamEventsForward(stream, {start: 0, count: 1000}, function(err, readResult) {
+            if (err) return console.log('Ooops!', err);
+            var appendData = {
+                expectedVersion: readResult.Events.length -1,
+                events: [
+                    {
+                            EventId: uuid.v4(),
+                            Type: 'OpponentGoalScored',
+                            Data: new Buffer(JSON.stringify({
+                                period: req.body.period,
+                                time: req.body.time,
+                                kind: req.body.kind,
+                                score: req.body.score,
+                                assist1: req.body.assist1,
+                                assist2: req.body.assist2
+                            }))
+                        }
+                ]  
+            };
+            connection.appendToStream(stream, appendData, function(err, appendResult) {
+                if (err) return console.log('Oops!', err);
+                console.log(appendResult);
+                res.json(appendResult.Events);
+            });
+
+         });
+                    
+    });
 });
 
 router.post('/guestpenalty', function (req, res, next) {
-    res.json('guestpenalty');
+    var stream = req.body.streamId;
+    var connection = ges({host:'127.0.0.1'});
+    connection.on('connect', function() {
+        console.log('connecting to geteventstore...');
+        connection.readStreamEventsForward(stream, {start: 0, count: 1000}, function(err, readResult) {
+            if (err) return console.log('Ooops!', err);
+            var appendData = {
+                expectedVersion: readResult.Events.length -1,
+                events: [
+                    {
+                            EventId: uuid.v4(),
+                            Type: 'OpponentPenaltyTaken',
+                            Data: new Buffer(JSON.stringify({
+                                period: req.body.period,
+                                time: req.body.time,
+                                player: req.body.player,
+                                offense: req.body.offense,
+                                min: req.body.min,
+                                off: req.body.off,
+                                on: req.body.on
+                            }))
+                        }
+                ]  
+            };
+            connection.appendToStream(stream, appendData, function(err, appendResult) {
+                if (err) return console.log('Oops!', err);
+                console.log(appendResult);
+                res.json(appendResult.Events);
+            });
+            
+        });
+    });
 });
 
 router.post('/gameend', function (req, res, next) {
-    res.json('gameend');
+    var stream = req.body.streamId;
+    var connection = ges({host:'127.0.0.1'});
+    connection.on('connect', function() {
+        console.log('connecting to geteventstore...');
+        connection.readStreamEventsForward(stream, {start: 0, count: 1000}, function(err, readResult) {
+            if (err) return console.log('Ooops!', err);
+            var appendData = {
+                expectedVersion: readResult.Events.length -1,
+                events: [
+                    {
+                            EventId: uuid.v4(),
+                            Type: 'GameEnded',
+                            Data: new Buffer(JSON.stringify({
+                                date: req.body.date,
+                                time: req.body.time
+                            }))
+                        }
+                ]  
+            };
+            connection.appendToStream(stream, appendData, function(err, appendResult) {
+                if (err) return console.log('Oops!', err);
+                console.log(appendResult);
+                res.json(appendResult.Events);
+            });
+        });
+    });
 });
-
-function bin2String(array) {
-    var result = "";
-    for (var i = 0; i < array.length; i++) {
-        result += String.fromCharCode(array[i]);
-    }
-    return result;
-}
 
 module.exports = router;
