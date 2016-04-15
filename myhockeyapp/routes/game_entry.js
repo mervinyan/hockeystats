@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/gamestart', function(req, res, next) {
-    var stream = "game-"+req.body.date.replace('-', '_').replace('-', '_'); //2016_03_24
+    var stream = req.body.streamId;
     var connection = ges({host:'127.0.0.1'});
     connection.on('connect', function() {
         console.log('connecting to geteventstore...');
