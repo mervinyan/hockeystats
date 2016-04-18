@@ -40,4 +40,12 @@ git rm -r one-of-the-directories
 git commit -m "Remove duplicated directories"
 git push origin master
 
- 
+9. Run powershell to load gamesheets in batch
+
+Open Windows Powershell with option "Run as Administrator"
+
+In Powershell cd to directory c:\temp\stats\myhockeyapp
+
+PS c:\temp\stats\myhockeyapp > get-executionpolicy
+PS c:\temp\stats\myhockeyapp > set-executionpolicy unrestricted
+PS c:\temp\stats\myhockeyapp > .\load_game_sheets.ps1   
