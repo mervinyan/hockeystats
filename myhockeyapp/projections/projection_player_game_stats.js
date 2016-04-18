@@ -2,7 +2,7 @@ fromCategory('game')
     .foreachStream()
     .when({
         $init: function() {
-            return {number: "", date: "", time: "", opponent: "", homeaway: "", kind: "", rink: "", players: {}}
+            return {number: "", date: "", time: "", opponent: "", homeaway: "", kind: "", rink: "", players: {}};
         },
         "GameStarted": function(state, ev) {
             state.number = ev.body.number;
@@ -18,20 +18,20 @@ fromCategory('game')
             {
                 state.players[ev.body.score] = {g: 0, a: 0, pts: 0, ppg: 0, shg: 0, eng: 0, pim: 0};
             }
-            state.players[ev.body.score].g ++
-            state.players[ev.body.score].pts ++
+            state.players[ev.body.score].g ++;
+            state.players[ev.body.score].pts ++;
             
             if (ev.body.kind == 'pp')
             {
-                state.players[ev.body.score].ppg ++
+                state.players[ev.body.score].ppg ++;
             }
             if (ev.body.kind == 'sh')
             {
-                state.players[ev.body.score].shg ++
+                state.players[ev.body.score].shg ++;
             }
             if (ev.body.kind == 'en')
             {
-                state.players[ev.body.score].eng ++
+                state.players[ev.body.score].eng ++;
             }
             if (ev.body.assist1) 
             {
@@ -39,8 +39,8 @@ fromCategory('game')
                 {
                      state.players[ev.body.assist1] = {g: 0, a: 0, pts: 0, ppg: 0, shg: 0, eng: 0, pim: 0};
                 }
-                state.players[ev.body.assist1].a ++
-                state.players[ev.body.assist1].pts ++
+                state.players[ev.body.assist1].a ++;
+                state.players[ev.body.assist1].pts ++;
             }
             if (ev.body.assist2) 
             {
@@ -48,8 +48,8 @@ fromCategory('game')
                 {
                      state.players[ev.body.assist2] = {g: 0, a: 0, pts: 0, ppg: 0, shg: 0, eng: 0, pim: 0};
                 }
-                state.players[ev.body.assist2].a ++
-                state.players[ev.body.assist2].pts ++
+                state.players[ev.body.assist2].a ++;
+                state.players[ev.body.assist2].pts ++;
             }
         },
         "PenaltyTaken": function(state, ev) {
@@ -57,7 +57,7 @@ fromCategory('game')
             {
                 state.players[ev.body.player] = {g: 0, a: 0, pts: 0, ppg: 0, shg: 0, eng: 0, pim: 0};
             }
-            state.players[ev.body.player].pim += parseInt(ev.body.min)
+            state.players[ev.body.player].pim += parseInt(ev.body.min);
         },
         "GameEnded": function(state, ev) {
             for (var property in state.players) 
@@ -85,13 +85,13 @@ fromCategory('game')
                     });
                 }
             }
-            state.number = ""
-            state.date = ""
-            state.time = ""
-            state.opponent = ""
-            state.homeaway = ""
-            state.kind = ""
-            state.rink = ""
+            state.number = "";
+            state.date = "";
+            state.time = "";
+            state.opponent = "";
+            state.homeaway = "";
+            state.kind = "";
+            state.rink = "";
         }
     }
 )

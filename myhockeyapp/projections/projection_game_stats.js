@@ -2,7 +2,7 @@ fromCategory('game')
     .foreachStream()
     .when({
         $init: function() {
-            return {number: "", date: "", time: "", opponent: "", homeaway: "", kind: "", rink: "",  gf: 0, ga: 0, pim: 0}
+            return {number: "", date: "", time: "", opponent: "", homeaway: "", kind: "", rink: "",  gf: 0, ga: 0, pim: 0};
         },
         "GameStarted": function(state, ev) {
             state.number = ev.body.number;
