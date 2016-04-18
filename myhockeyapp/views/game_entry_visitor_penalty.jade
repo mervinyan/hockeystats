@@ -1,0 +1,45 @@
+extends layout
+
+block links
+    link(href='/stylesheets/c3.css' rel='stylesheet' type='text/css')
+    link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
+        
+block scripts    
+    script(src='/javascripts/d3.min.js' charset='utf-8' type='text/javascript')
+    script(src='/javascripts/c3.min.js' type='text/javascript')
+    script(src='/javascripts/jquery-2.2.1.min.js' type='text/javascript')    
+
+block content
+    h1= title
+    p Welcome to #{title} 
+    div
+        form(name='visitor_penalty', method='post' action='/gameentry/guestpenalty')
+            div.input
+                span.label Stream Id
+                input(type='text', name='streamId')
+            div.input
+                span.label Period
+                input(type='text', name='period')
+            div.input
+                span.label Time
+                input(type='text', name='time')
+            div.input
+                span.label Player
+                input(type='text', name='player')
+            div.input
+                span.label Offense
+                input(type='text', name='offense')
+            div.input
+                span.label Min
+                input(type='text', name='min')
+            div.input
+                span.label Off
+                input(type='text', name='off')
+            div.input
+                span.label on
+                input(type='text', name='on')
+            div.actions
+                input(type='submit', value='Save')            
+
+
+            

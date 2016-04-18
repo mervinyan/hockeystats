@@ -8,7 +8,13 @@ var uuid = require('node-uuid');
 router.get('/', function(req, res, next) {
     // res.send({ title: 'Express' });
     // res.json('game entry');
-    res.render('game_entry.jade')
+    res.render('game_entry.jade', {title: 'Game Entry'});
+});
+
+router.get('/gamestart', function(req, res, next) {
+    // res.send({ title: 'Express' });
+    // res.json('game entry');
+    res.render('game_entry_game_start.jade', {title: 'Game Start'});
 });
 
 router.post('/gamestart', function(req, res, next) {
@@ -37,9 +43,15 @@ router.post('/gamestart', function(req, res, next) {
         connection.appendToStream(stream, appendData, function(err, appendResult) {
             if (err) return console.log('Oops!', err);
             console.log(appendResult);
-            res.json(appendResult.Events);
+            // res.json(appendResult.Events);
+            res.render('game_entry.jade', {title: 'Game Entry', message: 'Event GameStarted Created Successfully'});
         });
     });
+});
+
+router.get('/homescore', function(req, res, next) {
+    // res.send({ title: 'Express' });
+    res.render('game_entry_home_score.jade', {title: 'Home Score'});
 });
 
 router.post('/homescore', function (req, res, next) {
@@ -69,12 +81,18 @@ router.post('/homescore', function (req, res, next) {
             connection.appendToStream(stream, appendData, function(err, appendResult) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
-                res.json(appendResult.Events);
+                // res.json(appendResult.Events);
+                res.render('game_entry.jade', {title: 'Game Entry', message: 'Event GoalScored Created Successfully'});
             });
 
          });
                     
     });
+});
+
+router.get('/homepenalty', function(req, res, next) {
+    // res.send({ title: 'Express' });
+    res.render('game_entry_home_penalty.jade', {title: 'Home Penalty'});
 });
 
 router.post('/homepenalty', function (req, res, next) {
@@ -105,14 +123,20 @@ router.post('/homepenalty', function (req, res, next) {
             connection.appendToStream(stream, appendData, function(err, appendResult) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
-                res.json(appendResult.Events);
+                // res.json(appendResult.Events);
+                res.render('game_entry.jade', {title: 'Game Entry', message: 'Event PenaltyTaken Created Successfully'});
             });
             
         });
     });
 });
 
-router.post('/guestcore', function (req, res, next) {
+router.get('/guestscore', function(req, res, next) {
+    // res.send({ title: 'Express' });
+    res.render('game_entry_visitor_score.jade', {title: 'Visitor Score'});
+});
+
+router.post('/guestscore', function (req, res, next) {
     var stream = req.body.streamId;
     var connection = ges({host:'127.0.0.1'});
     connection.on('connect', function() {
@@ -139,12 +163,18 @@ router.post('/guestcore', function (req, res, next) {
             connection.appendToStream(stream, appendData, function(err, appendResult) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
-                res.json(appendResult.Events);
+                // res.json(appendResult.Events);
+                res.render('game_entry.jade', {title: 'Game Entry', message: 'Event OpponentScored Created Successfully'});
             });
 
          });
                     
     });
+});
+
+router.get('/guestpenalty', function(req, res, next) {
+    // res.send({ title: 'Express' });
+    res.render('game_entry_visitor_penalty.jade', {title: 'Visitor Penalty'});
 });
 
 router.post('/guestpenalty', function (req, res, next) {
@@ -175,7 +205,8 @@ router.post('/guestpenalty', function (req, res, next) {
             connection.appendToStream(stream, appendData, function(err, appendResult) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
-                res.json(appendResult.Events);
+                // res.json(appendResult.Events);
+                res.render('game_entry.jade', {title: 'Game Entry', message: 'Event OpponentPenaltyTaken Created Successfully'});
             });
             
         });
@@ -205,7 +236,8 @@ router.post('/gameend', function (req, res, next) {
             connection.appendToStream(stream, appendData, function(err, appendResult) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
-                res.json(appendResult.Events);
+                // res.json(appendResult.Events);
+                res.render('game_entry.jade', , {title: 'Game Entry', message: 'Event GameEnded Created Successfully'})
             });
         });
     });

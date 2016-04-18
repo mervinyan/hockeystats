@@ -13,33 +13,32 @@ block content
     h1= title
     p Welcome to #{title} 
     div
+        p #{message}
+    div
         button(class='btn', onClick="alert('game start')").
             Game Start
+        a(href='/gameentry/gamestart', title='Start Game') Game Start
     div
         button(class='btn').
             Home Score
+        a(href='/gameentry/homescore', title='Home Score') Home Score
     div
         button(class='btn').
             Home Penalty
+        a(href='/gameentry/homepenalty', title='Home Penalty') Home Penalty
     div
         button(class='btn').
-            Vistor Score
+            Visitor Score
+        a(href='/gameentry/guestscore', title='Guest Score') Guest Score            
     div
         button(class='btn').
-            Vistor Penalty
+            Visitor Penalty
+        a(href='/gameentry/guestpenalty', title='Guest Penalty') Guest Penalty
     div
         button(class='btn').
             Game End
-    div
-        form(name='add-estimation', method='post')
-            div.input
-                span.label Title
-                input(type='text', name='title')
-            div.input
-                span.label Description
-                textarea(name='description', cols='40', rows='5')
-            div.actions
-                input(type='submit', value='add')            
+        a(href='/gameentry/gameend', title='Game End') Game End
+         
 
 
             
