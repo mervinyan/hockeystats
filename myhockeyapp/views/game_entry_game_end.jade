@@ -3,6 +3,7 @@ extends layout
 block links
     link(href='/stylesheets/c3.css' rel='stylesheet' type='text/css')
     link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         
 block scripts    
     script(src='/javascripts/d3.min.js' charset='utf-8' type='text/javascript')
@@ -11,20 +12,22 @@ block scripts
 
 block content
     h1= title
-    p Welcome to #{title} 
     div
-        form(name='game_end', method='post' action='/gameentry/gameend')
-            div.input
-                span.label Stream Id
-                input(type='text', name='streamId')
-            div.input
-                span.label Date
-                input(type='text', name='date')
-            div.input
-                span.label Time
-                input(type='text', name='time')
-            div.actions
-                input(type='submit', value='Save')            
-
-
-            
+        form.form-horizontal(name='game_end', method='post' action='/gameentry/gameend')
+            div.form-group
+                label.col-sm-3.control-label(for='streamId') StreamId
+                div.col-sm-9
+                    input#streamId.form-control(type='text', name='streamId')
+            div.form-group
+                label.col-sm-3.control-label(for='date') Date
+                div.col-sm-9
+                    input#date.form-control(type='date', name='date')
+            div.form-group
+                label.col-sm-3.control-label(for='time') Time
+                div.col-sm-9
+                    input#time.form-control(type='time', name='time')
+            div.form-group
+                div.col-sm-offset-3.col-sm-9
+                    a.btn.btn-default(href='/gameentry', title='Cancel') Cancel
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    input.btn.btn-primary(type='submit', value='Save')            

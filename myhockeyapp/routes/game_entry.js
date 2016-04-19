@@ -133,7 +133,7 @@ router.post('/homepenalty', function (req, res, next) {
 
 router.get('/guestscore', function(req, res, next) {
     // res.send({ title: 'Express' });
-    res.render('game_entry_visitor_score.jade', {title: 'Visitor Score'});
+    res.render('game_entry_visitor_score.jade', {title: 'Guest Score'});
 });
 
 router.post('/guestscore', function (req, res, next) {
@@ -174,7 +174,7 @@ router.post('/guestscore', function (req, res, next) {
 
 router.get('/guestpenalty', function(req, res, next) {
     // res.send({ title: 'Express' });
-    res.render('game_entry_visitor_penalty.jade', {title: 'Visitor Penalty'});
+    res.render('game_entry_visitor_penalty.jade', {title: 'Guest Penalty'});
 });
 
 router.post('/guestpenalty', function (req, res, next) {
@@ -211,6 +211,11 @@ router.post('/guestpenalty', function (req, res, next) {
             
         });
     });
+});
+
+router.get('/gameend', function(req, res, next) {
+    // res.send({ title: 'Express' });
+    res.render('game_entry_game_end.jade', {title: 'Game End'});
 });
 
 router.post('/gameend', function (req, res, next) {

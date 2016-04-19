@@ -3,6 +3,8 @@ extends layout
 block links
     link(href='/stylesheets/c3.css' rel='stylesheet' type='text/css')
     link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         
 block scripts    
     script(src='/javascripts/d3.min.js' charset='utf-8' type='text/javascript')
@@ -11,33 +13,25 @@ block scripts
 
 block content
     h1= title
-    p Welcome to #{title} 
     div
         p #{message}
     div
-        button(class='btn', onClick="alert('game start')").
-            Game Start
-        a(href='/gameentry/gamestart', title='Start Game') Game Start
+        a.btn.btn-default(href='/gameentry/gamestart', title='Start Game') Game Start
+    p
     div
-        button(class='btn').
-            Home Score
-        a(href='/gameentry/homescore', title='Home Score') Home Score
+        a.btn.btn-default(href='/gameentry/homescore', title='Home Score') Home Score
+    p
     div
-        button(class='btn').
-            Home Penalty
-        a(href='/gameentry/homepenalty', title='Home Penalty') Home Penalty
+        a.btn.btn-default(href='/gameentry/homepenalty', title='Home Penalty') Home Penalty
+    p
     div
-        button(class='btn').
-            Visitor Score
-        a(href='/gameentry/guestscore', title='Guest Score') Guest Score            
+        a.btn.btn-default(href='/gameentry/guestscore', title='Guest Score') Guest Score            
+    p
     div
-        button(class='btn').
-            Visitor Penalty
-        a(href='/gameentry/guestpenalty', title='Guest Penalty') Guest Penalty
+        a.btn.btn-default(href='/gameentry/guestpenalty', title='Guest Penalty') Guest Penalty
+    p
     div
-        button(class='btn').
-            Game End
-        a(href='/gameentry/gameend', title='Game End') Game End
+        a.btn.btn-default(href='/gameentry/gameend', title='Game End') Game End
          
 
 

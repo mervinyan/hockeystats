@@ -3,6 +3,7 @@ extends layout
 block links
     link(href='/stylesheets/c3.css' rel='stylesheet' type='text/css')
     link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         
 block scripts    
     script(src='/javascripts/d3.min.js' charset='utf-8' type='text/javascript')
@@ -11,35 +12,55 @@ block scripts
 
 block content
     h1= title
-    p Welcome to #{title} 
     div
-        form(name='visitor_penalty', method='post' action='/gameentry/guestpenalty')
-            div.input
-                span.label Stream Id
-                input(type='text', name='streamId')
-            div.input
-                span.label Period
-                input(type='text', name='period')
-            div.input
-                span.label Time
-                input(type='text', name='time')
-            div.input
-                span.label Player
-                input(type='text', name='player')
-            div.input
-                span.label Offense
-                input(type='text', name='offense')
-            div.input
-                span.label Min
-                input(type='text', name='min')
-            div.input
-                span.label Off
-                input(type='text', name='off')
-            div.input
-                span.label on
-                input(type='text', name='on')
-            div.actions
-                input(type='submit', value='Save')            
-
-
+        form.form-horizontal(name='guest_penalty', method='post' action='/gameentry/guestpenalty')
+            div.form-group
+                label.col-sm-3.control-label(for='streamId') StreamId
+                div.col-sm-9
+                    input#streamId.form-control(type='text', name='streamId')
+            div.form-group
+                label.col-sm-3.control-label(for='periodOptions') Period
+                div.col-sm-9
+                    label.radio-inline 
+                        input#periodOption1(type='radio' name='periodOptions' value='1')
+                        | 1
+                    label.radio-inline 
+                        input#periodOption2(type='radio' name='periodOptions' value='2')
+                        | 2
+                    label.radio-inline
+                        input#periodOption3(type='radio' name='periodOptions' value='3') 
+                        | 3                        
+                    label.radio-inline
+                        input#periodOption4(type='radio' name='periodOptions' value='Overtime') 
+                        | Overtime 
+            div.form-group
+                label.col-sm-3.control-label(for='time') Time
+                div.col-sm-9
+                    input#time.form-control(type='time', name='time')
+            div.form-group
+                label.col-sm-3.control-label(for='player') Player
+                div.col-sm-9
+                    input#player.form-control(type='text', name='player')
+            div.form-group
+                label.col-sm-3.control-label(for='offense') Offense
+                div.col-sm-9
+                    input#offense.form-control(type='text', name='offense')
+            div.form-group
+                label.col-sm-3.control-label(for='min') Minutes
+                div.col-sm-9
+                    input#min.form-control(type='text', name='min')
+            div.form-group
+                label.col-sm-3.control-label(for='off') Off
+                div.col-sm-9
+                    input#off.form-control(type='text', name='off')
+            div.form-group
+                label.col-sm-3.control-label(for='on') On
+                div.col-sm-9
+                    input#on.form-control(type='text', name='on')
+            div.form-group
+                div.col-sm-offset-3.col-sm-9
+                    a.btn.btn-default(href='/gameentry', title='Cancel') Cancel
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    input.btn.btn-primary(type='submit', value='Save')            
+            
             

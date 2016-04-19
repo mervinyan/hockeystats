@@ -10,7 +10,7 @@ fromCategory('game')
             state.time = ev.body.time;
             state.opponent = ev.body.opponent;
             state.homeaway = ev.body.homeaway;
-            state.kind = ev.body.kind;
+            state.kind = ev.body.type;
             state.rink = ev.body.arena;
         },
         "GoalScored": function(state, ev) {
