@@ -237,7 +237,7 @@ router.post('/gameend', function (req, res, next) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
                 // res.json(appendResult.Events);
-                res.render('game_entry.jade', , {title: 'Game Entry', message: 'Event GameEnded Created Successfully'})
+                res.render('game_entry.jade', {title: 'Game Entry', message: 'Event GameEnded Created Successfully'})
             });
         });
     });
