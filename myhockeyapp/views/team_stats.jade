@@ -38,8 +38,9 @@ block content
                     td #{game.gf}
                     td #{game.ga}
                     td #{game.pim}
-    
-    
+    p                
+    div
+        h4 Goals, Assists Per Game (Bar Chart)    
     div(id='chart00' class='c3chart' data-layout='bar' data-xvalue='date' data-yvalues='gf|ga') 
     script(type='text/javascript').
         var chartdiv = d3.select('#chart00');
@@ -59,8 +60,10 @@ block content
             axis: {
                 x: {type: 'category'}
             }
-        });   
-                           
+        }); 
+    p  
+    div
+        h4 Goals, Assists, Penalties Per Game (Line Chart)                                      
     div(id='chart10' class='c3chart' data-layout='timeseries' data-xvalue='date' data-yvalues='gf|ga|pim')                                      
     script(type='text/javascript').
         var chartdiv1 = d3.select('#chart10');
@@ -85,6 +88,9 @@ block content
                 }
             }
         });
+    p
+    div
+        h4 Goals, Penalties (Scatter Chart)            
     div(id='chart20' class='c3chart') 
     script(type='text/javascript').
             var chart = c3.generate({
@@ -134,10 +140,12 @@ block content
                         }                        
                     }
                 }
-            });                           
+            });  
+    p                         
     div(style='width:100%;white-space:nowrap')
         div(style='display:inline-block;width:32%')   
-                    div Goal By Period          
+                    div
+                        h4 Goal By Period (Pie Chart)          
                     div(id='chart30' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
@@ -160,7 +168,8 @@ block content
                             });              
         div(style='display:inline-block;width:2%')  
         div(style='display:inline-block;width:32%')  
-                    div Goal By Kind              
+                    div
+                        h4 Goal By Kind (Pie Chart)             
                     div(id='chart31' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
@@ -181,9 +190,11 @@ block content
                                     }
                                 }
                             });   
+    p
     div(style='width:100%;white-space:nowrap')
         div(style='display:inline-block;width:32%')     
-                    div Penalty By Period                      
+                    div
+                        h4 Penalty By Period (Pie Chart)                     
                     div(id='chart40' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
@@ -206,7 +217,8 @@ block content
                             });                               
         div(style='display:inline-block;width:2%')  
         div(style='display:inline-block;width:32%')   
-                    div Penalty By Kind                      
+                    div
+                        h4 Penalty By Kind (Pie Chart)                     
                     div(id='chart41' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
@@ -229,10 +241,12 @@ block content
                                         }
                                     }
                                 }
-                            });       
+                            });    
+    p   
     div(style='width:100%;white-space:nowrap')
         div(style='display:inline-block;width:32%')
-                    div Penalty in Minutes By Period                      
+                    div
+                        h4 Penalty in Minutes By Period (Pie Chart)                     
                     div(id='chart50' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
@@ -255,7 +269,8 @@ block content
                             });                  
         div(style='display:inline-block;width:2%')  
         div(style='display:inline-block;width:32%')                                                         
-                    div Penalty in Minutes By Kind                      
+                    div
+                        h4 Penalty in Minutes By Kind (Pie Chart)                     
                     div(id='chart51' class='c3chart') 
                     script(type='text/javascript').
                             var chart = c3.generate({
@@ -278,8 +293,10 @@ block content
                                         }
                                     }
                                 }
-                            });                               
-
+                            });     
+    p                          
+    div
+        h4 Penalty in Minutes By Player (Bar Chart)   
     div(id='chart60' class='c3chart') 
     script(type='text/javascript').
         var chart = c3.generate({
