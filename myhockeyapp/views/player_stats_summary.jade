@@ -1,0 +1,44 @@
+extends layout
+
+block links
+    link(href='/stylesheets/c3.css' rel='stylesheet' type='text/css')
+    link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
+    link(href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css")
+    link(href="/stylesheets/bootstrap-theme.min.css" rel="stylesheet" type="text/css")
+            
+block scripts    
+    script(src='/javascripts/d3.min.js' charset='utf-8' type='text/javascript')
+    script(src='/javascripts/c3.min.js' type='text/javascript')
+    script(src='/javascripts/jquery-2.2.1.min.js' type='text/javascript')    
+    script(src='/javascripts/bootstrap.min.js' type='text/javascript')
+
+block content
+    h1= title
+    div.container-fluid
+        div.row
+            div.col-md-12.table-responsive
+                table.table
+                    thead
+                        tr
+                            th #
+                            th g
+                            th ppg
+                            th shg
+                            th eng
+                            th a
+                            th pts
+                            th pim
+                    tbody
+                        each player in players
+                            tr
+                                td 
+                                    a(href='/playerstats/#{player.no}') #{player.no}
+                                td #{player.stats.g}
+                                td #{player.stats.ppg}
+                                td #{player.stats.shg}
+                                td #{player.stats.eng}
+                                td #{player.stats.a}
+                                td #{player.stats.pts}
+                                td #{player.stats.pim}
+     
+                                                                   

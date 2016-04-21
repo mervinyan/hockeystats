@@ -3,6 +3,39 @@ var router = express.Router();
 
 var ges = require('ges-client');
     
+router.get('/', function(req, res, next) {
+    var stats = {g: 0, a: 0, pts: 0, ppg: 0, shg: 0, eng: 0, pim: 0};
+    var players = {};
+    var connection = ges({host:'127.0.0.1'});
+    connection.on('connect', function() {
+        console.log('connecting to geteventstore...');
+        // console.log(stream);
+        connection.readStreamEventsForward('player_12_gamestats', {start: 0, count: 1000, resolveLinkTos: true}, function(err, readResult) {
+            if (err) return console.log('Ooops!', err)
+            for (var i = 0; i < readResult.Events.length; i++) 
+            {
+                var event = readResult.Events[i].Event;
+                // var eventData = JSON.parse(bin2String(event.Data.toJSON().data));
+                var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
+                // console.log(eventDataStr);
+                var eventData = JSON.parse(eventDataStr)                
+                if (event.EventType == 'PlayerGameStats') 
+                {
+                    stats.g = stats.g + eventData.g;
+                    stats.ppg = stats.ppg + eventData.ppg;
+                    stats.shg = stats.shg + eventData.shg;
+                    stats.eng = stats.eng + eventData.eng;
+                    stats.a = stats.a + eventData.a;
+                    stats.pts = stats.pts + eventData.pts;
+                    stats.pim = stats.pim + eventData.pim;
+                }
+            }
+            players[0] = {'no': '12', 'stats': stats};
+            res.render('player_stats_summary.jade', { title: 'Player Stats', 'players': players});        
+        });        
+    });
+});
+
 router.get('/:player_number', function(req, res, next) {
     var player_number = req.params.player_number;
     
