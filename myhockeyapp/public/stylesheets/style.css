@@ -7,14 +7,9 @@ a {
   color: #00B7FF;
 }
 
-.c3-region.region-period1 {
-  fill: red;
-}
-
-.c3-region.region-period2 {
-  fill: blue;
-}
-
-.c3-region.region-period3 {
-  fill: yellow;
-}
+pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
