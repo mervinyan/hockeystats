@@ -15,35 +15,35 @@ block scripts
 block content
     h1= title
     div.container-fluid
-        div.row
-            div.col-md-12.table-responsive
-                table.table
-                    thead
-                        tr
-                            th Period
-                            th Time
-                            th Kind
-                            th Score
-                            th Assist
-                    tbody
-                        each stats in data
-                            if stats.score == player_id
-                                tr
-                                    td #{stats.period}
-                                    td #{stats.time}
-                                    td #{stats.kind}
-                                    td goal
-                                    td 
-                            if (stats.assist1 == player_id) || (stats.assist2 == player_id)  
-                                tr                      
-                                    td #{stats.period}
-                                    td #{stats.time}
-                                    td #{stats.kind}
-                                    td 
-                                    td assist
+        // div.row
+        //     div.col-md-12.table-responsive
+        //         table.table
+        //             thead
+        //                 tr
+        //                     th Period
+        //                     th Time
+        //                     th Kind
+        //                     th Score
+        //                     th Assist
+        //             tbody
+        //                 each stats in data
+        //                     if stats.score == player_id
+        //                         tr
+        //                             td #{stats.period}
+        //                             td #{stats.time}
+        //                             td #{stats.kind}
+        //                             td goal
+        //                             td 
+        //                     if (stats.assist1 == player_id) || (stats.assist2 == player_id)  
+        //                         tr                      
+        //                             td #{stats.period}
+        //                             td #{stats.time}
+        //                             td #{stats.kind}
+        //                             td 
+        //                             td assist
         div.row
             div.col-md-12
-                h4 Goals, Assists 
+                // h4 Goals, Assists 
                 div(id='chart00' class='c3chart') 
                 script(type='text/javascript').
                     var chart = c3.generate({
@@ -52,7 +52,7 @@ block content
                             json: !{JSON.stringify(homescore)},
                             keys: {
                                 x:'time',
-                                value: ['goal', 'assist'],
+                                value: ['g', 'a'],
                             },
                             type: 'scatter',
                             xFormat: '%M:%S'
@@ -81,7 +81,7 @@ block content
                                     return name;
                                 },
                                 value: function(value, ratio, id) {
-                                    if (id == 'goal') {
+                                    if (id == 'g') {
                                         if (value == #{player_id}) {
                                             return 'No assist';
                                         } else {
@@ -96,7 +96,7 @@ block content
                     });  
         div.row
             div.col-md-12
-                h4 Goals (PowerPlay, ShortHand, EmptyNet), Assists, PIM 
+                // h4 Goals (PowerPlay, ShortHand, EmptyNet), Assists, PIM 
                 div(id='chart10' class='c3chart')                                      
                 script(type='text/javascript').
                     var chart0 = c3.generate({

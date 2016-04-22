@@ -81,7 +81,26 @@ fromCategory('game')
                         "eng": item.eng,                    
                         "a": item.a,
                         "pts": item.pts,                    
-                        "pim": state.pim
+                        "pim": item.pim
+                    });
+                    emit('player_gamestats',  
+                    "PlayerGameStats",
+                    {
+                        'number': state.number,
+                        "date": state.date,
+                        "time": state.time,
+                        "opponent": state.opponent,
+                        "homeaway": state.homeaway,
+                        "kind": state.kind,
+                        "rink": state.rink,
+                        'playernumber': property,
+                        "g": item.g,
+                        "ppg": item.ppg,
+                        "shg": item.shg,
+                        "eng": item.eng,                    
+                        "a": item.a,
+                        "pts": item.pts,                    
+                        "pim": item.pim
                     });
                 }
             }
