@@ -1,15 +1,23 @@
 [
         {
             "eventId": "e3d8db9d-d017-4710-97bb-a8f621d4ea68",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "15",
                 "date": "2015-12-19",
                 "time": "15:30",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "away",
                 "opponent": "royals",
                 "arena": "c2"
+            }
+        },
+        {
+            "eventId": "5c0f466c-ea81-47c3-8968-c0caf392e35b",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2015-12-19",
+                "time": "15:30"
             }
         },
         {

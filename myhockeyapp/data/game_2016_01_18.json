@@ -1,15 +1,23 @@
 [
         {
             "eventId": "72c472f1-3353-4b41-88e3-2cdbf72db7d7",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "20",
                 "date": "2016-01-18",
                 "time": "18:00",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "home",
                 "opponent": "ps thunder",
                 "arena": "c3"
+            }
+        },   
+        {
+            "eventId": "3a754d53-b24e-4051-b49e-769ad7f2fe11",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2016-01-18",
+                "time": "18:00"
             }
         },   
         {

@@ -1,17 +1,25 @@
 [
         {
             "eventId": "5b968e34-fefb-4ce2-b80f-44577cc3b0da",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "17",
                 "date": "2016-01-09",
                 "time": "12:30",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "away",
                 "opponent": "lumsden",
                 "arena": "bethune"
             }
-        },   
+        },
+        {
+            "eventId": "36a0442e-3ad5-4ea5-850c-74c3ab89dee0",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2016-01-09",
+                "time": "12:30"
+            }
+        },           
         {
             "eventId": "48457504-c86a-48c8-9717-2678f383b610",
             "eventType": "GoalScored",

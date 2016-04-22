@@ -1,15 +1,23 @@
 [
         {
             "eventId": "ca13cd75-e2a8-45f1-954f-5de12edf41d6",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "3",
                 "date": "2015-10-31",
                 "time": "13:45",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "away",
                 "opponent": "capitals",
                 "arena": "al"
+            }
+        },
+        {
+            "eventId": "d67ff809-ca88-4062-acf7-75a153ec39b2",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2015-10-31",
+                "time": "13:45"
             }
         },
         {

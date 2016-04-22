@@ -1,15 +1,23 @@
 [
         {
             "eventId": "39e85ed1-c466-4557-98dd-386edc0edf52",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "16",
                 "date": "2016-01-08",
                 "time": "20:00",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "away",
                 "opponent": "cougars",
                 "arena": "ma"
+            }
+        },   
+        {
+            "eventId": "27cae46d-a2bf-4b77-8a84-529d26aca82a",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2016-01-08",
+                "time": "20:00"
             }
         },   
         {

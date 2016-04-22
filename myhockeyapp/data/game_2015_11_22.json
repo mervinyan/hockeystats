@@ -1,15 +1,23 @@
 [
         {
             "eventId": "b3f2fd15-9fd5-4cb1-aa99-5a2699eed26e",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "8",
                 "date": "2015-11-22",
                 "time": "13:00",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "away",
                 "opponent": "moosejaw",
                 "arena": "cfb"
+            }
+        },
+        {
+            "eventId": "18e0ec9e-5eb1-4457-b30c-14f9b628b37b",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2015-11-22",
+                "time": "13:00"
             }
         },
         {

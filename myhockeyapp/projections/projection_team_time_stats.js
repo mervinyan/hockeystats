@@ -3,7 +3,7 @@ fromCategory('game')
         $init: function() {
             return {gamenumber: "", gameday: "", gamestartat: "", opponent: "", homeaway: "", kind: "", rink: ""};
         },
-        "GameStarted": function(state, ev) {
+        "GameScheduled": function(state, ev) {
             state.gamenumber = ev.body.number;
             state.gameday = ev.body.date;
             state.gamestartat = ev.body.time;

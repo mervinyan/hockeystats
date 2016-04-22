@@ -1,15 +1,23 @@
 [
         {
             "eventId": "ab90a612-ef9c-4567-8945-f3cf6e10c344",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "23",
                 "date": "2016-02-16",
                 "time": "18:00",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "home",
                 "opponent": "lumsden",
                 "arena": "al"
+            }
+        },  
+        {
+            "eventId": "6b6c1074-ee2e-44b4-b23c-b9525261c54c",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2016-02-16",
+                "time": "18:00"
             }
         },  
         {

@@ -1,15 +1,23 @@
 [
         {
             "eventId": "daea834e-fdb2-40b8-9545-cc5879addf28",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "10",
                 "date": "2015-11-29",
                 "time": "17:15",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "home",
                 "opponent": "lumsden",
                 "arena": "c6"
+            }
+        },
+        {
+            "eventId": "8b634c3f-b8d6-4858-8503-66585959a2d7",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2015-11-29",
+                "time": "17:15"
             }
         },
         {

@@ -4,7 +4,7 @@ fromCategory('game')
         $init: function() {
             return {number: "", date: "", time: "", opponent: "", homeaway: "", kind: "", rink: "", players: {}};
         },
-        "GameStarted": function(state, ev) {
+        "GameScheduled": function(state, ev) {
             state.number = ev.body.number;
             state.date = ev.body.date;
             state.time = ev.body.time;

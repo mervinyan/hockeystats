@@ -1,15 +1,23 @@
 [
         {
             "eventId": "d0acaa59-50cc-4f81-905e-9790209183f7",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "11",
                 "date": "2015-11-30",
                 "time": "18:00",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "home",
                 "opponent": "ps thunder",
                 "arena": "al"
+            }
+        },
+        {
+            "eventId": "a9b3ee9f-9388-448b-8683-cf041157bda6",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2015-11-30",
+                "time": "18:00"
             }
         },
         {

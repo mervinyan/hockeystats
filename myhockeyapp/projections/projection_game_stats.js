@@ -4,7 +4,7 @@ fromCategory('game')
         $init: function() {
             return {number: "", date: "", time: "", opponent: "", homeaway: "", kind: "", rink: "",  gf: 0, ga: 0, pim: 0};
         },
-        "GameStarted": function(state, ev) {
+        "GameScheduled": function(state, ev) {
             state.number = ev.body.number;
             state.date = ev.body.date;
             state.time = ev.body.time;
@@ -12,6 +12,7 @@ fromCategory('game')
             state.homeaway = ev.body.homeaway;
             state.kind = ev.body.type;
             state.rink = ev.body.arena;
+            linkTo('scheduled_games', ev);
         },
         "GoalScored": function(state, ev) {
             state.gf++;

@@ -1,15 +1,23 @@
 [
         {
             "eventId": "27d6ae04-55f3-4345-ab3c-c61ec081b88e",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "9",
                 "date": "2015-11-25",
                 "time": "19:45",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "home",
                 "opponent": "mustangs",
                 "arena": "st"
+            }
+        },
+        {
+            "eventId": "999ab368-2b47-49bd-bd45-dacc3eea53b9",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2015-11-25",
+                "time": "19:45"
             }
         },
         {

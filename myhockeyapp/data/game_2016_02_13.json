@@ -1,15 +1,23 @@
 [
         {
             "eventId": "22595f2e-49ac-41b2-b00d-7b987f136200",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "21",
                 "date": "2016-02-13",
                 "time": "17:45",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "home",
                 "opponent": "moosejaw",
                 "arena": "ha"
+            }
+        },  
+        {
+            "eventId": "69c7abf0-63ab-4e08-9c10-ca75d7bb086d",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2016-02-13",
+                "time": "17:45"
             }
         },  
         {

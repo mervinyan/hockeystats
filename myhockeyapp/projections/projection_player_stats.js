@@ -3,7 +3,7 @@ fromCategory('game')
         $init: function() {
             return {opponent: "", rink: "" };
         },
-        "GameStarted": function(state, ev) {
+        "GameScheduled": function(state, ev) {
             state.opponent = ev.body.opponent;
             state.rink = ev.body.arena;
         },

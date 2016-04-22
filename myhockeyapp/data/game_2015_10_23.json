@@ -1,17 +1,25 @@
 [
         {
             "eventId": "7a6d259c-f36f-414e-9a2c-c2f90e682391",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "1",
                 "date": "2015-10-23",
                 "time": "18:00",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "home",
                 "opponent": "royals",
                 "arena": "c2"
             }
         },
+        {
+            "eventId": "e3028468-9d70-4ff4-a54c-7c5e1fc22173",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2015-10-23",
+                "time": "18:00"
+            }
+        },        
         {
             "eventId": "1b61b742-b543-4333-85c7-f6e907162c9b",
             "eventType": "GoalScored",

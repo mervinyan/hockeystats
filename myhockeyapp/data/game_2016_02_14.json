@@ -1,15 +1,23 @@
 [
         {
             "eventId": "80791d05-25c9-495d-a32f-2200cc279036",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "22",
                 "date": "2016-02-14",
                 "time": "19:30",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "home",
                 "opponent": "cougars",
                 "arena": "c6"
+            }
+        },  
+        {
+            "eventId": "392c0800-95a3-4c65-b0e7-0c2570c6e304",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2016-02-14",
+                "time": "19:30"
             }
         },  
         {

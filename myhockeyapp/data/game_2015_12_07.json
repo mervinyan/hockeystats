@@ -1,15 +1,23 @@
 [
         {
             "eventId": "e79846c6-69ea-4025-acb7-77d9f7f18d7e",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "12",
                 "date": "2015-12-07",
                 "time": "18:00",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "home",
                 "opponent": "ps lighting",
                 "arena": "al"
+            }
+        },
+        {
+            "eventId": "a0a4a602-40cb-40ea-ad29-121a91e9782e",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2015-12-07",
+                "time": "18:00"
             }
         },
         {

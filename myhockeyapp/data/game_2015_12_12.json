@@ -1,15 +1,23 @@
 [
         {
             "eventId": "d380e74a-7db1-4129-8934-e27c26e8a4de",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "13",
                 "date": "2015-12-12",
                 "time": "16:45",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "away",
                 "opponent": "pense",
                 "arena": "pense"
+            }
+        },
+        {
+            "eventId": "8bdfc9e8-95ec-4315-bcc9-e2786836bad3",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2015-12-12",
+                "time": "16:45"
             }
         },
         {

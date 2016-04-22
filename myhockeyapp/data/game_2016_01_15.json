@@ -1,15 +1,23 @@
 [
         {
             "eventId": "8aa63840-e4ba-44ee-8d98-a3152a7e1fe4",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "19",
                 "date": "2016-01-15",
                 "time": "19:00",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "away",
                 "opponent": "moosejaw",
                 "arena": "kinsmen-moosejaw"
+            }
+        },   
+        {
+            "eventId": "a401d56f-92ed-4204-838c-ec7b11682d3a",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2016-01-15",
+                "time": "19:00"
             }
         },   
         {

@@ -1,17 +1,25 @@
 [
         {
             "eventId": "a190dd65-0ac5-4038-b7c7-2268a853bc14",
-            "eventType": "GameStarted",
+            "eventType": "GameScheduled",
             "data": {
                 "number": "4",
                 "date": "2015-11-01",
                 "time": "19:15",
-                "type": "regular session",
+                "type": "regular",
                 "homeaway": "home",
                 "opponent": "shamrocks",
                 "arena": "ba"
             }
         },
+        {
+            "eventId": "6e7c0fb8-ae96-4698-943c-8a0bbae384cc",
+            "eventType": "GameStarted",
+            "data": {
+                "date": "2015-11-01",
+                "time": "19:15",
+            }
+        },        
         {
             "eventId": "3b0c94c0-810c-49da-ae23-4c41b484c8c4",
             "eventType": "GoalScored",
