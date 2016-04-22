@@ -20,11 +20,11 @@ block content
                 table.table
                     thead
                         tr
-                            th Game#
+                            th #
                             th Date
                             th Time
                             th Opponent
-                            th Homw/Away
+                            th Home/Away
                             th Type
                             th Rink
                             th Goals For
@@ -45,8 +45,8 @@ block content
                                 td #{game.pim}
         div.row
             div.col-md-12
-                h4 Goals, Assists Per Game 
-                div(id='chart00' class='c3chart' data-layout='bar' data-xvalue='date' data-yvalues='gf|ga') 
+                // h4 Goals, Assists Per Game 
+                div(id='chart00' class='c3chart' data-layout='bar' data-xvalue='date' data-yvalues='gf|ga|pim') 
                 script(type='text/javascript').
                     var chartdiv = d3.select('#chart00');
                     var layout = chartdiv.attr('data-layout');
@@ -62,13 +62,18 @@ block content
                             },
                             type: layout
                         },
+                        legend: {
+                            position: 'inset'
+                        },
                         axis: {
-                            x: {type: 'category'}
+                            x: {
+                                type: 'category',
+                            }
                         }
                     }); 
         div.row
             div.col-md-12
-                h4 Goals, Assists, Penalties Per Game                               
+                // h4 Goals, Assists, Penalties Per Game                               
                 div(id='chart10' class='c3chart' data-layout='timeseries' data-xvalue='date' data-yvalues='gf|ga|pim')                                      
                 script(type='text/javascript').
                     var chartdiv1 = d3.select('#chart10');
@@ -84,6 +89,9 @@ block content
                                 value: yvalues1
                             }
                         },
+                        legend: {
+                            position: 'inset'
+                        },                        
                         axis: {
                             x: {
                                 type: layout1,
@@ -95,7 +103,7 @@ block content
                     });
         div.row
             div.col-md-12
-                h4 Goals, Penalties            
+                // h4 Goals, Penalties            
                 div(id='chart20' class='c3chart') 
                 script(type='text/javascript').
                         var chart = c3.generate({
@@ -104,11 +112,14 @@ block content
                                 json: !{JSON.stringify(team_time_stats)},
                                 keys: {
                                     x:'time',
-                                    value: ['goal', 'penalty'],
+                                    value: ['goal', 'opponentgoal', 'penalty'],
                                 },
                                 type: 'scatter',
                                 xFormat: '%M:%S'
                             },
+                            legend: {
+                                position: 'bottom'
+                            },                            
                             axis: {
                                 x: {
                                     label:'Time',
@@ -147,21 +158,24 @@ block content
                             }
                         });  
         div.row
-            div.col-md-4
+            div.col-md-6
                 div.col-md-12
-                    h4 Goal By Period          
+                    h5 Goal By Period          
                     div(id='chart30' class='c3chart') 
                     script(type='text/javascript').
                         var chart = c3.generate({
                             bindto: '#chart30',
                             size: {
                                 height: 240,
-                                width: 240
+                                width: 480
                             },
                             data: {
                                 json: !{JSON.stringify(goalbyperiod)},
                                 type: 'pie',
                             },
+                            legend: {
+                                position: 'right'  
+                            },                              
                             pie: {
                                 label: {
                                     format: function(value, ration, id) {
@@ -170,44 +184,24 @@ block content
                                 }
                             }
                         });              
-            div.col-md-4
+            div.col-md-6
                 div.col-md-12
-                    h4 Goal By Kind             
+                    h5 Goal By Kind             
                     div(id='chart31' class='c3chart') 
                     script(type='text/javascript').
                         var chart = c3.generate({
                             bindto: '#chart31',
                             size: {
                                 height: 240,
-                                width: 240
+                                width: 480
                             },                                
                             data: {
                                 json: !{JSON.stringify(goalbykind)},
                                 type: 'pie',
                             },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
-                                    }
-                                }
-                            }
-                        });
-            div.col-md-4
-                div.col-md-12
-                    h4 Goal By Player             
-                    div(id='chart32' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart32',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },                                
-                            data: {
-                                json: !{JSON.stringify(goalbykind)},
-                                type: 'pie',
-                            },
+                            legend: {
+                                position: 'right'  
+                            },                              
                             pie: {
                                 label: {
                                     format: function(value, ration, id) {
@@ -217,20 +211,23 @@ block content
                             }
                         });
         div.row
-            div.col-md-4     
-                h4 Penalty By Period                   
+            div.col-md-6     
+                h5 Penalty By Period                   
                 div(id='chart40' class='c3chart') 
                 script(type='text/javascript').
                     var chart = c3.generate({
                         bindto: '#chart40',
                         size: {
                             height: 240,
-                            width: 240
+                            width: 480
                             },                                
                             data: {
                                 json: !{JSON.stringify(penaltybyperiod)},
                                 type: 'pie',
                             },
+                            legend: {
+                                position: 'right'  
+                            },                            
                             pie: {
                                 label: {
                                     format: function(value, ration, id) {
@@ -239,8 +236,8 @@ block content
                                 }
                             }
                         });                               
-            div.col-md-4 
-                h4 Penalty By Kind                     
+            div.col-md-6 
+                h5 Penalty By Kind                     
                 div(id='chart41' class='c3chart') 
                 script(type='text/javascript').
                     var chart = c3.generate({
@@ -264,46 +261,24 @@ block content
                             }
                         }
                     });
-            div.col-md-4                         
-                h4 Penalty By Player                     
-                div(id='chart42' class='c3chart') 
-                script(type='text/javascript').
-                    var chart = c3.generate({
-                        bindto: '#chart42',
-                        size: {
-                            height: 240,
-                            width: 480
-                        },                                
-                        data: {
-                            json: !{JSON.stringify(penaltybykind)},
-                            type: 'pie',
-                        },
-                        legend: {
-                            position: 'right'  
-                        },
-                        pie: {
-                            label: {
-                                format: function(value, ration, id) {
-                                    return value;
-                                }
-                            }
-                        }
-                    });
         div.row
-            div.col-md-4
-                h4 PIM By Period                 
+            div.col-md-6
+                h5 PIM By Period                 
                 div(id='chart50' class='c3chart') 
                 script(type='text/javascript').
                     var chart = c3.generate({
                         bindto: '#chart50',
                         size: {
                             height: 240,
-                            width: 240
+                            width: 480
                         },                                
                         data: {
                             json: !{JSON.stringify(pimbyperiod)},
                             type: 'pie',
                         },
+                        legend: {
+                            position: 'right'  
+                        },                        
                         pie: {
                             label: {
                                 format: function(value, ration, id) {
@@ -312,8 +287,8 @@ block content
                             }
                         }
                     });                  
-            div.col-md-4                                                         
-                h4 PIM By Kind                 
+            div.col-md-6                                                         
+                h5 PIM By Kind                 
                 div(id='chart51' class='c3chart') 
                 script(type='text/javascript').
                     var chart = c3.generate({
@@ -337,19 +312,3 @@ block content
                             }
                         }
                     });     
-            div.col-md-4 
-                h4 PIM By Player
-                div(id='chart52' class='c3chart') 
-                script(type='text/javascript').
-                    var chart = c3.generate({
-                        bindto: '#chart52',
-                        data: {
-                            json: !{JSON.stringify(pimbyplayer)},
-                            type: 'bar'
-                        },
-                        axis: {
-                            x: {type: 'category'}
-                        }
-                    });   
-                           
-        

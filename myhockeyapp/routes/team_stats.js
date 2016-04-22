@@ -13,7 +13,6 @@ router.get('/', function(req, res, next) {
     var penaltybyperiod = {};
     var pimbyperiod = {};
     var penaltybykind = {};
-    var pimbyplayer = {};
     var pimbykind = {};
     
     connection.on('connect', function() {
@@ -71,11 +70,6 @@ router.get('/', function(req, res, next) {
                             penaltybykind[eventDataJson.offense] = 0;
                         }
                         penaltybykind[eventDataJson.offense]++;
-                        if (!pimbyplayer[eventDataJson.penalty]) 
-                        {
-                            pimbyplayer[eventDataJson.penalty] = 0;
-                        }
-                        pimbyplayer[eventDataJson.penalty] += parseInt(eventDataJson.min);
                         if (!pimbykind[eventDataJson.offense]) 
                         {
                             pimbykind[eventDataJson.offense] = 0;
@@ -83,7 +77,7 @@ router.get('/', function(req, res, next) {
                         pimbykind[eventDataJson.offense] += parseInt(eventDataJson.min);
                     }
                 }
-                res.render('team_stats.jade', { title: 'Team Stats', 'game_stats': game_stats, 'team_time_stats': team_time_stats, 'goalbyperiod': goalbyperiod, 'goalbykind': goalbykind, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbyplayer': pimbyplayer, 'pimbykind': pimbykind });        
+                res.render('team_stats.jade', { title: 'Team Stats', 'game_stats': game_stats, 'team_time_stats': team_time_stats, 'goalbyperiod': goalbyperiod, 'goalbykind': goalbykind, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind});        
 
             });
         });
