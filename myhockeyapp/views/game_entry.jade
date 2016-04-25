@@ -4,7 +4,8 @@ block links
     link(href='/stylesheets/c3.css' rel='stylesheet' type='text/css')
     link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
     link(href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css")
-    link(href="/stylesheets/bootstrap-theme.min.css" rel="stylesheet" type="text/css")
+    link(href="/stylesheets/sb-admin.css" rel="stylesheet" type="text/css")        
+    link(href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css")   
             
 block scripts    
     script(src='/javascripts/d3.min.js' charset='utf-8' type='text/javascript')
@@ -13,8 +14,23 @@ block scripts
     script(src='/javascripts/bootstrap.min.js' type='text/javascript')
     
 block content
-    h1= title
     div.container-fluid
+        div.row
+            div.col-md-12
+                h1.page-header #{title}   
+                ol.breadcrumb
+                    li
+                        i.fa.fa-dashboard
+                        a(href="/") 
+                            | Hockey Stats
+                    li
+                        i.fa.fa-list-ul
+                        a(href="/gameentry") 
+                            | Games  
+                    li
+                        i.fa.fa-edit
+                        a(href="/gameentry/#{stream_id}") 
+                            | #{stream_id}                                              
         div.row
             div.col-md-3
                 div.btn-group-vertical(role="group")
@@ -51,6 +67,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='date') Date
                             div.col-sm-9
+                                input#streamId(type="hidden" value="#{stream_id}")
                                 input#date.form-control(type='date', name='date')
                         div.form-group
                             label.col-sm-3.control-label(for='time') Time
@@ -71,6 +88,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='periodOptions') Period
                             div.col-sm-9
+                                input#streamId(type="hidden" value="#{stream_id}")                            
                                 label.radio-inline 
                                     input#periodOption1(type='radio' name='periodOptions' value='1')
                                     | 1
@@ -129,6 +147,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='periodOptions') Period
                             div.col-sm-9
+                                input#streamId(type="hidden" value="#{stream_id}")                            
                                 label.radio-inline 
                                     input#periodOption1(type='radio' name='periodOptions' value='1')
                                     | 1
@@ -180,6 +199,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='periodOptions') Period
                             div.col-sm-9
+                                input#streamId(type="hidden" value="#{stream_id}")                        
                                 label.radio-inline 
                                     input#periodOption1(type='radio' name='periodOptions' value='1')
                                     | 1
@@ -238,6 +258,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='periodOptions') Period
                             div.col-sm-9
+                                input#streamId(type="hidden" value="#{stream_id}")                                                    
                                 label.radio-inline 
                                     input#periodOption1(type='radio' name='periodOptions' value='1')
                                     | 1
@@ -289,6 +310,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='date') Date
                             div.col-sm-9
+                                input#streamId(type="hidden" value="#{stream_id}")                                                    
                                 input#date.form-control(type='date', name='date')
                         div.form-group
                             label.col-sm-3.control-label(for='time') Time

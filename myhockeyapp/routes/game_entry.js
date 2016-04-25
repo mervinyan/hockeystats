@@ -84,7 +84,7 @@ router.get('/:streamid', function(req, res, next) {
                 game_events[i] = { number: event.EventNumber, type: event.EventType, json: JSON.parse(bin2String(event.Data.toJSON().data)) };
             }
             console.log(game_events);
-            res.render('game_entry.jade', { title: 'Game Entry', 'game_events': game_events });
+            res.render('game_entry.jade', { title: 'Game Entry', 'stream_id': streamid, 'game_events': game_events });
         });
     });
 });

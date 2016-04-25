@@ -3,11 +3,21 @@ extends layout
 block links
     link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
     link(href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css")
-    link(href="/stylesheets/bootstrap-theme.min.css" rel="stylesheet" type="text/css")
+    link(href="/stylesheets/sb-admin.css" rel="stylesheet" type="text/css")        
+    link(href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css")   
     
 block scripts    
     script(src='/javascripts/jquery-2.2.1.min.js' type='text/javascript')    
     script(src='/javascripts/bootstrap.min.js' type='text/javascript')
     
 block content
+        div.container-fluid
+            div.row
+                div.col-md-12
+                    h1.page-header #{title}
+                    ol.breadcrumb
+                        li
+                            i.fa.fa-dashboard
+                            a(href="/") 
+                                | Hockey Stats
 

@@ -4,7 +4,8 @@ block links
     link(href='/stylesheets/c3.css' rel='stylesheet' type='text/css')
     link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
     link(href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css")
-    link(href="/stylesheets/bootstrap-theme.min.css" rel="stylesheet" type="text/css")
+    link(href="/stylesheets/sb-admin.css" rel="stylesheet" type="text/css")        
+    link(href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css")   
             
 block scripts    
     script(src='/javascripts/d3.min.js' charset='utf-8' type='text/javascript')
@@ -13,11 +14,22 @@ block scripts
     script(src='/javascripts/bootstrap.min.js' type='text/javascript')
 
 block content
-    h1= title
     div.container-fluid
         div.row
+            div.col-md-12
+                h1.page-header #{title}
+                ol.breadcrumb
+                    li
+                        i.fa.fa-dashboard
+                        a(href="/") 
+                            | Hockey Stats
+                    li
+                        i.fa.fa-user
+                        a(href="/playerstats") 
+                            | Player Stats                
+        div.row
             div.col-md-12.table-responsive
-                table.table
+                table.table.table-hover
                     thead
                         tr
                             th #
@@ -40,31 +52,37 @@ block content
                                 td #{player_stats.a}
                                 td #{player_stats.pts}
                                 td #{player_stats.pim}
-     div.row
-        div.col-md-12
-            div(id='chart00' class='c3chart') 
-            script(type='text/javascript').
-                var chart = c3.generate({
-                    bindto: '#chart00',
-                    data: {
-                        json: !{JSON.stringify(players_stats)},
-                        type: 'bar',
-                        keys: {
-                            x: 'no',
-                            value: ['g', 'a', 'ppg', 'shg', 'eng', 'pts', 'pim']
-                        }
-                    },
-                    axis: {
-                        x: {
-                            type: 'category',
-                        }
-                    },
-                    tooltip: {
-                        format: {
-                            title: function(x) {
-                                return 'Player #' + x;
-                            }
-                        }
-                    }
-                });
+        div.row
+            div.col-md-12
+                div.panel.panel-primary
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-bar-chart-o 
+                                | Goals, Assists, Points, Penalty In Minutes
+                    div.panel-body
+                        div(id='chart00' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart00',
+                                data: {
+                                    json: !{JSON.stringify(players_stats)},
+                                    type: 'bar',
+                                    keys: {
+                                        x: 'no',
+                                        value: ['g', 'a', 'ppg', 'shg', 'eng', 'pts', 'pim']
+                                    }
+                                },
+                                axis: {
+                                    x: {
+                                        type: 'category',
+                                    }
+                                },
+                                tooltip: {
+                                    format: {
+                                        title: function(x) {
+                                            return 'Player #' + x;
+                                        }
+                                    }
+                                }
+                            });
                                                                    

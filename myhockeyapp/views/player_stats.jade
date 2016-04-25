@@ -4,7 +4,8 @@ block links
     link(href='/stylesheets/c3.css' rel='stylesheet' type='text/css')
     link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
     link(href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css")
-    link(href="/stylesheets/bootstrap-theme.min.css" rel="stylesheet" type="text/css")
+    link(href="/stylesheets/sb-admin.css" rel="stylesheet" type="text/css")        
+    link(href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css")   
             
 block scripts    
     script(src='/javascripts/d3.min.js' charset='utf-8' type='text/javascript')
@@ -13,8 +14,23 @@ block scripts
     script(src='/javascripts/bootstrap.min.js' type='text/javascript')
 
 block content
-    h1= title
     div.container-fluid
+        div.row
+            div.col-md-12
+                h1.page-header #{title}
+                ol.breadcrumb
+                    li
+                        i.fa.fa-dashboard
+                        a(href="/") 
+                            | Hockey Stats
+                    li
+                        i.fa.fa-user
+                        a(href="/playerstats") 
+                            | Player Stats   
+                    li
+                        i.fa.fa-line-chart
+                        a(href="/playerstats/#{player_id}") 
+                            | Player ##{player_id}                                              
         // div.row
         //     div.col-md-12.table-responsive
         //         table.table
@@ -43,320 +59,368 @@ block content
         //                             td assist
         div.row
             div.col-md-12
-                // h4 Goals, Assists 
-                div(id='chart00' class='c3chart') 
-                script(type='text/javascript').
-                    var chart = c3.generate({
-                        bindto: '#chart00',
-                        data: {
-                            json: !{JSON.stringify(homescore)},
-                            keys: {
-                                x:'time',
-                                value: ['g', 'a'],
-                            },
-                            type: 'scatter',
-                            xFormat: '%M:%S'
-                        },
-                        axis: {
-                            x: {
-                                label:'Time',
-                                type: 'timeseries',
-                                tick: {
-                                    format: '%M:%S'
-                                }
-                            }
-                        },
-                        regions: [
-                            {axis: 'x', start: '0:00', end: '20:00', class: 'region-period1'},
-                            {axis: 'x', start: '20:01', end: '40:00', class: 'region-period2'},
-                            {axis: 'x', start: '40:01', end: '60:00', class: 'region-period3'},
-                        ],
-                        tooltip: {
-                            format: {
-                                title: function(d) {
-                                    var format = d3.time.format('%M:%S');
-                                    return 'At ' + format(d);
+                div.panel.panel-primary
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-area-chart 
+                                | Goals, Assists
+                    div.panel-body            
+                        div(id='chart00' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart00',
+                                data: {
+                                    json: !{JSON.stringify(homescore)},
+                                    keys: {
+                                        x:'time',
+                                        value: ['g', 'a'],
+                                    },
+                                    type: 'scatter',
+                                    xFormat: '%M:%S'
                                 },
-                                name: function(name, ratio, id, index) {
-                                    return name;
-                                },
-                                value: function(value, ratio, id) {
-                                    if (id == 'g') {
-                                        if (value == #{player_id}) {
-                                            return 'No assist';
-                                        } else {
-                                            return 'Assist from ' + value;
+                                axis: {
+                                    x: {
+                                        label:'Time',
+                                        type: 'timeseries',
+                                        tick: {
+                                            format: '%M:%S'
                                         }
-                                    } else {
-                                        return 'Assist to ' + value;
+                                    }
+                                },
+                                regions: [
+                                    {axis: 'x', start: '0:00', end: '20:00', class: 'region-period1'},
+                                    {axis: 'x', start: '20:01', end: '40:00', class: 'region-period2'},
+                                    {axis: 'x', start: '40:01', end: '60:00', class: 'region-period3'},
+                                ],
+                                tooltip: {
+                                    format: {
+                                        title: function(d) {
+                                            var format = d3.time.format('%M:%S');
+                                            return 'At ' + format(d);
+                                        },
+                                        name: function(name, ratio, id, index) {
+                                            return name;
+                                        },
+                                        value: function(value, ratio, id) {
+                                            if (id == 'g') {
+                                                if (value == #{player_id}) {
+                                                    return 'No assist';
+                                                } else {
+                                                    return 'Assist from ' + value;
+                                                }
+                                            } else {
+                                                return 'Assist to ' + value;
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                        }
-                    });  
+                            });  
         div.row
             div.col-md-12
-                // h4 Goals (PowerPlay, ShortHand, EmptyNet), Assists, PIM 
-                div(id='chart10' class='c3chart')                                      
-                script(type='text/javascript').
-                    var chart0 = c3.generate({
-                        bindto: '#chart10',
-                        data: {
-                            json: !{JSON.stringify(gamestats)},
-                            keys: {
-                                x: 'date',
-                                value: ['g', 'a', 'ppg', 'shg', 'eng', 'pts', 'pim']
-                            }
-                        },
-                        axis: {
-                            x: {
-                                type: 'timeseries',
-                                tick: {
-                                    format: '%Y-%m-%d'
+                div.panel.panel-primary
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-area-chart 
+                                | Goals (PowerPlay, ShortHand, EmptyNet), Assists, Penalty In Minutes
+                    div.panel-body                
+                        div(id='chart10' class='c3chart')                                      
+                        script(type='text/javascript').
+                            var chart0 = c3.generate({
+                                bindto: '#chart10',
+                                data: {
+                                    json: !{JSON.stringify(gamestats)},
+                                    keys: {
+                                        x: 'date',
+                                        value: ['g', 'a', 'ppg', 'shg', 'eng', 'pts', 'pim']
+                                    }
+                                },
+                                axis: {
+                                    x: {
+                                        type: 'timeseries',
+                                        tick: {
+                                            format: '%Y-%m-%d'
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                    });
+                            });
         div.row
             div.col-md-4                                     
-                div.col-md-12 
-                    h4 Goal By Period       
-                    div(id='chart20' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart20',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },
-                            data: {
-                                json: !{JSON.stringify(goalbyperiod)},
-                                type: 'pie',
-                            },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
+                div.panel.panel-green
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-pie-chart 
+                                | Goals By Period   
+                    div.panel-body      
+                        div(id='chart20' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart20',
+                                size: {
+                                    height: 240,
+                                    width: 240
+                                },
+                                data: {
+                                    json: !{JSON.stringify(goalbyperiod)},
+                                    type: 'pie',
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
                                     }
                                 }
-                            }
-                        });              
+                            });              
             div.col-md-4                                     
-                div.col-md-12 
-                    h4 Assist By Period         
-                    div(id='chart21' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart21',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },                                
-                            data: {
-                                json: !{JSON.stringify(assistbyperiod)},
-                                type: 'pie',
-                            },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
+                div.panel.panel-green
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-pie-chart 
+                                | Assists By Period   
+                    div.panel-body      
+                        div(id='chart21' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart21',
+                                size: {
+                                    height: 240,
+                                    width: 240
+                                },                                
+                                data: {
+                                    json: !{JSON.stringify(assistbyperiod)},
+                                    type: 'pie',
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
                                     }
                                 }
-                            }
-                        });               
+                            });               
             div.col-md-4                                     
-                div.col-md-12 
-                    h4 Point By Period                  
-                    div(id='chart22' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart22',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },                                
-                            data: {
-                                json: !{JSON.stringify(pointbyperiod)},
-                                type: 'pie',
-                            },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
+                div.panel.panel-green
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-pie-chart 
+                                | Points By Period   
+                    div.panel-body    
+                        div(id='chart22' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart22',
+                                size: {
+                                    height: 240,
+                                    width: 240
+                                },                                
+                                data: {
+                                    json: !{JSON.stringify(pointbyperiod)},
+                                    type: 'pie',
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
                                     }
                                 }
-                            }
-                        });    
+                            });    
         div.row
             div.col-md-4                                     
-                div.col-md-12
-                    h4 Goal By Kind      
-                    div(id='chart30' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart30',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },
-                            data: {
-                                json: !{JSON.stringify(goalbykind)},
-                                type: 'pie',
-                            },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
+                div.panel.panel-green
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-pie-chart 
+                                | Goals By Kind   
+                    div.panel-body    
+                        div(id='chart30' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart30',
+                                size: {
+                                    height: 240,
+                                    width: 240
+                                },
+                                data: {
+                                    json: !{JSON.stringify(goalbykind)},
+                                    type: 'pie',
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
                                     }
                                 }
-                            }
-                        });                          
+                            });                          
             div.col-md-4                                     
-                div.col-md-12
-                    h4 Assist From By Player         
-                    div(id='chart31' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart31',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },
-                            data: {
-                                json: !{JSON.stringify(assistfrombyplayer)},
-                                type: 'pie',
-                            },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
+                div.panel.panel-green
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-pie-chart 
+                                | Assists From By Player   
+                    div.panel-body    
+                        div(id='chart31' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart31',
+                                size: {
+                                    height: 240,
+                                    width: 240
+                                },
+                                data: {
+                                    json: !{JSON.stringify(assistfrombyplayer)},
+                                    type: 'pie',
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
                                     }
                                 }
-                            }
-                        });              
+                            });              
             div.col-md-4                                     
-                div.col-md-12
-                    h4 Assist To By Player               
-                    div(id='chart32' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart32',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },                                
-                            data: {
-                                json: !{JSON.stringify(assisttobyplayer)},
-                                type: 'pie',
-                            },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
+                div.panel.panel-green
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-pie-chart 
+                                | Assists To By Player   
+                    div.panel-body               
+                        div(id='chart32' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart32',
+                                size: {
+                                    height: 240,
+                                    width: 240
+                                },                                
+                                data: {
+                                    json: !{JSON.stringify(assisttobyplayer)},
+                                    type: 'pie',
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
                                     }
                                 }
-                            }
-                        });     
+                            });     
         div.row
             div.col-md-4                                     
-                div.col-md-12
-                    h4 Penalty By Period                       
-                    div(id='chart40' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart40',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },                                
-                            data: {
-                                json: !{JSON.stringify(penaltybyperiod)},
-                                type: 'pie',
-                            },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
+                div.panel.panel-green
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-pie-chart 
+                                | Penalty By Period   
+                    div.panel-body                      
+                        div(id='chart40' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart40',
+                                size: {
+                                    height: 240,
+                                    width: 240
+                                },                                
+                                data: {
+                                    json: !{JSON.stringify(penaltybyperiod)},
+                                    type: 'pie',
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
                                     }
                                 }
-                            }
-                        });      
-            div.col-md-4                                     
-                div.col-md-12
-                    h4 Penalty By Kind               
-                    div(id='chart50' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart50',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },                                
-                            data: {
-                                json: !{JSON.stringify(penaltybykind)},
-                                type: 'pie',
-                            },
-                            legend: {
-                                position: 'bottom'  
-                            },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
+                            });      
+            div.col-md-8                                     
+                div.panel.panel-green
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-pie-chart 
+                                | Penalty By Kind   
+                    div.panel-body            
+                        div(id='chart50' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart50',
+                                size: {
+                                    height: 240,
+                                    width: 480
+                                },                                
+                                data: {
+                                    json: !{JSON.stringify(penaltybykind)},
+                                    type: 'pie',
+                                },
+                                legend: {
+                                    position: 'right'  
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
                                     }
                                 }
-                            }
-                        });
-            div.col-md-4                           
+                            });
         div.row
             div.col-md-4                                     
-                div.col-md-12
-                    h4 PIM By Period               
-                    div(id='chart41' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart41',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },                                
-                            data: {
-                                json: !{JSON.stringify(pimbyperiod)},
-                                type: 'pie',
-                            },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
+                div.panel.panel-green
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-pie-chart 
+                                | Penalty In Minutes By Period   
+                    div.panel-body              
+                        div(id='chart41' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart41',
+                                size: {
+                                    height: 240,
+                                    width: 240
+                                },                                
+                                data: {
+                                    json: !{JSON.stringify(pimbyperiod)},
+                                    type: 'pie',
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
                                     }
                                 }
-                            }
-                        });                   
-            div.col-md-4                                     
-                div.col-md-12
-                    h4 PIM By Kind            
-                    div(id='chart51' class='c3chart') 
-                    script(type='text/javascript').
-                        var chart = c3.generate({
-                            bindto: '#chart51',
-                            size: {
-                                height: 240,
-                                width: 240
-                            },                                
-                            data: {
-                                json: !{JSON.stringify(pimbykind)},
-                                type: 'pie',
-                            },
-                            legend: {
-                                position: 'bottom'  
-                            },
-                            pie: {
-                                label: {
-                                    format: function(value, ration, id) {
-                                        return value;
+                            });                   
+            div.col-md-8                                     
+                div.panel.panel-green
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-pie-chart 
+                                | Penalty In Minutes By Kind   
+                    div.panel-body        
+                        div(id='chart51' class='c3chart') 
+                        script(type='text/javascript').
+                            var chart = c3.generate({
+                                bindto: '#chart51',
+                                size: {
+                                    height: 240,
+                                    width: 480
+                                },                                
+                                data: {
+                                    json: !{JSON.stringify(pimbykind)},
+                                    type: 'pie',
+                                },
+                                legend: {
+                                    position: 'right'  
+                                },
+                                pie: {
+                                    label: {
+                                        format: function(value, ration, id) {
+                                            return value;
+                                        }
                                     }
                                 }
-                            }
-                        });   
-     
+                            });   
                                                                    
