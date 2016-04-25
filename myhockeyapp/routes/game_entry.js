@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
                     var game_event = {streamid: event.EventStreamId, number: eventData.number, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type}
                     games[i] = game_event;
                 }
-                res.render('game_list.jade', {title: 'Games', 'games': games});
+                res.render('game_list.pug', {title: 'Games', 'games': games});
             });        
         });
 });
@@ -61,7 +61,7 @@ router.post('/add', function (req, res, next) {
                     var game_event = { streamid: event.EventStreamId, number: eventData.number, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type }
                     games[i] = game_event;
                 }
-                res.render('game_list.jade', { title: 'Games', 'games': games });
+                res.render('game_list.pug', { title: 'Games', 'games': games });
             });        
 
         });
@@ -84,7 +84,7 @@ router.get('/:streamid', function(req, res, next) {
                 game_events[i] = { number: event.EventNumber, type: event.EventType, json: JSON.parse(bin2String(event.Data.toJSON().data)) };
             }
             console.log(game_events);
-            res.render('game_entry.jade', { title: 'Game Entry', 'stream_id': streamid, 'game_events': game_events });
+            res.render('game_entry.pug', { title: 'Game Entry', 'stream_id': streamid, 'game_events': game_events });
         });
     });
 });
@@ -106,11 +106,11 @@ function fetchAndDisplayEvents(req, res, next) {
                     game_events[i] = game_event;
                 }
                 console.log(readResult.Events);
-                res.render('game_entry.jade', {title: 'Game Entry', 'game_events': game_events});
+                res.render('game_entry.pug', {title: 'Game Entry', 'game_events': game_events});
             });        
         });
     } else {
-        res.render('game_entry.jade', {title: 'Game Entry', 'game_events': game_events});
+        res.render('game_entry.pug', {title: 'Game Entry', 'game_events': game_events});
     }
 }
 
@@ -190,21 +190,21 @@ function bin2String(array) {
 router.get('/gamestart', function(req, res, next) {
     // res.send({ title: 'Express' });
     // res.json('game entry');
-    res.render('game_entry_game_start.jade', {title: 'Game Start'});
+    res.render('game_entry_game_start.pug', {title: 'Game Start'});
 });
 
 router.post('/gamestart', startGame, fetchAndDisplayEvents);
 
 router.get('/homescore', function(req, res, next) {
     // res.send({ title: 'Express' });
-    res.render('game_entry_home_score.jade', {title: 'Home Score'});
+    res.render('game_entry_home_score.pug', {title: 'Home Score'});
 });
 
 router.post('/homescore', homeScore, fetchAndDisplayEvents);
 
 router.get('/homepenalty', function(req, res, next) {
     // res.send({ title: 'Express' });
-    res.render('game_entry_home_penalty.jade', {title: 'Home Penalty'});
+    res.render('game_entry_home_penalty.pug', {title: 'Home Penalty'});
 });
 
 router.post('/homepenalty', function (req, res, next) {
@@ -243,7 +243,7 @@ router.post('/homepenalty', function (req, res, next) {
                         var game_event = {streamId: event.EventStreamId, number: event.EventNumber, type: event.EventType, json: JSON.parse(bin2String(event.Data.toJSON().data))}
                         game_events[i] = game_event;
                     }
-                    res.render('game_entry.jade', {title: 'Game Entry', 'game_events': game_events});
+                    res.render('game_entry.pug', {title: 'Game Entry', 'game_events': game_events});
                 });
             });
             
@@ -253,7 +253,7 @@ router.post('/homepenalty', function (req, res, next) {
 
 router.get('/guestscore', function(req, res, next) {
     // res.send({ title: 'Express' });
-    res.render('game_entry_visitor_score.jade', {title: 'Guest Score'});
+    res.render('game_entry_visitor_score.pug', {title: 'Guest Score'});
 });
 
 router.post('/guestscore', function (req, res, next) {
@@ -291,7 +291,7 @@ router.post('/guestscore', function (req, res, next) {
                         var game_event = {streamId: event.EventStreamId, number: event.EventNumber, type: event.EventType, json: JSON.parse(bin2String(event.Data.toJSON().data))}
                         game_events[i] = game_event;
                     }
-                    res.render('game_entry.jade', {title: 'Game Entry', 'game_events': game_events});
+                    res.render('game_entry.pug', {title: 'Game Entry', 'game_events': game_events});
                 });
             });
 
@@ -302,7 +302,7 @@ router.post('/guestscore', function (req, res, next) {
 
 router.get('/guestpenalty', function(req, res, next) {
     // res.send({ title: 'Express' });
-    res.render('game_entry_visitor_penalty.jade', {title: 'Guest Penalty'});
+    res.render('game_entry_visitor_penalty.pug', {title: 'Guest Penalty'});
 });
 
 router.post('/guestpenalty', function (req, res, next) {
@@ -341,7 +341,7 @@ router.post('/guestpenalty', function (req, res, next) {
                         var game_event = {streamId: event.EventStreamId, number: event.EventNumber, type: event.EventType, json: JSON.parse(bin2String(event.Data.toJSON().data))}
                         game_events[i] = game_event;
                     }
-                    res.render('game_entry.jade', {title: 'Game Entry', 'game_events': game_events});
+                    res.render('game_entry.pug', {title: 'Game Entry', 'game_events': game_events});
                 });
             });
             
@@ -351,7 +351,7 @@ router.post('/guestpenalty', function (req, res, next) {
 
 router.get('/gameend', function(req, res, next) {
     // res.send({ title: 'Express' });
-    res.render('game_entry_game_end.jade', {title: 'Game End'});
+    res.render('game_entry_game_end.pug', {title: 'Game End'});
 });
 
 router.post('/gameend', function (req, res, next) {
@@ -385,7 +385,7 @@ router.post('/gameend', function (req, res, next) {
                         var game_event = {streamId: event.EventStreamId, number: event.EventNumber, type: event.EventType, json: JSON.parse(bin2String(event.Data.toJSON().data))}
                         game_events[i] = game_event;
                     }
-                    res.render('game_entry.jade', {title: 'Game Entry', 'game_events': game_events});
+                    res.render('game_entry.pug', {title: 'Game Entry', 'game_events': game_events});
                 });
             });
         });

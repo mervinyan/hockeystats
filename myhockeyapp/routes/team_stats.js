@@ -77,7 +77,7 @@ router.get('/', function(req, res, next) {
                         pimbykind[eventDataJson.offense] += parseInt(eventDataJson.min);
                     }
                 }
-                res.render('team_stats.jade', { title: 'Team Stats', 'game_stats': game_stats, 'team_time_stats': team_time_stats, 'goalbyperiod': goalbyperiod, 'goalbykind': goalbykind, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind});        
+                res.render('team_stats.pug', { title: 'Team Stats', 'game_stats': game_stats, 'team_time_stats': team_time_stats, 'goalbyperiod': goalbyperiod, 'goalbykind': goalbykind, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind});        
 
             });
         });

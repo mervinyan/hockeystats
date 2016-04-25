@@ -44,7 +44,7 @@ block content
                         each player_stats in players_stats
                             tr
                                 td 
-                                    a(href='/playerstats/#{player_stats.no}') #{player_stats.no}
+                                    a(href="/playerstats/" + encodeURIComponent(player_stats.no)) #{player_stats.no}
                                 td #{player_stats.g}
                                 td #{player_stats.ppg}
                                 td #{player_stats.shg}

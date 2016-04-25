@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index.jade', { title: 'Hockey Stats Analysis' });
+  res.render('index.pug', { title: 'Hockey Stats Analysis' });
 });
 
 module.exports = router;

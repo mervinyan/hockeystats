@@ -46,7 +46,7 @@ block content
                         each game in games
                             tr
                                 td
-                                    a(href='/gameentry/#{game.streamid}') #{game.number} 
+                                    a(href="/gameentry/" + encodeURIComponent(game.streamid)) #{game.number} 
                                 td #{game.date}
                                 td #{game.time}
                                 td #{game.opponent}

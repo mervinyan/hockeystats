@@ -24,12 +24,12 @@ var game_entry = require('./routes/game_entry');
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 // view engine setup
-var engines = require('consolidate');
-app.engine('jade', engines.jade);
-app.engine('ejs', engines.ejs);
+// var engines = require('consolidate');
+// app.engine('pug', engines.pug);
+// app.engine('ejs', engines.ejs);
 
 
 // uncomment after placing your favicon in /public
@@ -61,7 +61,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error.jade', {
+    res.render('error.pug', {
       message: err.message,
       error: err
     });
@@ -72,7 +72,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error.jade', {
+  res.render('error.pug', {
     message: err.message,
     error: {}
   });

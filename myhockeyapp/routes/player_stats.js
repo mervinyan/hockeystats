@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
                 players_stats.push(item);
             }
             console.log(players_stats);
-            res.render('players_stats.jade', { title: 'Players Stats', 'players_stats': players_stats});        
+            res.render('players_stats.pug', { title: 'Players Stats', 'players_stats': players_stats});        
         });
     });
 });
@@ -181,7 +181,7 @@ router.get('/:player_number', function(req, res, next) {
                     var eventDataJson = JSON.parse(eventDataStr)
                     gamestats[i] = eventDataJson;
                 }
-                res.render('player_stats.jade', { title: 'Stats for Player #' + player_number, player_id: player_number, data: stats, 'goalbykind': goalbykind, 'homescore': homescore, 'goalbyperiod': goalbyperiod, 'assistbyperiod': assistbyperiod, 'pointbyperiod': pointbyperiod, 'assistfrombyplayer': assistfrombyplayer, 'assisttobyplayer': assisttobyplayer, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind, 'gamestats': gamestats});        
+                res.render('player_stats.pug', { title: 'Stats for Player #' + player_number, player_id: player_number, data: stats, 'goalbykind': goalbykind, 'homescore': homescore, 'goalbyperiod': goalbyperiod, 'assistbyperiod': assistbyperiod, 'pointbyperiod': pointbyperiod, 'assistfrombyplayer': assistfrombyplayer, 'assisttobyplayer': assisttobyplayer, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind, 'gamestats': gamestats});        
             });
         });
         
