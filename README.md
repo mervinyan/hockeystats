@@ -19,10 +19,12 @@ How to run the project:
 9. Install C3 Chart: npm install c3-chart
 10. Install Mongoose: npm install mongoose --save
 11. Install Consolidate: npm install consolidate
-12. Run the web app either from Visual Studio Code from Node.ss command line 
+12. Install Pug: npm install pug --save
+13. Install Morgan: npm install morgan 
+14. Run the web app either from Visual Studio Code from Node.ss command line 
      $ cd myhockeyapp 
      $ node app.js
-13. The url to check team stats: http://host:port/teamstats (e.g. http://localhost:3000/teamstats)
-14. The url to check player stats: http://host:port/playerstats/12 (e.g. http://localhost:3000/playerstats/12)
+15. The url to check team stats: http://host:port/teamstats (e.g. http://localhost:3000/teamstats)
+16. The url to check player stats: http://host:port/playerstats/12 (e.g. http://localhost:3000/playerstats/12)
 
 
