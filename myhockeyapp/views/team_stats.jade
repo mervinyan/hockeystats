@@ -145,7 +145,7 @@ block content
                                             json: !{JSON.stringify(team_time_stats)},
                                             keys: {
                                                 x:'time',
-                                                value: ['goal', 'opponentgoal', 'penalty'],
+                                                value: ['gf', 'ga', 'penalty'],
                                             },
                                             type: 'scatter',
                                             xFormat: '%M:%S'
@@ -177,9 +177,9 @@ block content
                                                     return name;
                                                 },
                                                 value: function(value, ratio, id) {
-                                                    if (id == 'goal') {
+                                                    if (id == 'gf') {
                                                         return 'Goal scored by player #' + value;
-                                                    } else if (id == 'opponentgoal') {
+                                                    } else if (id == 'ga') {
                                                         return 'Opponent Goal scored by player #' + value;
                                                     } else if (id == 'penalty') {
                                                         return 'Penalty taken by player #' + value;

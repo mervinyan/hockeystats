@@ -9,7 +9,7 @@ fromCategory('game')
             state.gamestartat = ev.body.time;
             state.opponent = ev.body.opponent;
             state.homeaway = ev.body.homeaway;
-            state.kind = ev.body.kind;
+            state.kind = ev.body.type;
             state.rink = ev.body.arena;
         },
         "GoalScored": function(state, ev) {
@@ -29,7 +29,7 @@ fromCategory('game')
                     "kind": state.kind,
                     "rink": state.rink,
                     "time": at,
-                    "goal": ev.body.score,
+                    "gf": ev.body.score,
                     "goalkind": ev.body.kind
                 })
         },
@@ -50,8 +50,8 @@ fromCategory('game')
                     "kind": state.kind,
                     "rink": state.rink,
                     "time": at,
-                    "opponentgoal": ev.body.score,
-                    "opponentgoalkind": ev.body.kind
+                    "ga": ev.body.score,
+                    "goalkind": ev.body.kind
                 });
         },
         "PenaltyTaken": function(state, ev) {
