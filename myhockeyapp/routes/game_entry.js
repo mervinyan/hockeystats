@@ -114,40 +114,49 @@ function fetchAndDisplayEvents(req, res, next) {
     }
 }
 
-function startGame(req, res, next) {
+router.post('/gamestart', function (req, res, next) {
     var stream = req.body.streamId;
     var connection = ges({host:'127.0.0.1'});
+    var game_events = [];    
     connection.on('connect', function() {
         console.log('connecting to geteventstore...');
-        var appendData = {
-          expectedVersion: ges.expectedVersion.emptyStream,
-          events: [
-               {
-                    EventId: uuid.v4(),
-                    Type: 'GameStarted',
-                    Data: new Buffer(JSON.stringify({
-                        number: req.body.number,
-                        date: req.body.date,
-                        time: req.body.time,
-                        type: req.body.typeOptions,
-                        homeaway: req.body.homeawayOptions,
-                        opponent: req.body.opponent,
-                        arena: req.body.arena
-                    }))
-                }
-          ]  
-        };
-        connection.appendToStream(stream, appendData, function(err, appendResult) {
-            if (err) return console.log('Oops!', err);
-            console.log(appendResult);
+        connection.readStreamEventsForward(stream, {start: 0, count: 1000}, function(err, readResult) {
+            if (err) return console.log('Ooops!', err);
+            var appendData = {
+                expectedVersion: readResult.Events.length -1,
+                events: [
+                    {
+                            EventId: uuid.v4(),
+                            Type: 'PenaltyTaken',
+                            Data: new Buffer(JSON.stringify({
+                                date: req.body.date,
+                                time: req.body.time
+                            }))
+                        }
+                ]  
+            };
+            connection.appendToStream(stream, appendData, function(err, appendResult) {
+                if (err) return console.log('Oops!', err);
+                console.log(appendResult);
+                connection.readStreamEventsBackward(stream, {start: -1, count: 1000}, function(err, readResult) {
+                    if (err) return console.log('Ooops!', err);
+                    for (var i = 0; i < readResult.Events.length; i++) {
+                        var event = readResult.Events[i].Event;
+                        var game_event = {streamId: event.EventStreamId, number: event.EventNumber, type: event.EventType, json: JSON.parse(bin2String(event.Data.toJSON().data))}
+                        game_events[i] = game_event;
+                    }
+                    res.render('game_entry.pug', {title: 'Game Entry', 'game_events': game_events});
+                });
+            });
+            
         });
     });
-    return next();
-}
+});
 
-function homeScore(req, res, next) {
+router.post('/homescore', function (req, res, next) {
     var stream = req.body.streamId;
     var connection = ges({host:'127.0.0.1'});
+    var game_events = [];    
     connection.on('connect', function() {
         console.log('connecting to geteventstore...');
          connection.readStreamEventsForward(stream, {start: 0, count: 1000}, function(err, readResult) {
@@ -172,39 +181,20 @@ function homeScore(req, res, next) {
             connection.appendToStream(stream, appendData, function(err, appendResult) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
+                connection.readStreamEventsBackward(stream, {start: -1, count: 1000}, function(err, readResult) {
+                    if (err) return console.log('Ooops!', err);
+                    for (var i = 0; i < readResult.Events.length; i++) {
+                        var event = readResult.Events[i].Event;
+                        var game_event = {streamId: event.EventStreamId, number: event.EventNumber, type: event.EventType, json: JSON.parse(bin2String(event.Data.toJSON().data))}
+                        game_events[i] = game_event;
+                    }
+                    res.render('game_entry.pug', {title: 'Game Entry', 'game_events': game_events});
+                });
             });
+
          });
+                    
     });
-    return next();
-}
-
-
-function bin2String(array) {
-    var result = "";
-    for (var i = 0; i < array.length; i++) {
-        result += String.fromCharCode(array[i]);
-    }
-    return result;
-}
-
-router.get('/gamestart', function(req, res, next) {
-    // res.send({ title: 'Express' });
-    // res.json('game entry');
-    res.render('game_entry_game_start.pug', {title: 'Game Start'});
-});
-
-router.post('/gamestart', startGame, fetchAndDisplayEvents);
-
-router.get('/homescore', function(req, res, next) {
-    // res.send({ title: 'Express' });
-    res.render('game_entry_home_score.pug', {title: 'Home Score'});
-});
-
-router.post('/homescore', homeScore, fetchAndDisplayEvents);
-
-router.get('/homepenalty', function(req, res, next) {
-    // res.send({ title: 'Express' });
-    res.render('game_entry_home_penalty.pug', {title: 'Home Penalty'});
 });
 
 router.post('/homepenalty', function (req, res, next) {
@@ -236,7 +226,7 @@ router.post('/homepenalty', function (req, res, next) {
             connection.appendToStream(stream, appendData, function(err, appendResult) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
-                connection.readStreamEventsBackward('game-2016_03_19', {start: -1, count: 1000}, function(err, readResult) {
+                connection.readStreamEventsBackward(stream, {start: -1, count: 1000}, function(err, readResult) {
                     if (err) return console.log('Ooops!', err);
                     for (var i = 0; i < readResult.Events.length; i++) {
                         var event = readResult.Events[i].Event;
@@ -249,11 +239,6 @@ router.post('/homepenalty', function (req, res, next) {
             
         });
     });
-});
-
-router.get('/guestscore', function(req, res, next) {
-    // res.send({ title: 'Express' });
-    res.render('game_entry_visitor_score.pug', {title: 'Guest Score'});
 });
 
 router.post('/guestscore', function (req, res, next) {
@@ -284,7 +269,7 @@ router.post('/guestscore', function (req, res, next) {
             connection.appendToStream(stream, appendData, function(err, appendResult) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
-                connection.readStreamEventsBackward('game-2016_03_19', {start: -1, count: 1000}, function(err, readResult) {
+                connection.readStreamEventsBackward(stream, {start: -1, count: 1000}, function(err, readResult) {
                     if (err) return console.log('Ooops!', err);
                     for (var i = 0; i < readResult.Events.length; i++) {
                         var event = readResult.Events[i].Event;
@@ -298,11 +283,6 @@ router.post('/guestscore', function (req, res, next) {
          });
                     
     });
-});
-
-router.get('/guestpenalty', function(req, res, next) {
-    // res.send({ title: 'Express' });
-    res.render('game_entry_visitor_penalty.pug', {title: 'Guest Penalty'});
 });
 
 router.post('/guestpenalty', function (req, res, next) {
@@ -334,7 +314,7 @@ router.post('/guestpenalty', function (req, res, next) {
             connection.appendToStream(stream, appendData, function(err, appendResult) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
-                connection.readStreamEventsBackward('game-2016_03_19', {start: -1, count: 1000}, function(err, readResult) {
+                connection.readStreamEventsBackward(stream, {start: -1, count: 1000}, function(err, readResult) {
                     if (err) return console.log('Ooops!', err);
                     for (var i = 0; i < readResult.Events.length; i++) {
                         var event = readResult.Events[i].Event;
@@ -347,11 +327,6 @@ router.post('/guestpenalty', function (req, res, next) {
             
         });
     });
-});
-
-router.get('/gameend', function(req, res, next) {
-    // res.send({ title: 'Express' });
-    res.render('game_entry_game_end.pug', {title: 'Game End'});
 });
 
 router.post('/gameend', function (req, res, next) {
@@ -378,7 +353,7 @@ router.post('/gameend', function (req, res, next) {
             connection.appendToStream(stream, appendData, function(err, appendResult) {
                 if (err) return console.log('Oops!', err);
                 console.log(appendResult);
-                connection.readStreamEventsBackward('game-2016_03_19', {start: -1, count: 1000}, function(err, readResult) {
+                connection.readStreamEventsBackward(stream, {start: -1, count: 1000}, function(err, readResult) {
                     if (err) return console.log('Ooops!', err);
                     for (var i = 0; i < readResult.Events.length; i++) {
                         var event = readResult.Events[i].Event;
@@ -391,5 +366,14 @@ router.post('/gameend', function (req, res, next) {
         });
     });
 });
+
+function bin2String(array) {
+    var result = "";
+    for (var i = 0; i < array.length; i++) {
+        result += String.fromCharCode(array[i]);
+    }
+    return result;
+}
+
 
 module.exports = router;
