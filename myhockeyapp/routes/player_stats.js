@@ -68,7 +68,6 @@ router.get('/:player_number', function(req, res, next) {
     var penaltybykind = {};
     var pimbykind = {};
     var gamestats = [];
-    
     var connection = ges({host:'127.0.0.1'});
     connection.on('connect', function() {
         console.log('connecting to geteventstore...');
@@ -145,7 +144,6 @@ router.get('/:player_number', function(req, res, next) {
                             homescore[j] = {'time': at, 'a': assistto};
                         }
                         stats[j] = eventDataJson;   
-                        j++;             
                 }
                 if (readResult.Events[i].Event.EventType == 'PenaltyTaken')
                 {
@@ -168,9 +166,15 @@ router.get('/:player_number', function(req, res, next) {
                         pimbykind[eventDataJson.offense] = 0;
                     }
                     pimbykind[eventDataJson.offense] += parseInt(eventDataJson.min);
-                    
+                    homescore[j] = {'time': at, 'penalty': eventDataJson.player};
                 }
+                j++;             
+
             }
+            
+            var opponents = {};
+            var rinks = {};
+            
             connection.readStreamEventsForward('player_'+player_number+'_gamestats', {start: 0, count: 1000, resolveLinkTos: true}, function(err, readResult) {
                 if (err) return console.log('Ooops!', err)
                 for (var i = 0; i < readResult.Events.length; i++) 
@@ -180,8 +184,59 @@ router.get('/:player_number', function(req, res, next) {
                     // console.log(eventDataStr);
                     var eventDataJson = JSON.parse(eventDataStr)
                     gamestats[i] = eventDataJson;
+                    
+                    if (!opponents[eventDataJson.opponent]) {
+                        opponents[eventDataJson.opponent] = { g: 0, ppg: 0, shg: 0, eng: 0, a: 0, pts: 0, pim: 0 };
+                    }
+                    opponents[eventDataJson.opponent].g = opponents[eventDataJson.opponent].g + eventDataJson.g;
+                    opponents[eventDataJson.opponent].ppg = opponents[eventDataJson.opponent].ppg + eventDataJson.ppg;
+                    opponents[eventDataJson.opponent].shg = opponents[eventDataJson.opponent].shg + eventDataJson.shg;
+                    opponents[eventDataJson.opponent].eng = opponents[eventDataJson.opponent].eng + eventDataJson.eng;
+                    opponents[eventDataJson.opponent].a = opponents[eventDataJson.opponent].a + eventDataJson.a;
+                    opponents[eventDataJson.opponent].pts = opponents[eventDataJson.opponent].pts + eventDataJson.pts;
+                    opponents[eventDataJson.opponent].pim = opponents[eventDataJson.opponent].pim + eventDataJson.pim;  
+                    
+                    if (!rinks[eventDataJson.rink]) {
+                        rinks[eventDataJson.rink] = { g: 0, ppg: 0, shg: 0, eng: 0, a: 0, pts: 0, pim: 0 };
+                    }
+                    rinks[eventDataJson.rink].g = rinks[eventDataJson.rink].g + eventDataJson.g;
+                    rinks[eventDataJson.rink].ppg = rinks[eventDataJson.rink].ppg + eventDataJson.ppg;
+                    rinks[eventDataJson.rink].shg = rinks[eventDataJson.rink].shg + eventDataJson.shg;
+                    rinks[eventDataJson.rink].eng = rinks[eventDataJson.rink].eng + eventDataJson.eng;
+                    rinks[eventDataJson.rink].a = rinks[eventDataJson.rink].a + eventDataJson.a;
+                    rinks[eventDataJson.rink].pts = rinks[eventDataJson.rink].pts + eventDataJson.pts;
+                    rinks[eventDataJson.rink].pim = rinks[eventDataJson.rink].pim + eventDataJson.pim; 
+
+                    var opponent_stats = [];
+                    for (var opponent in opponents) {
+                        var item = {};
+                        item.opponent = opponent;
+                        item.g = opponents[opponent].g;
+                        item.ppg = opponents[opponent].ppg;
+                        item.shg = opponents[opponent].shg;
+                        item.eng = opponents[opponent].eng;
+                        item.a = opponents[opponent].a;
+                        item.pts = opponents[opponent].pts;
+                        item.pim = opponents[opponent].pim;
+                        opponent_stats.push(item);
+                    }        
+                    
+                    var rink_stats = [];
+                    for (var rink in rinks) {
+                        var item = {};
+                        item.rink = rink;
+                        item.g = rinks[rink].g;
+                        item.ppg = rinks[rink].ppg;
+                        item.shg = rinks[rink].shg;
+                        item.eng = rinks[rink].eng;
+                        item.a = rinks[rink].a;
+                        item.pts = rinks[rink].pts;
+                        item.pim = rinks[rink].pim;
+                        rink_stats.push(item);
+                    }        
+                                                                      
                 }
-                res.render('player_stats.pug', { title: 'Stats for Player #' + player_number, player_id: player_number, data: stats, 'goalbykind': goalbykind, 'homescore': homescore, 'goalbyperiod': goalbyperiod, 'assistbyperiod': assistbyperiod, 'pointbyperiod': pointbyperiod, 'assistfrombyplayer': assistfrombyplayer, 'assisttobyplayer': assisttobyplayer, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind, 'gamestats': gamestats});        
+                res.render('player_stats.pug', { title: 'Stats for Player #' + player_number, player_id: player_number, data: stats, 'goalbykind': goalbykind, 'homescore': homescore, 'goalbyperiod': goalbyperiod, 'assistbyperiod': assistbyperiod, 'pointbyperiod': pointbyperiod, 'assistfrombyplayer': assistfrombyplayer, 'assisttobyplayer': assisttobyplayer, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind, 'gamestats': gamestats, 'opponent_stats': opponent_stats, 'rink_stats': rink_stats, });        
             });
         });
         

@@ -63,7 +63,7 @@ block content
                     div.panel-heading
                         h3.panel-title 
                             i.fa.fa-area-chart 
-                                | Goals, Assists
+                                | Goals, Assists, Penalties By Period
                     div.panel-body            
                         div(id='chart00' class='c3chart') 
                         script(type='text/javascript').
@@ -73,7 +73,7 @@ block content
                                     json: !{JSON.stringify(homescore)},
                                     keys: {
                                         x:'time',
-                                        value: ['g', 'a'],
+                                        value: ['g', 'a', 'penalty'],
                                     },
                                     type: 'scatter',
                                     xFormat: '%M:%S'
@@ -108,8 +108,10 @@ block content
                                                 } else {
                                                     return 'Assist from ' + value;
                                                 }
-                                            } else {
+                                            } else if (id == 'a') {
                                                 return 'Assist to ' + value;
+                                            } else {
+                                                return value;
                                             }
                                         }
                                     }
@@ -121,7 +123,7 @@ block content
                     div.panel-heading
                         h3.panel-title 
                             i.fa.fa-area-chart 
-                                | Goals (PowerPlay, ShortHand, EmptyNet), Assists, Penalty In Minutes
+                                | Goals (PowerPlay, ShortHand, EmptyNet), Assists, Penalty In Minutes By Date
                     div.panel-body                
                         div(id='chart10' class='c3chart')                                      
                         script(type='text/javascript').
@@ -144,6 +146,71 @@ block content
                                 }
                             });
         div.row
+            div.col-md-12
+                div.panel.panel-primary
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-bar-chart 
+                                | Goals (PowerPlay, ShortHand, EmptyNet), Assists, Penalty In Minutes By Opponent
+                    div.panel-body                
+                        div(id='chart20' class='c3chart')                                      
+                        script(type='text/javascript').
+                            var chart0 = c3.generate({
+                                bindto: '#chart20',
+                                data: {
+                                    json: !{JSON.stringify(opponent_stats)},
+                                    keys: {
+                                        x: 'opponent',
+                                        value: ['g', 'a', 'ppg', 'shg', 'eng', 'pts', 'pim']
+                                    },
+                                    type: 'bar'
+                                },
+                                legend: {
+                                    position: 'inset',
+                                    inset: {
+                                        anchor: 'top-right'
+                                    }
+                                },
+                                axis: {
+                                    x: {
+                                        type: 'category',
+                                    }
+                                }
+                            });
+        div.row
+            div.col-md-12
+                div.panel.panel-primary
+                    div.panel-heading
+                        h3.panel-title 
+                            i.fa.fa-bar-chart 
+                                | Goals (PowerPlay, ShortHand, EmptyNet), Assists, Penalty In Minutes By Rink
+                    div.panel-body                
+                        div(id='chart30' class='c3chart')                                      
+                        script(type='text/javascript').
+                            var chart0 = c3.generate({
+                                bindto: '#chart30',
+                                data: {
+                                    json: !{JSON.stringify(rink_stats)},
+                                    keys: {
+                                        x: 'rink',
+                                        value: ['g', 'a', 'ppg', 'shg', 'eng', 'pts', 'pim']
+                                    },
+                                    type: 'bar'
+                                },
+                                legend: {
+                                    position: 'inset',
+                                    inset: {
+                                        anchor: 'top-right'
+                                    }
+                                },
+                                axis: {
+                                    x: {
+                                        type: 'category',
+                                    }
+                                }
+                            });
+        
+        div.row
             div.col-md-4                                     
                 div.panel.panel-green
                     div.panel-heading
@@ -151,10 +218,10 @@ block content
                             i.fa.fa-pie-chart 
                                 | Goals By Period   
                     div.panel-body      
-                        div(id='chart20' class='c3chart') 
+                        div(id='chart40' class='c3chart') 
                         script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart20',
+                                bindto: '#chart40',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -178,10 +245,10 @@ block content
                             i.fa.fa-pie-chart 
                                 | Assists By Period   
                     div.panel-body      
-                        div(id='chart21' class='c3chart') 
+                        div(id='chart41' class='c3chart') 
                         script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart21',
+                                bindto: '#chart41',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -205,10 +272,10 @@ block content
                             i.fa.fa-pie-chart 
                                 | Points By Period   
                     div.panel-body    
-                        div(id='chart22' class='c3chart') 
+                        div(id='chart42' class='c3chart') 
                         script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart22',
+                                bindto: '#chart42',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -233,10 +300,10 @@ block content
                             i.fa.fa-pie-chart 
                                 | Goals By Kind   
                     div.panel-body    
-                        div(id='chart30' class='c3chart') 
+                        div(id='chart50' class='c3chart') 
                         script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart30',
+                                bindto: '#chart50',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -260,10 +327,10 @@ block content
                             i.fa.fa-pie-chart 
                                 | Assists From By Player   
                     div.panel-body    
-                        div(id='chart31' class='c3chart') 
+                        div(id='chart51' class='c3chart') 
                         script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart31',
+                                bindto: '#chart51',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -287,10 +354,10 @@ block content
                             i.fa.fa-pie-chart 
                                 | Assists To By Player   
                     div.panel-body               
-                        div(id='chart32' class='c3chart') 
+                        div(id='chart52' class='c3chart') 
                         script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart32',
+                                bindto: '#chart52',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -315,10 +382,10 @@ block content
                             i.fa.fa-pie-chart 
                                 | Penalty By Period   
                     div.panel-body                      
-                        div(id='chart40' class='c3chart') 
+                        div(id='chart60' class='c3chart') 
                         script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart40',
+                                bindto: '#chart60',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -342,10 +409,10 @@ block content
                             i.fa.fa-pie-chart 
                                 | Penalty By Kind   
                     div.panel-body            
-                        div(id='chart50' class='c3chart') 
+                        div(id='chart61' class='c3chart') 
                         script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart50',
+                                bindto: '#chart61',
                                 size: {
                                     height: 240,
                                     width: 480
@@ -373,10 +440,10 @@ block content
                             i.fa.fa-pie-chart 
                                 | Penalty In Minutes By Period   
                     div.panel-body              
-                        div(id='chart41' class='c3chart') 
+                        div(id='chart70' class='c3chart') 
                         script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart41',
+                                bindto: '#chart70',
                                 size: {
                                     height: 240,
                                     width: 240
@@ -400,10 +467,10 @@ block content
                             i.fa.fa-pie-chart 
                                 | Penalty In Minutes By Kind   
                     div.panel-body        
-                        div(id='chart51' class='c3chart') 
+                        div(id='chart71' class='c3chart') 
                         script(type='text/javascript').
                             var chart = c3.generate({
-                                bindto: '#chart51',
+                                bindto: '#chart71',
                                 size: {
                                     height: 240,
                                     width: 480

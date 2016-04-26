@@ -61,7 +61,7 @@ block content
                         div.panel-heading
                             h3.panel-title 
                                 i.fa.fa-bar-chart-o 
-                                    | Goals For, Goals Against, Penalty in Minutes
+                                    | Goals For, Goals Against, Penalty in Minutes By Date
                         div.panel-body
                             div(id='chart00' class='c3chart' data-layout='bar' data-xvalue='date' data-yvalues='gf|ga|pim') 
                             script(type='text/javascript').
@@ -97,7 +97,7 @@ block content
                         div.panel-heading
                             h3.panel-title 
                                 i.fa.fa-line-chart 
-                                    | Goals For, Goals Against, Penalty in Minutes
+                                    | Goals For, Goals Against, Penalty in Minutes By Date
                         div.panel-body
                             div(id='chart10' class='c3chart' data-layout='timeseries' data-xvalue='date' data-yvalues='gf|ga|pim')                                      
                             script(type='text/javascript').
@@ -135,7 +135,7 @@ block content
                         div.panel-heading
                             h3.panel-title 
                                 i.fa.fa-area-chart 
-                                    | Goals For, Goals Against, Penalties
+                                    | Goals For, Goals Against, Penalties By Period
                         div.panel-body       
                             div(id='chart20' class='c3chart') 
                             script(type='text/javascript').
@@ -191,6 +191,79 @@ block content
                                         }
                                     });  
             div.row
+                div.col-md-12
+                    div.panel.panel-primary
+                        div.panel-heading
+                            h3.panel-title 
+                                i.fa.fa-bar-chart-o 
+                                    | Goals For, Goals Against, Penalty in Minutes By Opponent
+                        div.panel-body
+                            div(id='chart30' class='c3chart' data-layout='bar' data-xvalue='opponent' data-yvalues='gf|ga|pim') 
+                            script(type='text/javascript').
+                                var chartdiv = d3.select('#chart30');
+                                var layout = chartdiv.attr('data-layout');
+                                var xvalue = chartdiv.attr('data-xvalue');
+                                var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
+                                var chart = c3.generate({
+                                    bindto: '#chart30',
+                                    data: {
+                                        json: !{JSON.stringify(opponent_stats)},
+                                        keys: {
+                                            x: xvalue,
+                                            value: yvalues,
+                                        },
+                                        type: layout
+                                    },
+                                    legend: {
+                                        position: 'inset',
+                                        inset: {
+                                            anchor: 'top-right'
+                                        }
+                                    },
+                                    axis: {
+                                        x: {
+                                            type: 'category',
+                                        }
+                                    }
+                                }); 
+            div.row
+                div.col-md-12
+                    div.panel.panel-primary
+                        div.panel-heading
+                            h3.panel-title 
+                                i.fa.fa-bar-chart-o 
+                                    | Goals For, Goals Against, Penalty in Minutes By Rink
+                        div.panel-body
+                            div(id='chart40' class='c3chart' data-layout='bar' data-xvalue='rink' data-yvalues='gf|ga|pim') 
+                            script(type='text/javascript').
+                                var chartdiv = d3.select('#chart40');
+                                var layout = chartdiv.attr('data-layout');
+                                var xvalue = chartdiv.attr('data-xvalue');
+                                var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
+                                var chart = c3.generate({
+                                    bindto: '#chart40',
+                                    data: {
+                                        json: !{JSON.stringify(rink_stats)},
+                                        keys: {
+                                            x: xvalue,
+                                            value: yvalues,
+                                        },
+                                        type: layout
+                                    },
+                                    legend: {
+                                        position: 'inset',
+                                        inset: {
+                                            anchor: 'top-right'
+                                        }
+                                    },
+                                    axis: {
+                                        x: {
+                                            type: 'category',
+                                        }
+                                    }
+                                }); 
+
+            div.row
                 div.col-md-4
                     div.panel.panel-green
                         div.panel-heading
@@ -198,10 +271,10 @@ block content
                                 i.fa.fa-pie-chart 
                                     | Goals By Period   
                         div.panel-body       
-                            div(id='chart30' class='c3chart') 
+                            div(id='chart50' class='c3chart') 
                             script(type='text/javascript').
                                 var chart = c3.generate({
-                                    bindto: '#chart30',
+                                    bindto: '#chart50',
                                     size: {
                                         height: 240,
                                         width: 240
@@ -225,10 +298,10 @@ block content
                                 i.fa.fa-pie-chart 
                                     | Goals By Kind   
                         div.panel-body                
-                            div(id='chart31' class='c3chart') 
+                            div(id='chart51' class='c3chart') 
                             script(type='text/javascript').
                                 var chart = c3.generate({
-                                    bindto: '#chart31',
+                                    bindto: '#chart51',
                                     size: {
                                         height: 240,
                                         width: 480
@@ -256,10 +329,10 @@ block content
                                 i.fa.fa-pie-chart 
                                     | Penalties By Period   
                         div.panel-body                       
-                            div(id='chart40' class='c3chart') 
+                            div(id='chart60' class='c3chart') 
                             script(type='text/javascript').
                                 var chart = c3.generate({
-                                    bindto: '#chart40',
+                                    bindto: '#chart60',
                                     size: {
                                         height: 240,
                                         width: 240
@@ -283,10 +356,10 @@ block content
                                 i.fa.fa-pie-chart 
                                     | Penalties By Kind   
                         div.panel-body                          
-                            div(id='chart41' class='c3chart') 
+                            div(id='chart61' class='c3chart') 
                             script(type='text/javascript').
                                 var chart = c3.generate({
-                                    bindto: '#chart41',
+                                    bindto: '#chart61',
                                     size: {
                                         height: 240,
                                         width: 480
@@ -314,10 +387,10 @@ block content
                                 i.fa.fa-pie-chart 
                                     | Penalty In Minutes By Period   
                         div.panel-body               
-                            div(id='chart50' class='c3chart') 
+                            div(id='chart70' class='c3chart') 
                             script(type='text/javascript').
                                 var chart = c3.generate({
-                                    bindto: '#chart50',
+                                    bindto: '#chart70',
                                     size: {
                                         height: 240,
                                         width: 240
@@ -341,10 +414,10 @@ block content
                                 i.fa.fa-pie-chart 
                                     | Penalty In Minutes By Kind   
                         div.panel-body                    
-                            div(id='chart51' class='c3chart') 
+                            div(id='chart71' class='c3chart') 
                             script(type='text/javascript').
                                 var chart = c3.generate({
-                                    bindto: '#chart51',
+                                    bindto: '#chart71',
                                     size: {
                                         height: 240,
                                         width: 480
