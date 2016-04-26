@@ -29,10 +29,10 @@ block content
                             | Games                 
         div.row
             div.col-md-12
-                button.btn.btn-primary(data-toggle="modal" data-target="#scheduleGameModal") Schedule a New Game
+                button#scheduleNewGame.btn.btn-primary(data-toggle="modal" data-target="#scheduleGameModal") Schedule New Game
         div.row
             div.col-md-12.table-responsive
-                table.table
+                table#games.table
                     thead
                         tr
                             th #
@@ -112,5 +112,27 @@ block content
                                 input#arena.form-control(type='text', name='arena')  
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
-                        button.btn.btn-primary(type="submit") Save            
-    
+                        button#submit1.btn.btn-primary(type="button") Save            
+    script(type="text/javascript").
+        $(function() {
+            $("#submit1").on('click', function() {
+                var postData = $("#scheduleGameForm").serializeArray();
+                console.log(postData);
+                var formURL = $("#scheduleGameForm").attr("action");
+                $.ajax(
+                    {
+                        url : formURL,
+                        type: "POST",
+                        data : postData,
+                        success:function(data, textStatus, jqXHR) {
+                            $("#scheduleGameModal").modal('hide');
+                            // $.get('/gameentry', function(result) {
+                            //     $('#games').html(result);
+                            // });
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+                });
+            });
+        

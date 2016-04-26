@@ -89,31 +89,6 @@ router.get('/:streamid', function(req, res, next) {
     });
 });
 
-function fetchAndDisplayEvents(req, res, next) {
-    var game_events = [];    
-    var streamid = req.params.streamid;
-    if (streamid) {
-        console.log(streamid);
-        var connection = ges({host:'127.0.0.1'});
-        connection.on('connect', function() {
-            console.log('connecting to geteventstore...');
-            connection.readStreamEventsBackward(streamid, {start: -1, count: 1000}, function(err, readResult) {
-                if (err) return console.log('Ooops!', err);
-                console.log(readResult.Events);
-                for (var i = 0; i < readResult.Events.length; i++) {
-                    var event = readResult.Events[i].Event;
-                    var game_event = {streamId: event.EventStreamId, number: event.EventNumber, type: event.EventType, json: JSON.parse(bin2String(event.Data.toJSON().data))}
-                    game_events[i] = game_event;
-                }
-                console.log(readResult.Events);
-                res.render('game_entry.pug', {title: 'Game Entry', 'game_events': game_events});
-            });        
-        });
-    } else {
-        res.render('game_entry.pug', {title: 'Game Entry', 'game_events': game_events});
-    }
-}
-
 router.post('/gamestart', function (req, res, next) {
     var stream = req.body.streamId;
     var connection = ges({host:'127.0.0.1'});
