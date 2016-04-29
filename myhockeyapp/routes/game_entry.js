@@ -61,7 +61,7 @@ router.post('/add', function (req, res, next) {
                     var game_event = { streamid: event.EventStreamId, number: eventData.number, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type }
                     games[i] = game_event;
                 }
-                res.render('game_list.pug', { title: 'Games', 'games': games });
+                res.render('game_list.pug', { title: 'Scheduled Games', 'games': games });
             });        
 
         });
@@ -84,7 +84,7 @@ router.get('/:streamid', function(req, res, next) {
                 game_events[i] = { number: event.EventNumber, type: event.EventType, json: JSON.parse(bin2String(event.Data.toJSON().data)) };
             }
             console.log(game_events);
-            res.render('game_entry.pug', { title: 'Game Entry', 'stream_id': streamid, 'game_events': game_events });
+            res.render('game_entry.pug', { title: 'Game Events', 'stream_id': streamid, 'game_events': game_events });
         });
     });
 });

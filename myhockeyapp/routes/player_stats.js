@@ -236,7 +236,8 @@ router.get('/:player_number', function(req, res, next) {
                     }        
                                                                       
                 }
-                res.render('player_stats.pug', { title: 'Stats for Player #' + player_number, player_id: player_number, data: stats, 'goalbykind': goalbykind, 'homescore': homescore, 'goalbyperiod': goalbyperiod, 'assistbyperiod': assistbyperiod, 'pointbyperiod': pointbyperiod, 'assistfrombyplayer': assistfrombyplayer, 'assisttobyplayer': assisttobyplayer, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind, 'gamestats': gamestats, 'opponent_stats': opponent_stats, 'rink_stats': rink_stats, });        
+                console.log(stats);
+                res.render('player_stats.pug', { 'title': 'Stats for Player #' + player_number, 'player_id': player_number, 's_s': stats, 'goalbykind': goalbykind, 'homescore': homescore, 'goalbyperiod': goalbyperiod, 'assistbyperiod': assistbyperiod, 'pointbyperiod': pointbyperiod, 'assistfrombyplayer': assistfrombyplayer, 'assisttobyplayer': assisttobyplayer, 'penaltybyperiod': penaltybyperiod, 'pimbyperiod': pimbyperiod, 'penaltybykind': penaltybykind, 'pimbykind': pimbykind, 'gamestats': gamestats, 'opponent_stats': opponent_stats, 'rink_stats': rink_stats, });        
             });
         });
         

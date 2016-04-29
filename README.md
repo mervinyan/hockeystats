@@ -21,6 +21,7 @@ How to run the project:
 11. Install Consolidate: npm install consolidate
 12. Install Pug: npm install pug --save
 13. Install Morgan: npm install morgan 
+14. Install Bower: npm install -g bower
 14. Run the web app either from Visual Studio Code from Node.ss command line 
      $ cd myhockeyapp 
      $ node app.js

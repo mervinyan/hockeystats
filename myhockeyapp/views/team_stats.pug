@@ -1,62 +1,78 @@
 extends layout
 
 block links
-    link(href='/stylesheets/c3.css' rel='stylesheet' type='text/css')
-    link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
-    link(href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css")
-    link(href="/stylesheets/sb-admin.css" rel="stylesheet" type="text/css")        
-    link(href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css")        
+
+    <!-- C3 Chart CSS -->
+    link(href='/bower_components/c3/c3.css' rel='stylesheet' type='text/css')
     
-block scripts    
-    script(src='/javascripts/d3.min.js' charset='utf-8' type='text/javascript')
-    script(src='/javascripts/c3.min.js' type='text/javascript')
-    script(src='/javascripts/jquery-2.2.1.min.js' type='text/javascript')    
-    script(src='/javascripts/bootstrap.min.js' type='text/javascript')
+    link(href="/stylesheets/style.css" rel="stylesheet" type="text/css")
+    
+    <!-- Bootstrap Core CSS -->
+    link(href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css")
+
+    <!-- MetisMenu CSS -->
+    link(href="/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet" type="text/css")
+
+    <!-- DataTables CSS -->
+    link(href="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css")
+
+    <!-- DataTables Responsive CSS -->
+    link(href="bower_components/datatables-responsive/css/responsive.dataTables.scss" rel="stylesheet")
+    
+    <!-- Custom CSS -->
+    link(href="/bower_components/sb-admin-2/css/sb-admin-2.css" rel="stylesheet" type="text/css")
+
+    <!-- Custom Fonts -->
+    link(href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css")
 
 block content
-        div.container-fluid
-            div.row
-                div.col-md-12
-                    h1.page-header #{title}
-                    ol.breadcrumb
-                        li
-                            i.fa.fa-dashboard
-                            a(href="/") 
-                                | Hockey Stats
-                        li
-                            i.fa.fa-users
-                            a(href="/teamstats") 
-                                | Team Stats
-            div.row
-                div.col-md-12.table-responsive
-                    table.table.table-hover
-                        thead
-                            tr
-                                th #
-                                th Date
-                                th Time
-                                th Opponent
-                                th Home/Away
-                                th Type
-                                th Rink
-                                th Goals For
-                                th Goals Against
-                                th Penalty in Minutes
-                        tbody
-                            each game in game_stats
+    div.row
+        div.col-lg-12
+            h1.page-header #{title}
+            ol.breadcrumb
+                li
+                    i.fa.fa-dashboard
+                    a(href="/") 
+                        | Hockey Stats
+                li
+                    i.fa.fa-users
+                    a(href="/teamstats") 
+                        | Team Stats
+    div.row
+        div.col-lg-12
+            div.panel.panel-default
+                div.panel-heading
+                    | Game Stats
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-gamestats.table.table-hover
+                            thead
                                 tr
-                                    td #{game.number}
-                                    td #{game.date}
-                                    td #{game.time}
-                                    td #{game.opponent}
-                                    td #{game.homeaway}
-                                    td #{game.kind}
-                                    td #{game.rink}
-                                    td #{game.gf}
-                                    td #{game.ga}
-                                    td #{game.pim}
+                                    th #
+                                    th Date
+                                    th Time
+                                    th Opponent
+                                    th Home/Away
+                                    th Type
+                                    th Rink
+                                    th Goals For
+                                    th Goals Against
+                                    th Penalty in Minutes
+                            tbody
+                                each game in game_stats
+                                    tr
+                                        td #{game.number}
+                                        td #{game.date}
+                                        td #{game.time}
+                                        td #{game.opponent}
+                                        td #{game.homeaway}
+                                        td #{game.kind}
+                                        td #{game.rink}
+                                        td #{game.gf}
+                                        td #{game.ga}
+                                        td #{game.pim}
             div.row
-                div.col-md-12
+                div.col-lg-12
                     div.panel.panel-primary
                         div.panel-heading
                             h3.panel-title 
@@ -64,35 +80,8 @@ block content
                                     | Goals For, Goals Against, Penalty in Minutes By Date
                         div.panel-body
                             div(id='chart00' class='c3chart' data-layout='bar' data-xvalue='date' data-yvalues='gf|ga|pim') 
-                            script(type='text/javascript').
-                                var chartdiv = d3.select('#chart00');
-                                var layout = chartdiv.attr('data-layout');
-                                var xvalue = chartdiv.attr('data-xvalue');
-                                var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
-                                var chart = c3.generate({
-                                    bindto: '#chart00',
-                                    data: {
-                                        json: !{JSON.stringify(game_stats)},
-                                        keys: {
-                                            x: xvalue,
-                                            value: yvalues,
-                                        },
-                                        type: layout
-                                    },
-                                    legend: {
-                                        position: 'inset',
-                                        inset: {
-                                            anchor: 'top-right'
-                                        }
-                                    },
-                                    axis: {
-                                        x: {
-                                            type: 'category',
-                                        }
-                                    }
-                                }); 
             div.row
-                div.col-md-12
+                div.col-lg-12
                     div.panel.panel-primary
                         div.panel-heading
                             h3.panel-title 
@@ -100,37 +89,8 @@ block content
                                     | Goals For, Goals Against, Penalty in Minutes By Date
                         div.panel-body
                             div(id='chart10' class='c3chart' data-layout='timeseries' data-xvalue='date' data-yvalues='gf|ga|pim')                                      
-                            script(type='text/javascript').
-                                var chartdiv1 = d3.select('#chart10');
-                                var layout1 = chartdiv1.attr('data-layout');
-                                var xvalue1 = chartdiv1.attr('data-xvalue');
-                                var yvalues1 = chartdiv1.attr('data-yvalues')?chartdiv1.attr('data-yvalues').split('|'):null;
-                                var chart1 = c3.generate({
-                                    bindto: '#chart10',
-                                    data: {
-                                        json: !{JSON.stringify(game_stats)},
-                                        keys: {
-                                            x: xvalue1,
-                                            value: yvalues1
-                                        }
-                                    },
-                                    legend: {
-                                        position: 'inset',
-                                        inset: {
-                                            anchor: 'top-right'
-                                        }
-                                    },                        
-                                    axis: {
-                                        x: {
-                                            type: layout1,
-                                            tick: {
-                                                format: '%Y-%m-%d'
-                                            }
-                                        }
-                                    }
-                                });
             div.row
-                div.col-md-12
+                div.col-lg-12
                     div.panel.panel-primary
                         div.panel-heading
                             h3.panel-title 
@@ -138,60 +98,8 @@ block content
                                     | Goals For, Goals Against, Penalties By Period
                         div.panel-body       
                             div(id='chart20' class='c3chart') 
-                            script(type='text/javascript').
-                                    var chart = c3.generate({
-                                        bindto: '#chart20',
-                                        data: {
-                                            json: !{JSON.stringify(team_time_stats)},
-                                            keys: {
-                                                x:'time',
-                                                value: ['gf', 'ga', 'penalty'],
-                                            },
-                                            type: 'scatter',
-                                            xFormat: '%M:%S'
-                                        },
-                                        legend: {
-                                            position: 'bottom'
-                                        },                            
-                                        axis: {
-                                            x: {
-                                                label:'Time',
-                                                type: 'timeseries',
-                                                tick: {
-                                                    format: '%M:%S'
-                                                }
-                                            }
-                                        },
-                                        regions: [
-                                            {axis: 'x', start: '0:00', end: '20:00', class: 'region-period1'},
-                                            {axis: 'x', start: '20:01', end: '40:00', class: 'region-period2'},
-                                            {axis: 'x', start: '40:01', end: '60:00', class: 'region-period3'},
-                                        ],
-                                        tooltip: {
-                                            format: {
-                                                title: function(d) {
-                                                    var format = d3.time.format('%M:%S');
-                                                    return 'At ' + format(d);
-                                                },
-                                                name: function(name, ratio, id, index) {
-                                                    return name;
-                                                },
-                                                value: function(value, ratio, id) {
-                                                    if (id == 'gf') {
-                                                        return 'Goal scored by player #' + value;
-                                                    } else if (id == 'ga') {
-                                                        return 'Opponent Goal scored by player #' + value;
-                                                    } else if (id == 'penalty') {
-                                                        return 'Penalty taken by player #' + value;
-                                                    } else {
-                                                        return '';
-                                                    }
-                                                }                        
-                                            }
-                                        }
-                                    });  
             div.row
-                div.col-md-12
+                div.col-lg-12
                     div.panel.panel-primary
                         div.panel-heading
                             h3.panel-title 
@@ -199,35 +107,8 @@ block content
                                     | Goals For, Goals Against, Penalty in Minutes By Opponent
                         div.panel-body
                             div(id='chart30' class='c3chart' data-layout='bar' data-xvalue='opponent' data-yvalues='gf|ga|pim') 
-                            script(type='text/javascript').
-                                var chartdiv = d3.select('#chart30');
-                                var layout = chartdiv.attr('data-layout');
-                                var xvalue = chartdiv.attr('data-xvalue');
-                                var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
-                                var chart = c3.generate({
-                                    bindto: '#chart30',
-                                    data: {
-                                        json: !{JSON.stringify(opponent_stats)},
-                                        keys: {
-                                            x: xvalue,
-                                            value: yvalues,
-                                        },
-                                        type: layout
-                                    },
-                                    legend: {
-                                        position: 'inset',
-                                        inset: {
-                                            anchor: 'top-right'
-                                        }
-                                    },
-                                    axis: {
-                                        x: {
-                                            type: 'category',
-                                        }
-                                    }
-                                }); 
             div.row
-                div.col-md-12
+                div.col-lg-12
                     div.panel.panel-primary
                         div.panel-heading
                             h3.panel-title 
@@ -235,36 +116,8 @@ block content
                                     | Goals For, Goals Against, Penalty in Minutes By Rink
                         div.panel-body
                             div(id='chart40' class='c3chart' data-layout='bar' data-xvalue='rink' data-yvalues='gf|ga|pim') 
-                            script(type='text/javascript').
-                                var chartdiv = d3.select('#chart40');
-                                var layout = chartdiv.attr('data-layout');
-                                var xvalue = chartdiv.attr('data-xvalue');
-                                var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
-                                var chart = c3.generate({
-                                    bindto: '#chart40',
-                                    data: {
-                                        json: !{JSON.stringify(rink_stats)},
-                                        keys: {
-                                            x: xvalue,
-                                            value: yvalues,
-                                        },
-                                        type: layout
-                                    },
-                                    legend: {
-                                        position: 'inset',
-                                        inset: {
-                                            anchor: 'top-right'
-                                        }
-                                    },
-                                    axis: {
-                                        x: {
-                                            type: 'category',
-                                        }
-                                    }
-                                }); 
-
             div.row
-                div.col-md-4
+                div.col-lg-4
                     div.panel.panel-green
                         div.panel-heading
                             h3.panel-title 
@@ -272,26 +125,7 @@ block content
                                     | Goals By Period   
                         div.panel-body       
                             div(id='chart50' class='c3chart') 
-                            script(type='text/javascript').
-                                var chart = c3.generate({
-                                    bindto: '#chart50',
-                                    size: {
-                                        height: 240,
-                                        width: 240
-                                    },
-                                    data: {
-                                        json: !{JSON.stringify(goalbyperiod)},
-                                        type: 'pie',
-                                    },                                
-                                    pie: {
-                                        label: {
-                                            format: function(value, ration, id) {
-                                                return value;
-                                            }
-                                        }
-                                    }
-                                });              
-                div.col-md-8
+                div.col-lg-8
                     div.panel.panel-green
                         div.panel-heading
                             h3.panel-title 
@@ -299,30 +133,8 @@ block content
                                     | Goals By Kind   
                         div.panel-body                
                             div(id='chart51' class='c3chart') 
-                            script(type='text/javascript').
-                                var chart = c3.generate({
-                                    bindto: '#chart51',
-                                    size: {
-                                        height: 240,
-                                        width: 480
-                                    },                                
-                                    data: {
-                                        json: !{JSON.stringify(goalbykind)},
-                                        type: 'pie',
-                                    },
-                                    legend: {
-                                        position: 'right'  
-                                    },                                    
-                                    pie: {
-                                        label: {
-                                            format: function(value, ration, id) {
-                                                return value;
-                                            }
-                                        }
-                                    }
-                                });
             div.row
-                div.col-md-4     
+                div.col-lg-4     
                     div.panel.panel-green
                         div.panel-heading
                             h3.panel-title 
@@ -330,26 +142,7 @@ block content
                                     | Penalties By Period   
                         div.panel-body                       
                             div(id='chart60' class='c3chart') 
-                            script(type='text/javascript').
-                                var chart = c3.generate({
-                                    bindto: '#chart60',
-                                    size: {
-                                        height: 240,
-                                        width: 240
-                                        },                                
-                                        data: {
-                                            json: !{JSON.stringify(penaltybyperiod)},
-                                            type: 'pie',
-                                        },                          
-                                        pie: {
-                                            label: {
-                                                format: function(value, ration, id) {
-                                                    return value;
-                                                }
-                                            }
-                                        }
-                                    });                               
-                div.col-md-8 
+                div.col-lg-8 
                     div.panel.panel-green
                         div.panel-heading
                             h3.panel-title 
@@ -357,30 +150,8 @@ block content
                                     | Penalties By Kind   
                         div.panel-body                          
                             div(id='chart61' class='c3chart') 
-                            script(type='text/javascript').
-                                var chart = c3.generate({
-                                    bindto: '#chart61',
-                                    size: {
-                                        height: 240,
-                                        width: 480
-                                    },                                
-                                    data: {
-                                        json: !{JSON.stringify(penaltybykind)},
-                                        type: 'pie',
-                                    },
-                                    legend: {
-                                        position: 'right'  
-                                    },
-                                    pie: {
-                                        label: {
-                                            format: function(value, ration, id) {
-                                                return value;
-                                            }
-                                        }
-                                    }
-                                });
             div.row
-                div.col-md-4
+                div.col-lg-4
                     div.panel.panel-green
                         div.panel-heading
                             h3.panel-title 
@@ -388,26 +159,7 @@ block content
                                     | Penalty In Minutes By Period   
                         div.panel-body               
                             div(id='chart70' class='c3chart') 
-                            script(type='text/javascript').
-                                var chart = c3.generate({
-                                    bindto: '#chart70',
-                                    size: {
-                                        height: 240,
-                                        width: 240
-                                    },                                
-                                    data: {
-                                        json: !{JSON.stringify(pimbyperiod)},
-                                        type: 'pie',
-                                    },                     
-                                    pie: {
-                                        label: {
-                                            format: function(value, ration, id) {
-                                                return value;
-                                            }
-                                        }
-                                    }
-                                });                  
-                div.col-md-8                                                         
+                div.col-lg-8                                                         
                     div.panel.panel-green
                         div.panel-heading
                             h3.panel-title 
@@ -415,25 +167,330 @@ block content
                                     | Penalty In Minutes By Kind   
                         div.panel-body                    
                             div(id='chart71' class='c3chart') 
-                            script(type='text/javascript').
-                                var chart = c3.generate({
-                                    bindto: '#chart71',
-                                    size: {
-                                        height: 240,
-                                        width: 480
-                                    },                                
-                                    data: {
-                                        json: !{JSON.stringify(pimbykind)},
-                                        type: 'pie',
-                                    },
-                                    legend: {
-                                        position: 'right'  
-                                    },
-                                    pie: {
-                                        label: {
-                                            format: function(value, ration, id) {
-                                                return value;
-                                            }
-                                        }
-                                    }
-                                });     
+
+block scripts
+    <!-- D3 Chart JavaScript -->
+    script(src='/bower_components/d3/d3.min.js' charset='utf-8' type='text/javascript')
+
+    <!-- C3 Chart JavaScript -->
+    script(src='/bower_components/c3/c3.min.js' type='text/javascript')
+
+    <!-- jQuery -->
+    script(src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript")
+    
+    <!-- Bootstrap Core JavaScript -->
+    script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript")
+
+    <!-- Metis Menu Plugin JavaScript -->
+    script(src="/bower_components/metisMenu/dist/metisMenu.min.js" type="text/javascript")
+
+    <!-- DataTables JavaScript -->
+    script(src="/bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript")
+    script(src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js" type="text/javascript")
+
+    <!-- Custom Theme JavaScript -->
+    script(src="/bower_components/sb-admin-2/js/sb-admin-2.js" type="text/javascript")
+    
+    script(type="text/javascript").
+        $(document).ready(function() {
+            $('#datatable-gamestats').DataTable({
+                responsive: true
+            });
+        });
+
+    script(type='text/javascript').
+        var chartdiv = d3.select('#chart00');
+        var layout = chartdiv.attr('data-layout');
+        var xvalue = chartdiv.attr('data-xvalue');
+        var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
+        var chart = c3.generate({
+            bindto: '#chart00',
+            data: {
+                json: !{JSON.stringify(game_stats)},
+                keys: {
+                    x: xvalue,
+                    value: yvalues,
+                },
+                type: layout
+            },
+            legend: {
+                position: 'inset',
+                inset: {
+                    anchor: 'top-right'
+                }
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                }
+            }
+        }); 
+
+    script(type='text/javascript').
+        var chartdiv1 = d3.select('#chart10');
+        var layout1 = chartdiv1.attr('data-layout');
+        var xvalue1 = chartdiv1.attr('data-xvalue');
+        var yvalues1 = chartdiv1.attr('data-yvalues')?chartdiv1.attr('data-yvalues').split('|'):null;
+        var chart1 = c3.generate({
+            bindto: '#chart10',
+            data: {
+                json: !{JSON.stringify(game_stats)},
+                keys: {
+                    x: xvalue1,
+                    value: yvalues1
+                }
+            },
+            legend: {
+                position: 'inset',
+                inset: {
+                    anchor: 'top-right'
+                }
+            },                        
+            axis: {
+                x: {
+                    type: layout1,
+                    tick: {
+                        format: '%Y-%m-%d'
+                    }
+                }
+            }
+        });
+
+    script(type='text/javascript').
+        var chart = c3.generate({
+            bindto: '#chart20',
+            data: {
+                json: !{JSON.stringify(team_time_stats)},
+                keys: {
+                    x:'time',
+                    value: ['gf', 'ga', 'penalty'],
+                },
+                type: 'scatter',
+                xFormat: '%M:%S'
+            },
+            legend: {
+                position: 'bottom'
+            },                            
+            axis: {
+                x: {
+                    label:'Time',
+                    type: 'timeseries',
+                    tick: {
+                        format: '%M:%S'
+                    }
+                }
+            },
+            regions: [
+                {axis: 'x', start: '0:00', end: '20:00', class: 'region-period1'},
+                {axis: 'x', start: '20:01', end: '40:00', class: 'region-period2'},
+                {axis: 'x', start: '40:01', end: '60:00', class: 'region-period3'},
+            ],
+            tooltip: {
+                format: {
+                    title: function(d) {
+                        var format = d3.time.format('%M:%S');
+                        return 'At ' + format(d);
+                    },
+                    name: function(name, ratio, id, index) {
+                        return name;
+                    },
+                    value: function(value, ratio, id) {
+                        if (id == 'gf') {
+                            return 'Goal scored by player #' + value;
+                        } else if (id == 'ga') {
+                            return 'Opponent Goal scored by player #' + value;
+                        } else if (id == 'penalty') {
+                            return 'Penalty taken by player #' + value;
+                        } else {
+                            return '';
+                        }
+                    }                        
+                }
+            }
+        });  
+    script(type='text/javascript').
+        var chartdiv = d3.select('#chart30');
+        var layout = chartdiv.attr('data-layout');
+        var xvalue = chartdiv.attr('data-xvalue');
+        var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
+        var chart = c3.generate({
+            bindto: '#chart30',
+            data: {
+                json: !{JSON.stringify(opponent_stats)},
+                keys: {
+                    x: xvalue,
+                    value: yvalues,
+                },
+                type: layout
+            },
+            legend: {
+                position: 'inset',
+                inset: {
+                    anchor: 'top-right'
+                }
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                }
+            }
+        }); 
+
+    script(type='text/javascript').
+        var chartdiv = d3.select('#chart40');
+        var layout = chartdiv.attr('data-layout');
+        var xvalue = chartdiv.attr('data-xvalue');
+        var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
+        var chart = c3.generate({
+            bindto: '#chart40',
+            data: {
+                json: !{JSON.stringify(rink_stats)},
+                keys: {
+                    x: xvalue,
+                    value: yvalues,
+                },
+                type: layout
+            },
+            legend: {
+                position: 'inset',
+                inset: {
+                    anchor: 'top-right'
+                }
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                }
+            }
+        }); 
+    
+    script(type='text/javascript').
+        var chart = c3.generate({
+            bindto: '#chart50',
+            size: {
+                height: 240,
+                width: 240
+            },
+            data: {
+                json: !{JSON.stringify(goalbyperiod)},
+                type: 'pie',
+            },
+            pie: {
+                label: {
+                    format: function(value, ration, id) {
+                        return value;
+                    }
+                }
+            }
+        });              
+
+    script(type='text/javascript').
+        var chart = c3.generate({
+            bindto: '#chart51',
+            size: {
+                height: 240,
+                width: 480
+            },
+            data: {
+                json: !{JSON.stringify(goalbykind)},
+                type: 'pie',
+            },
+            legend: {
+                position: 'right'  
+            },    
+            pie: {
+                label: {
+                    format: function(value, ration, id) {
+                        return value;
+                    }
+                }
+            }
+        });
+    
+    script(type='text/javascript').
+        var chart = c3.generate({
+            bindto: '#chart60',
+            size: {
+                height: 240,
+                width: 240
+                },
+                data: {
+                    json: !{JSON.stringify(penaltybyperiod)},
+                    type: 'pie',
+                },                          
+                pie: {
+                    label: {
+                        format: function(value, ration, id) {
+                            return value;
+                        }
+                    }
+                }
+            });    
+
+    script(type='text/javascript').                                       
+        var chart = c3.generate({
+            bindto: '#chart61',
+            size: {
+                height: 240,
+                width: 480
+            },
+            data: {
+                json: !{JSON.stringify(penaltybykind)},
+                type: 'pie',
+            },
+            legend: {
+                position: 'right'  
+            },
+            pie: {
+                label: {
+                    format: function(value, ration, id) {
+                        return value;
+                    }
+                }
+            }
+        });
+
+    script(type='text/javascript').
+        var chart = c3.generate({
+            bindto: '#chart70',
+            size: {
+                height: 240,
+                width: 240
+            },
+            data: {
+                json: !{JSON.stringify(pimbyperiod)},
+                type: 'pie',
+            },                     
+            pie: {
+                label: {
+                    format: function(value, ration, id) {
+                        return value;
+                    }
+                }
+            }
+        });                  
+
+    script(type='text/javascript').
+        var chart = c3.generate({
+            bindto: '#chart71',
+            size: {
+                height: 240,
+                width: 480
+            },
+            data: {
+                json: !{JSON.stringify(pimbykind)},
+                type: 'pie',
+            },
+            legend: {
+                position: 'right'  
+            },
+            pie: {
+                label: {
+                    format: function(value, ration, id) {
+                        return value;
+                    }
+                }
+            }
+        });     
+  
+    
