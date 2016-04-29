@@ -13,3 +13,15 @@ pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
 .boolean { color: blue; }
 .null { color: magenta; }
 .key { color: red; }
+
+.c3-region.region-period1 {
+  fill: red;
+ }
+
+.c3-region.region-period2 {
+  fill: blue;
+}
+
+.c3-region.region-period3 {
+  fill: yellow;
+}
