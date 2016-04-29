@@ -19,15 +19,273 @@ block links
     link(href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css")
      
 block content
-        div.container-fluid
-            div.row
-                div.col-md-12
-                    h1.page-header #{title}
-                    ol.breadcrumb
-                        li
-                            i.fa.fa-dashboard
-                            a(href="/") 
-                                | Hockey Stats
+    div.row
+        div.col-lg-12
+            h1.page-header #{title}
+            ol.breadcrumb
+                li
+                    i.fa.fa-dashboard
+                    a(href="/") 
+                        | Dashboard
+    div.row
+        div.col-lg-3.col-md-6
+            div.panel.panel-green
+                div.panel-heading
+                    div.row
+                        div.col-xs-3
+                            i.fa.fa-angle-double-up.fa-5x
+                        div.col-xs-9.text-right
+                            div.huge
+                                |26
+                            div
+                                |Wins!
+                a(href="#")
+                    div.panel-footer
+                        span.pull-left
+                            |View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        div.clearfix            
+        div.col-lg-3.col-md-6
+            div.panel.panel-red
+                div.panel-heading
+                    div.row
+                        div.col-xs-3
+                            i.fa.fa-angle-double-down.fa-5x
+                        div.col-xs-9.text-right
+                            div.huge
+                                |12
+                            div
+                                |Loss!
+                a(href="#")
+                    div.panel-footer
+                        span.pull-left
+                            |View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        div.clearfix            
+        div.col-lg-3.col-md-6
+            div.panel.panel-info
+                div.panel-heading
+                    div.row
+                        div.col-xs-3
+                            i.fa.fa-arrows-h.fa-5x
+                        div.col-xs-9.text-right
+                            div.huge
+                                |4
+                            div
+                                |Ties!
+                a(href="#")
+                    div.panel-footer
+                        span.pull-left
+                            |View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        div.clearfix            
+        div.col-lg-3.col-md-6
+            div.panel.panel-yellow
+                div.panel-heading
+                    div.row
+                        div.col-xs-3
+                            i.fa.fa-clock-o.fa-5x
+                        div.col-xs-9.text-right
+                            div.huge
+                                |2
+                            div
+                                |Overtimes!
+                a(href="#")
+                    div.panel-footer
+                        span.pull-left
+                            |View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        div.clearfix            
+    div.row
+        div.col-lg-3.col-md-6
+            div.panel.panel-green
+                div.panel-heading
+                    div.row
+                        div.col-xs-3
+                            i.fa.fa-angle-double-up.fa-5x
+                        div.col-xs-9.text-right
+                            div.huge
+                                |126
+                            div
+                                |Goals For!
+                a(href="#")
+                    div.panel-footer
+                        span.pull-left
+                            |View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        div.clearfix            
+        div.col-lg-3.col-md-6
+            div.panel.panel-red
+                div.panel-heading
+                    div.row
+                        div.col-xs-3
+                            i.fa.fa-angle-double-down.fa-5x
+                        div.col-xs-9.text-right
+                            div.huge
+                                |82
+                            div
+                                |Goals Against!
+                a(href="#")
+                    div.panel-footer
+                        span.pull-left
+                            |View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        div.clearfix            
+        div.col-lg-3.col-md-6
+            div.panel.panel-info
+                div.panel-heading
+                    div.row
+                        div.col-xs-3
+                            i.fa.fa-arrows-h.fa-5x
+                        div.col-xs-9.text-right
+                            div.huge
+                                |2
+                            div
+                                |Shutouts!
+                a(href="#")
+                    div.panel-footer
+                        span.pull-left
+                            |View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        div.clearfix            
+        div.col-lg-3.col-md-6
+            div.panel.panel-yellow
+                div.panel-heading
+                    div.row
+                        div.col-xs-3
+                            i.fa.fa-clock-o.fa-5x
+                        div.col-xs-9.text-right
+                            div.huge
+                                |112
+                            div
+                                |Penalty in Minutes!
+                a(href="#")
+                    div.panel-footer
+                        span.pull-left
+                            |View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        div.clearfix            
+
+    div.row
+        div.col-lg-3.col-md-6
+            div.panel.panel-default
+                div.panel-heading
+                    |Score Leaders
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-scoreleaders.table.table-bordered.table-hover.table-striped
+                            thead
+                                tr
+                                    th #
+                                    th Goals
+                            tbody
+                                tr
+                                    td 12
+                                    td 30
+                                tr
+                                    td 5
+                                    td 20
+                                tr
+                                    td 9
+                                    td 12
+                                tr
+                                    td 6
+                                    td 11
+                                tr
+                                    td 16
+                                    td 8
+        div.col-lg-3.col-md-6
+            div.panel.panel-default
+                div.panel-heading
+                    |Assist Leaders
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-assistleaders.table.table-bordered.table-hover.table-striped
+                            thead
+                                tr
+                                    th #
+                                    th Goals
+                            tbody
+                                tr
+                                    td 5
+                                    td 25
+                                tr
+                                    td 12
+                                    td 15
+                                tr
+                                    td 17
+                                    td 10
+                                tr
+                                    td 8
+                                    td 6
+                                tr
+                                    td 2
+                                    td 4
+                
+        div.col-lg-3.col-md-6
+            div.panel.panel-default
+                div.panel-heading
+                    |Points Leaders
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-pointleaders.table.table-bordered.table-hover.table-striped
+                            thead
+                                tr
+                                    th #
+                                    th Goals
+                            tbody
+                                tr
+                                    td 12
+                                    td 45
+                                tr
+                                    td 5
+                                    td 44
+                                tr
+                                    td 9
+                                    td 36
+                                tr
+                                    td 6
+                                    td 30
+                                tr
+                                    td 16
+                                    td 25
+                
+        div.col-lg-3.col-md-6
+            div.panel.panel-default
+                div.panel-heading
+                    |PIM Leaders
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-pimleaders.table.table-bordered.table-hover.table-striped
+                            thead
+                                tr
+                                    th #
+                                    th Goals
+                            tbody
+                                tr
+                                    td 5
+                                    td 68
+                                tr
+                                    td 16
+                                    td 30
+                                tr
+                                    td 17
+                                    td 26
+                                tr
+                                    td 19
+                                    td 22
+                                tr
+                                    td 18
+                                    td 20
+
 
 block scripts    
     <!-- jQuery -->

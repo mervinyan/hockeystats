@@ -22,10 +22,23 @@ How to run the project:
 12. Install Pug: npm install pug --save
 13. Install Morgan: npm install morgan 
 14. Install Bower: npm install -g bower
-14. Run the web app either from Visual Studio Code from Node.ss command line 
+15. Install Bower Components: 
+    1). bower install bootstrap --save
+    2). bower install datatables --save
+    3). bower install datatables-plugins --save
+    4). bower install font-awesome --save
+    5). bower install holderjs --save
+    6). bower install metisMenu --save
+    7). bower install datatables-responsive --save
+    8). bower install bootstrap-social --save
+    9). bower install sb-admin-2 --save
+    10). bower install c3 --save
+    11). bower install d3 --save
+    
+16. Run the web app either from Visual Studio Code from Node.ss command line 
      $ cd myhockeyapp 
      $ node app.js
-15. The url to check team stats: http://host:port/teamstats (e.g. http://localhost:3000/teamstats)
-16. The url to check player stats: http://host:port/playerstats/12 (e.g. http://localhost:3000/playerstats/12)
+17. The url to check team stats: http://host:port/teamstats (e.g. http://localhost:3000/teamstats)
+18. The url to check player stats: http://host:port/playerstats/12 (e.g. http://localhost:3000/playerstats/12)
 
 
