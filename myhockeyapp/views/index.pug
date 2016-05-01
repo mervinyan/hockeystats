@@ -33,12 +33,12 @@ block content
                 div.panel-heading
                     div.row
                         div.col-xs-3
-                            i.fa.fa-angle-double-up.fa-5x
+                            i.fa.fa-smile-o.fa-5x
                         div.col-xs-9.text-right
                             div.huge
-                                |26
+                                |#{dashboard.w}
                             div
-                                |Wins!
+                                |Wins
                 a(href="#")
                     div.panel-footer
                         span.pull-left
@@ -51,12 +51,12 @@ block content
                 div.panel-heading
                     div.row
                         div.col-xs-3
-                            i.fa.fa-angle-double-down.fa-5x
+                            i.fa.fa-frown-o.fa-5x
                         div.col-xs-9.text-right
                             div.huge
-                                |12
+                                |#{dashboard.l}
                             div
-                                |Loss!
+                                |Loss
                 a(href="#")
                     div.panel-footer
                         span.pull-left
@@ -72,9 +72,9 @@ block content
                             i.fa.fa-arrows-h.fa-5x
                         div.col-xs-9.text-right
                             div.huge
-                                |4
+                                |#{dashboard.t}
                             div
-                                |Ties!
+                                |Ties
                 a(href="#")
                     div.panel-footer
                         span.pull-left
@@ -90,9 +90,9 @@ block content
                             i.fa.fa-clock-o.fa-5x
                         div.col-xs-9.text-right
                             div.huge
-                                |2
+                                |#{dashboard.o}
                             div
-                                |Overtimes!
+                                |Overtimes
                 a(href="#")
                     div.panel-footer
                         span.pull-left
@@ -106,12 +106,12 @@ block content
                 div.panel-heading
                     div.row
                         div.col-xs-3
-                            i.fa.fa-angle-double-up.fa-5x
+                            i.fa.fa-smile-o.fa-5x
                         div.col-xs-9.text-right
                             div.huge
-                                |126
+                                |#{dashboard.gf}
                             div
-                                |Goals For!
+                                |Goals For
                 a(href="#")
                     div.panel-footer
                         span.pull-left
@@ -124,12 +124,12 @@ block content
                 div.panel-heading
                     div.row
                         div.col-xs-3
-                            i.fa.fa-angle-double-down.fa-5x
+                            i.fa.fa-frown-o.fa-5x
                         div.col-xs-9.text-right
                             div.huge
-                                |82
+                                |#{dashboard.ga}
                             div
-                                |Goals Against!
+                                |Goals Against
                 a(href="#")
                     div.panel-footer
                         span.pull-left
@@ -145,9 +145,9 @@ block content
                             i.fa.fa-arrows-h.fa-5x
                         div.col-xs-9.text-right
                             div.huge
-                                |2
+                                |#{dashboard.so}
                             div
-                                |Shutouts!
+                                |Shutouts
                 a(href="#")
                     div.panel-footer
                         span.pull-left
@@ -160,12 +160,12 @@ block content
                 div.panel-heading
                     div.row
                         div.col-xs-3
-                            i.fa.fa-clock-o.fa-5x
+                            i.fa.fa-user-times.fa-5x
                         div.col-xs-9.text-right
                             div.huge
-                                |112
+                                |#{dashboard.pim}
                             div
-                                |Penalty in Minutes!
+                                |Penalty in Minutes
                 a(href="#")
                     div.panel-footer
                         span.pull-left
@@ -178,30 +178,70 @@ block content
         div.col-lg-3.col-md-6
             div.panel.panel-default
                 div.panel-heading
-                    |Score Leaders
+                    |Goal Leaders
                 div.panel-body
                     div.dataTable_wrapper
-                        table#datatable-scoreleaders.table.table-bordered.table-hover.table-striped
+                        table#datatable-goalleaders.table.table-bordered.table-hover.table-striped
                             thead
                                 tr
-                                    th #
+                                    th Player #
                                     th Goals
                             tbody
+                                each leader in dashboard.goal_leaders
+                                    tr
+                                        td #{leader[0]}
+                                        td #{leader[1]}
+        
+        div.col-lg-3.col-md-6
+            div.panel.panel-default
+                div.panel-heading
+                    |PowerPlay Goal Leaders
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-ppgleaders.table.table-bordered.table-hover.table-striped
+                            thead
                                 tr
-                                    td 12
-                                    td 30
+                                    th Player #
+                                    th Goals
+                            tbody
+                                each leader in dashboard.ppg_leaders
+                                    tr
+                                        td #{leader[0]}
+                                        td #{leader[2]}
+        div.col-lg-3.col-md-6
+            div.panel.panel-default
+                div.panel-heading
+                    |ShortHand Goal Leaders
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-shgleaders.table.table-bordered.table-hover.table-striped
+                            thead
                                 tr
-                                    td 5
-                                    td 20
+                                    th Player #
+                                    th Goals
+                            tbody
+                                each leader in dashboard.shg_leaders
+                                    tr
+                                        td #{leader[0]}
+                                        td #{leader[3]}
+        div.col-lg-3.col-md-6
+            div.panel.panel-default
+                div.panel-heading
+                    |EmptyNet Goal Leaders
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-engleaders.table.table-bordered.table-hover.table-striped
+                            thead
                                 tr
-                                    td 9
-                                    td 12
-                                tr
-                                    td 6
-                                    td 11
-                                tr
-                                    td 16
-                                    td 8
+                                    th Player #
+                                    th Goals
+                            tbody
+                                each leader in dashboard.eng_leaders
+                                    tr
+                                        td #{leader[0]}
+                                        td #{leader[4]}                                                                                        
+
+    div.row        
         div.col-lg-3.col-md-6
             div.panel.panel-default
                 div.panel-heading
@@ -211,24 +251,13 @@ block content
                         table#datatable-assistleaders.table.table-bordered.table-hover.table-striped
                             thead
                                 tr
-                                    th #
-                                    th Goals
+                                    th Player #
+                                    th Assists
                             tbody
-                                tr
-                                    td 5
-                                    td 25
-                                tr
-                                    td 12
-                                    td 15
-                                tr
-                                    td 17
-                                    td 10
-                                tr
-                                    td 8
-                                    td 6
-                                tr
-                                    td 2
-                                    td 4
+                                each leader in dashboard.assist_leaders
+                                    tr
+                                        td #{leader[0]}
+                                        td #{leader[5]}
                 
         div.col-lg-3.col-md-6
             div.panel.panel-default
@@ -239,24 +268,13 @@ block content
                         table#datatable-pointleaders.table.table-bordered.table-hover.table-striped
                             thead
                                 tr
-                                    th #
-                                    th Goals
+                                    th Player #
+                                    th Points
                             tbody
-                                tr
-                                    td 12
-                                    td 45
-                                tr
-                                    td 5
-                                    td 44
-                                tr
-                                    td 9
-                                    td 36
-                                tr
-                                    td 6
-                                    td 30
-                                tr
-                                    td 16
-                                    td 25
+                                each leader in dashboard.point_leaders
+                                    tr
+                                        td #{leader[0]}
+                                        td #{leader[6]}
                 
         div.col-lg-3.col-md-6
             div.panel.panel-default
@@ -267,25 +285,29 @@ block content
                         table#datatable-pimleaders.table.table-bordered.table-hover.table-striped
                             thead
                                 tr
-                                    th #
-                                    th Goals
+                                    th Player #
+                                    th Penalty in Minutes
                             tbody
+                                each leader in dashboard.pim_leaders
+                                    tr
+                                        td #{leader[0]}
+                                        td #{leader[7]}
+        div.col-lg-3.col-md-6
+            div.panel.panel-default
+                div.panel-heading
+                    |Goalie Leaders
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-gaolieleaders.table.table-bordered.table-hover.table-striped
+                            thead
                                 tr
-                                    td 5
-                                    td 68
-                                tr
-                                    td 16
-                                    td 30
-                                tr
-                                    td 17
-                                    td 26
-                                tr
-                                    td 19
-                                    td 22
-                                tr
-                                    td 18
-                                    td 20
-
+                                    th Player #
+                                    th Goals Against Average
+                            tbody
+                                // each leader in dashboard.pim_leaders
+                                //     tr
+                                //         td #{leader[0]}
+                                //         td #{leader[7]}
 
 block scripts    
     <!-- jQuery -->
