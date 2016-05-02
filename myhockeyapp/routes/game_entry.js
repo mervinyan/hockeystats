@@ -7,21 +7,22 @@ var uuid = require('node-uuid');
 
 router.get('/', function(req, res, next) {
     var games = [];
-    var connection = ges({host:'127.0.0.1'});
-        connection.on('connect', function() {
-            console.log('connecting to geteventstore...');
-            connection.readStreamEventsBackward('scheduled_games', {start: -1, count: 1000,  resolveLinkTos: true}, function(err, readResult) {
-                if (err) return console.log('Ooops!', err);
-                for (var i = 0; i < readResult.Events.length; i++) {
-                    var event = readResult.Events[i].Event;
-                    var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
-                    var eventData = JSON.parse(eventDataStr);
-                    var game_event = {streamid: event.EventStreamId, number: eventData.number, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type}
-                    games[i] = game_event;
-                }
-                res.render('game_list.pug', {title: 'Games', 'games': games});
-            });        
-        });
+    // var connection = ges({host:'127.0.0.1'});
+    //     connection.on('connect', function() {
+    //         console.log('connecting to geteventstore...');
+    //         connection.readStreamEventsBackward('scheduled_games', {start: -1, count: 1000,  resolveLinkTos: true}, function(err, readResult) {
+    //             if (err) return console.log('Ooops!', err);
+    //             for (var i = 0; i < readResult.Events.length; i++) {
+    //                 var event = readResult.Events[i].Event;
+    //                 var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
+    //                 var eventData = JSON.parse(eventDataStr);
+    //                 var game_event = {streamid: event.EventStreamId, number: eventData.number, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type}
+    //                 games[i] = game_event;
+    //             }
+    //             res.render('game_list.pug', {title: 'Games', 'games': games});
+    //         });        
+    //     });
+    res.render('game_list.pug', {title: 'Games', 'games': games});
 });
 
 router.get('/fetch', function(req, res, next) {
@@ -73,18 +74,18 @@ router.post('/add', function (req, res, next) {
             if (err) return console.log('Oops!', err);
             console.log(appendResult);
             var games = [];
-            connection.readStreamEventsBackward('scheduled_games', { start: -1, count: 1000, resolveLinkTos: true }, function(err, readResult) {
-                if (err) return console.log('Ooops!', err);
-                for (var i = 0; i < readResult.Events.length; i++) {
-                    var event = readResult.Events[i].Event;
-                    var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
-                    var eventData = JSON.parse(eventDataStr);
-                    var game_event = { streamid: event.EventStreamId, number: eventData.number, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type }
-                    games[i] = game_event;
-                }
-                res.json({"data": games});
-            });        
+            // connection.readStreamEventsBackward('scheduled_games', { start: -1, count: 1000, resolveLinkTos: true }, function(err, readResult) {
+            //     if (err) return console.log('Ooops!', err);
+            //     for (var i = 0; i < readResult.Events.length; i++) {
+            //         var event = readResult.Events[i].Event;
+            //         var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
+            //         var eventData = JSON.parse(eventDataStr);
+            //         var game_event = { streamid: event.EventStreamId, number: eventData.number, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type }
+            //         games[i] = game_event;
+            //     }
 
+            // });        
+            res.json({"data": games});
         });
     });
 
