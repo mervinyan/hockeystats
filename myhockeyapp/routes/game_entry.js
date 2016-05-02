@@ -24,6 +24,26 @@ router.get('/', function(req, res, next) {
         });
 });
 
+router.get('/fetch', function(req, res, next) {
+    var games = [];
+    var connection = ges({host:'127.0.0.1'});
+        connection.on('connect', function() {
+            console.log('connecting to geteventstore...');
+            connection.readStreamEventsBackward('scheduled_games', {start: -1, count: 1000,  resolveLinkTos: true}, function(err, readResult) {
+                if (err) return console.log('Ooops!', err);
+                for (var i = 0; i < readResult.Events.length; i++) {
+                    var event = readResult.Events[i].Event;
+                    var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
+                    var eventData = JSON.parse(eventDataStr);
+                    var game_event = {streamid: event.EventStreamId, number: eventData.number, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type}
+                    games[i] = game_event;
+                }
+                console.log(games);
+                res.json({"data": games});
+            });        
+        });
+});
+
 router.post('/add', function (req, res, next) {
     var stream = 'game-'+uuid.v4();
     var connection = ges({host:'127.0.0.1'});
@@ -43,7 +63,8 @@ router.post('/add', function (req, res, next) {
                         homeaway: req.body.homeawayOptions,
                         opponent: req.body.opponent,
                         arena: req.body.arena
-                    }))
+                    })),
+                    IsJson: true
                 }
           ]  
         };
@@ -61,7 +82,7 @@ router.post('/add', function (req, res, next) {
                     var game_event = { streamid: event.EventStreamId, number: eventData.number, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type }
                     games[i] = game_event;
                 }
-                res.render('game_list.pug', { title: 'Scheduled Games', 'games': games });
+                res.json({"data": games});
             });        
 
         });

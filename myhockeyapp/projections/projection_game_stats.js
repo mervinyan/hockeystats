@@ -2,7 +2,7 @@ fromCategory('game')
     .foreachStream()
     .when({
         $init: function() {
-            return {number: "", date: "", time: "", opponent: "", homeaway: "", kind: "", rink: "",  gf: 0, ga: 0, pim: 0};
+            return {number: "", date: "", time: "", opponent: "", homeaway: "", kind: "", rink: "",  gf: 0, ga: 0, p: 0, pim: 0};
         },
         "GameScheduled": function(state, ev) {
             state.number = ev.body.number;
@@ -12,7 +12,6 @@ fromCategory('game')
             state.homeaway = ev.body.homeaway;
             state.kind = ev.body.type;
             state.rink = ev.body.arena;
-            linkTo('scheduled_games', ev);
         },
         "GoalScored": function(state, ev) {
             state.gf++;
@@ -30,6 +29,7 @@ fromCategory('game')
             state.ga++;
         },
         "PenaltyTaken": function(state, ev) {
+            state.p++; 
             state.pim += parseInt(ev.body.min);
             linkTo(ev.body.player, ev);
         },
@@ -57,6 +57,7 @@ fromCategory('game')
                     "rink": state.rink,
                     "gf": state.gf,
                     "ga": state.ga,
+                    "p": state.p,
                     "pim": state.pim
                 });
             state.number = "";

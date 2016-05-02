@@ -39,7 +39,25 @@ block content
                                 |#{dashboard.w}
                             div
                                 |Wins
-                a(href="#")
+                a(href="/teamstats/wins")
+                    div.panel-footer
+                        span.pull-left
+                            |View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        div.clearfix            
+        div.col-lg-3.col-md-6
+            div.panel.panel-green
+                div.panel-heading
+                    div.row
+                        div.col-xs-3
+                            i.fa.fa-star-o.fa-5x
+                        div.col-xs-9.text-right
+                            div.huge
+                                |#{dashboard.so}
+                            div
+                                |Shutouts
+                a(href="/teamstats/shutouts")
                     div.panel-footer
                         span.pull-left
                             |View Details
@@ -56,8 +74,8 @@ block content
                             div.huge
                                 |#{dashboard.l}
                             div
-                                |Loss
-                a(href="#")
+                                |Losses
+                a(href="/teamstats/losses")
                     div.panel-footer
                         span.pull-left
                             |View Details
@@ -69,31 +87,13 @@ block content
                 div.panel-heading
                     div.row
                         div.col-xs-3
-                            i.fa.fa-arrows-h.fa-5x
+                            i.fa.fa-meh-o.fa-5x
                         div.col-xs-9.text-right
                             div.huge
                                 |#{dashboard.t}
                             div
                                 |Ties
-                a(href="#")
-                    div.panel-footer
-                        span.pull-left
-                            |View Details
-                        span.pull-right
-                            i.fa.fa-arrow-circle-right
-                        div.clearfix            
-        div.col-lg-3.col-md-6
-            div.panel.panel-yellow
-                div.panel-heading
-                    div.row
-                        div.col-xs-3
-                            i.fa.fa-clock-o.fa-5x
-                        div.col-xs-9.text-right
-                            div.huge
-                                |#{dashboard.o}
-                            div
-                                |Overtimes
-                a(href="#")
+                a(href="/teamstats/ties")
                     div.panel-footer
                         span.pull-left
                             |View Details
@@ -106,7 +106,6 @@ block content
                 div.panel-heading
                     div.row
                         div.col-xs-3
-                            i.fa.fa-smile-o.fa-5x
                         div.col-xs-9.text-right
                             div.huge
                                 |#{dashboard.gf}
@@ -124,7 +123,6 @@ block content
                 div.panel-heading
                     div.row
                         div.col-xs-3
-                            i.fa.fa-frown-o.fa-5x
                         div.col-xs-9.text-right
                             div.huge
                                 |#{dashboard.ga}
@@ -138,16 +136,15 @@ block content
                             i.fa.fa-arrow-circle-right
                         div.clearfix            
         div.col-lg-3.col-md-6
-            div.panel.panel-info
+            div.panel.panel-yellow
                 div.panel-heading
                     div.row
                         div.col-xs-3
-                            i.fa.fa-arrows-h.fa-5x
                         div.col-xs-9.text-right
                             div.huge
-                                |#{dashboard.so}
+                                |#{dashboard.p}
                             div
-                                |Shutouts
+                                |Penalties
                 a(href="#")
                     div.panel-footer
                         span.pull-left

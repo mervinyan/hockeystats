@@ -31,11 +31,7 @@ block content
             h1.page-header #{title}
             ol.breadcrumb
                 li
-                    i.fa.fa-dashboard
-                    a(href="/") 
-                        | Dashboard
-                li
-                    i.fa.fa-users
+                    i.fa.fa-list-ul
                     a(href="/teamstats") 
                         | Scheduled Games               
     div.row
@@ -56,16 +52,16 @@ block content
                                     th Arena
                                     th Type
                             tbody
-                                each game in games
-                                    tr
-                                        td
-                                            a(href="/gameentry/" + encodeURIComponent(game.streamid)) #{game.number} 
-                                        td #{game.date}
-                                        td #{game.time}
-                                        td #{game.opponent}
-                                        td #{game.homeaway}
-                                        td #{game.arena}
-                                        td #{game.type}
+                                // each game in games
+                                //     tr
+                                //         td
+                                //             a(href="/gameentry/" + encodeURIComponent(game.streamid)) #{game.number} 
+                                //         td #{game.date}
+                                //         td #{game.time}
+                                //         td #{game.opponent}
+                                //         td #{game.homeaway}
+                                //         td #{game.arena}
+                                //         td #{game.type}
                                         
     div#scheduleGameModal.modal.fade(tabIndex="-1" role="dialog" aria-labelledby="scheduleGameModalLabel")
         div.modal-dialog(role="document")
@@ -153,7 +149,17 @@ block scripts
     script(type="text/javascript").
         $(document).ready(function() {
             $('#datatable-schedulegames').DataTable({
-                responsive: true
+                responsive: true,
+                "ajax": "/gameentry/fetch",
+                "columns": [
+                    {"data": "number"},
+                    {"data": "date"},
+                    {"data": "time"},
+                    {"data": "opponent"},
+                    {"data": "homeaway"},
+                    {"data": "arena"},
+                    {"data": "type"}                    
+                ]
             });
         });
                                       
@@ -170,9 +176,20 @@ block scripts
                         data : postData,
                         success:function(data, textStatus, jqXHR) {
                             $("#scheduleGameModal").modal('hide');
-                            // $.get('/gameentry', function(result) {
-                            //     $('#games').html(result);
-                            // });
+                            $('#datatable-schedulegames').DataTable().fnDestroy();
+                            $('#datatable-schedulegames').DataTable({
+                                responsive: true,
+                                "ajax": "/gameentry/fetch",
+                                "columns": [
+                                    {"data": "number"},
+                                    {"data": "date"},
+                                    {"data": "time"},
+                                    {"data": "opponent"},
+                                    {"data": "homeaway"},
+                                    {"data": "arena"},
+                                    {"data": "type"}                    
+                                ]
+                            });
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                         }

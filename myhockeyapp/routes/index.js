@@ -7,7 +7,7 @@ var ges = require('ges-client');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 // res.send({ title: 'Express' });
-    var dashboard = {w: 0, l: 0, t: 0, o: 0, gf: 0, ppg:0, shg: 0, eng:0, ga: 0, so: 0, pim: 0, goal_leaders: [], ppg_leaders: [], shg_leaders: [], eng_leaders: [], assist_leaders: [], point_leaders: [], pim_leaders: []};
+    var dashboard = {w: 0, l: 0, t: 0, o: 0, gf: 0, ppg:0, shg: 0, eng:0, ga: 0, so: 0, p: 0, pim: 0, goal_leaders: [], ppg_leaders: [], shg_leaders: [], eng_leaders: [], assist_leaders: [], point_leaders: [], pim_leaders: []};
     var players = {};
     var connection = ges({host:'127.0.0.1'});
     connection.on('connect', function() {
@@ -19,6 +19,7 @@ router.get('/', function(req, res, next) {
                 var eventDataJson = JSON.parse(eventDataStr);
                 dashboard.gf += eventDataJson.gf;
                 dashboard.ga += eventDataJson.ga;
+                dashboard.p += eventDataJson.p;
                 dashboard.pim += eventDataJson.pim;
                 if (eventDataJson.gf > eventDataJson.ga) {
                   dashboard.w++;

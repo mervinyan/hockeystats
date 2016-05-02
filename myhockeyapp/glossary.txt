@@ -1,0 +1,129 @@
+Fenwick
+Fenwick is shots plus all shots attempts that missed the net (i.e. hit the post/crossbar, shot wide, etc.)
+Corsi
+Corsi is Fenwick plus all shots attempts that were blocked by the defending team.
+TM Statistics
+TM statistics are like a composite WOWY (With or Without You) statistic. Let's take Dion Phaneuf's TMCF60 (TeamMate Corsi For per 60 minutes of ice time) as an example. In this case Phaneuf's TMCF60 is a weighted average of each players CF60 when Phaneuf isn't on the ice with them weighted by the ice time they have played with Phaneuf (for players with fewer than 100 minutes apart from Phaneuf their overall CF60 is used instead to keep sample sizes from getting too small).
+One could consider TM statistics an expected value for the player if the player had no (positive or negative) influence on his team mates results when he plays with them.
+
+Opp Statistics
+Opp statistics are almost identical to TM statistics but considers every opponent as opposed to every teammate. This is best considered as a quality of competition statistic.
+RelTM statistics
+RelTM statistics are nothing more than the players statistic minus the equivalent TM statistic. So, CF20RelTM = CF20 - TMCF20.
+% of Team Statistics
+These represent the players on-ice statistics as a percentage of the teams overall statistics in games that the player has played in. If a player had a %ofTeam TOI of 32.0 it would mean that the player played in 32.0% of the teams ice time in games that he played in. A %ofTeam GF of 35.0 would mean the player was on the ice for 35% of all the goals scored by the team in games that the player played in.
+IPP, IAP, IGP, IPPP
+IPP is individual points percentage and is the # of points a player has divided by the number of goals scored while the player was on the ice. IGP is individual goals percentage and IAP is individual assists percentage. These are calculated the same way but use goals and assists instead of points. IPPP is individual primary points percentage only considers goals and first assists (ignores secondary assists) but is otherwise calculated the same as IPP.
+IPP and IPP tell us which players are most integral (or most involved) to the teams offensive production when the player is on the ice and IGP and IAP is an indication of whether the player is more of a goal scorer or play maker.
+
+Zone Start Adjusted
+Zone Start Adjusted statistics remove the 10 seconds immediately after a zone face off. It has been shown that the majority of the benefit or penalty of a zone start occurs during the first 10 seconds.
+
+
+Complete Table of Statistics
+Statistic	Definition
+GP	Games Played
+TOI	Time On Ice
+GF	Goals For (while on the ice)
+GA	Goals AGainst (while on the ice)
+GF60	Goals For while player is on ice per 60 minutes of ice time.
+GA60	Goals Against while player is on ice per 60 minutes of ice time.
+GF%	GF% = Goals For / (Goals For + Goals Against)
+TMGF60	Weighted (by TOI together) average of all teammates GF60.
+TMGA60	Weighted (by TOI together) average of all teammates GA60.
+TMGF%	Weighted (by TOI together) average of all teammates GF%.
+OPPGF60	Weighted (by TOI against each other) average of all opponents GF60.
+OPPGA60	Weighted (by TOI against each other) average of all opponents GA60.
+OPPGF%	Weighted (by TOI against each other) average of all opponents GF%.
+GF60RelTM	GF60 - TMGF60 (higher is better)
+GA60RelTM	GA60 - TMGA60 (lower is better)
+GF%RelTM	GF% - TMGF% (higher is better)
+SF	Shots For (while on the ice)
+SA	Shots AGainst (while on the ice)
+SF60	Shots For while player is on ice per 60 minutes of ice time.
+SA60	Shots Against while player is on ice per 60 minutes of ice time.
+SF%	SF% = Shots For / (Shots For + Shots Against)
+TMSF60	Weighted (by TOI together) average of all teammates SF60.
+TMSA60	Weighted (by TOI together) average of all teammates SA60.
+TMSF%	Weighted (by TOI together) average of all teammates SF%.
+OppSF60	Weighted (by TOI against each other) average of all opponents SF60.
+OppSA60	Weighted (by TOI against each other) average of all opponents SA60.
+OppSFor%	Weighted (by TOI against each other) average of all opponents SF%.
+SF60RelTM	SF60 - TMSF60 (higher is better)
+SA60RelTM	SA60 - TMSA60 (lower is better)
+SF%RelTM	SF% - TMSF% (higher is better)
+FF	Fenwick For (while on the ice)
+FA	Fenwick AGainst (while on the ice)
+FF60	Fenwick For while player is on ice per 60 minutes of ice time.
+FA60	Fenwick Against while player is on ice per 60 minutes of ice time.
+FF%	Fenwick For% = Fenwick For / (Fenwick For + Fenwick Against)
+TMFF60	Weighted (by TOI together) average of all teammates FenF60.
+TMFA60	Weighted (by TOI together) average of all teammates FenA60.
+TMFF%	Weighted (by TOI together) average of all teammates FenF%.
+OppFF60	Weighted (by TOI against each other) average of all opponents FenF60.
+OppFA60	Weighted (by TOI against each other) average of all opponents FenA60.
+OppFF%	Weighted (by TOI against each other) average of all opponents FenF%.
+FF60RelTM	FF60 - TMFF60 (higher is better)
+FA60RelTM	FA60 - TMFA60 (lower is better)
+FF%RelTM	FF% - TMFF% (higher is better)
+CF	Corsi For (while on the ice)
+CA	Corsi AGainst (while on the ice)
+CF60	Corsi For while player is on ice per 60 minutes of ice time.
+CA60	Corsi Against while player is on ice per 60 minutes of ice time.
+CF%	Corsi For% = Corsi For / (Corsi For + Corsi Against)
+TMCF60	Weighted (by TOI together) average of all teammates CorF60.
+TMCA60	Weighted (by TOI together) average of all teammates CorA60.
+TMCF%	Weighted (by TOI together) average of all teammates CorF%.
+OppCF60	Weighted (by TOI against each other) average of all opponents CorF60.
+OppCA60	Weighted (by TOI against each other) average of all opponents CorA60.
+OppCF%	Weighted (by TOI against each other) average of all opponents CorF%.
+CF60RelTM	CF60 - TMCF60 (higher is better)
+CA60RelTM	CA60 - TMCA60 (lower is better)
+CF%RelTM	CF% - TMCF% (higher is better)
+Sh%	Sh% = Shooting Percentage by team while on ice.
+Sv%	Sv% = Save percentage while on the ice.
+Sh%RelTM	Sh% - TMSh% (higher is better) Note that TMSh% is not currently available in any table.
+Sv%RelTM	Sv% - TMSv% (higher is better) Note that TMSv% is not currently available in any table.
+PDO	PDO = Shooting Percentage + Save Percentage while on the ice.
+FSh%	Fenwick Shooting Percentage by team while on ice.
+FSv%	Fenwick Save percentage while on the ice.
+FPDO	Fenwick PDO = FSh% + FSv%
+CFSh%	Corsi Shooting Percentage by team while on ice.
+CFSv%	Corsi Save percentage while on the ice.
+CFPDO	Corsi PDO = FSh% + FSv%
+OZFO	Number of offensive zone faceoffs while on the ice
+DZFO	Number of defensive zone faceoffs while on the ice
+NZFO	Number of neutral zone faceoffs while on the ice
+OZFO%	OZFO% = Offensive Zone Face Off Percentage -percentage of faceoffs in offensive zone while on ice
+DZFO%	DZFO% = Defensive Zone Face Off Percentage -percentage of faceoffs in defensive zone while on ice
+NZFO%	NZFO% = Neutral Zone Face Off Percentage -percentage of faceoffs in neutral zone while on ice
+iGoals	The number of goals the player himself scored
+iAssists	The number of assists the player himself has
+iFirstA	The number of primary/first assists the player himself has
+iPoints	The number of points the player himself has
+iPriPts	The number of primary points (igoals + iFirstA) the player himself has
+iShots	The number of goals the player himself scored
+iFenwick	Individual Fenwick - The number of fenwick events a player takes (shots + shots that missed the net)
+iCorsi	Individual Corsi - The number of corsi events a player takes (shots + shots attempts that missed the net or were blocked)
+iSh%	Individual shooting percentage (goals/shots)
+iGoals/60	iGoals per 60 minutes ice time
+iAssists/60	iAssists per 60 minutes ice time
+iFirstA/60	iFirstA per 60 minutes ice time
+iPoints/60	iPoints per 60 minutes ice time
+iPriPts/60	iPrimPts per 60 minutes ice time
+iShots/60	iShots per 60 minutes ice time
+iFen/60	iFenwick per 60 minutes ice time
+iCor/60	iCorsi per 60 minutes ice time
+IPP	Individual Points Percentage - The percentage of goals scored by players team while player is on the ice that the player had a point on.
+IGP	Individual Points Percentage - The percentage of goals scored by players team while player is on the ice that the player himself scored.
+IAP	Individual Points Percentage - The percentage of goals scored by players team while player is on the ice that the player had a assist on.
+IPP	Individual Primary Points Percentage - The percentage of goals by players team while player is on the ice that the player had a primary point on.
+%ofTeam TOI	Percent of the teams TOI that the player was on the ice for (only for games player participated in)
+%ofTeam GF	Percent of the teams GF that the player was on the ice for (only for games player participated in)
+%ofTeam GA	Percent of the teams GA that the player was on the ice for (only for games player participated in)
+%ofTeam SF	Percent of the teams SF that the player was on the ice for (only for games player participated in)
+%ofTeam SA	Percent of the teams SA that the player was on the ice for (only for games player participated in)
+%ofTeam FF	Percent of the teams FF that the player was on the ice for (only for games player participated in)
+%ofTeam FA	Percent of the teams FA that the player was on the ice for (only for games player participated in)
+%ofTeam CF	Percent of the teams CF that the player was on the ice for (only for games player participated in)
+%ofTeam CA	Percent of the teams CA that the player was on the ice for (only for games player participated in)
