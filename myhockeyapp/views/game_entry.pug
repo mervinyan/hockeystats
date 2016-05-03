@@ -31,27 +31,22 @@ block content
             h1.page-header #{title}
             ol.breadcrumb
                 li
-                    i.fa.fa-dashboard
-                    a(href="/") 
-                        | Dashboard
-                li
                     i.fa.fa-list-ul
                     a(href="/gameentry") 
                         | Scheduled Games  
                 li
                     i.fa.fa-edit
-                    a(href="/gameentry/#{stream_id}") 
-                        | #{stream_id}  
+                    <a href="/gameentry/#{stream_id}">#{stream_id}</a> 
     div.row
         div.col-lg-12
             div.panel.panel-default
                 div.panel-heading
-                    button.btn.btn-default(data-toggle="modal" data-target="#gameStartModal") Game Start
-                    button.btn.btn-default(data-toggle="modal" data-target="#homeScoreModal") Home Score
-                    button.btn.btn-default(data-toggle="modal" data-target="#homePenaltyModal") Home Penalty
-                    button.btn.btn-default(data-toggle="modal" data-target="#guestScoreModal") Guest Score
-                    button.btn.btn-default(data-toggle="modal" data-target="#guestPenaltyModal") Guest Penalty
-                    button.btn.btn-default(data-toggle="modal" data-target="#gameEndModal") Game End  
+                    button#btnGameStart.btn.btn-default(disabled=gamestart data-toggle="modal" data-target="#gameStartModal") Game Start
+                    button#btnHomeScore.btn.btn-default(disabled=!gamestart || gameover  data-toggle="modal" data-target="#homeScoreModal") Home Score
+                    button#btnHomePenalty.btn.btn-default(disabled=!gamestart || gameover data-toggle="modal" data-target="#homePenaltyModal") Home Penalty
+                    button#btnGuestScore.btn.btn-default(disabled=!gamestart || gameover data-toggle="modal" data-target="#guestScoreModal") Guest Score
+                    button#btnGuestPenalty.btn.btn-default(disabled=!gamestart || gameover data-toggle="modal" data-target="#guestPenaltyModal") Guest Penalty
+                    button#btnGameEnd.btn.btn-default(disabled=!gamestart ||gameover data-toggle="modal" data-target="#gameEndModal") Game End  
                 div.panel-body
                     div.dataTable_wrapper
                         table#datatable-gameevents.table.table-hover
@@ -61,12 +56,6 @@ block content
                                     th Event Type
                                     th Event Data
                             tbody
-                                each game_event in game_events
-                                    tr
-                                        td #{game_event.number}
-                                        td #{game_event.type}
-                                        td 
-                                            pre #{JSON.stringify(game_event.json, undefined, 4)}
     
     div#gameStartModal.modal.fade(tabIndex="-1" role="dialog" aria-labelledby="gameStartModalLabel")
         div.modal-dialog(role="document")
@@ -75,20 +64,20 @@ block content
                     button.close(type="button" data-dismiss="modal" aria-label="Close")
                         span(aria-hidden="true") &times;
                     h4#gameStartModalLabel.mdoal-title Game Start
-                form#gameStartForm.form-horizontal(name='game_start' method='post' action='/gameentry/gamestart')
+                form#gameStartForm.form-horizontal(name='game_start' method='post' action="/gameentry/gamestart")
                     div.modal-body
                         div.form-group
                             label.col-sm-3.control-label(for='date') Date
                             div.col-sm-9
-                                input#streamId(type="hidden" value="#{stream_id}")
-                                input#date.form-control(type='date', name='date')
+                                <input type="hidden" name="streamId" id ="streamId" value="#{stream_id}">
+                                input#date.form-control(type='date' name='date')
                         div.form-group
                             label.col-sm-3.control-label(for='time') Time
                             div.col-sm-9
-                                input#time.form-control(type='time', name='time')
+                                input#time.form-control(type='time' name='time')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
-                        button.btn.btn-primary(type="submit") Save            
+                        button#submit1.btn.btn-primary(type="button") Save            
     div#homeScoreModal.modal.fade(tabIndex="-2" role="dialog" aria-labelledby="homeScoreModalLabel")
         div.modal-dialog(role="document")
             div.modal-content
@@ -101,7 +90,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='periodOptions') Period
                             div.col-sm-9
-                                input#streamId(type="hidden" value="#{stream_id}")                            
+                                <input type="hidden" name="streamId" id ="streamId" value="#{stream_id}">
                                 label.radio-inline 
                                     input#periodOption1(type='radio' name='periodOptions' value='1')
                                     | 1
@@ -136,18 +125,18 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='score') Score
                             div.col-sm-9
-                                input#score.form-control(type='text', name='score')
+                                input#score.form-control(type='text' name='score')
                         div.form-group
                             label.col-sm-3.control-label(for='assist1') Assist1
                             div.col-sm-9
-                                input#assist1.form-control(type='text', name='assist1')
+                                input#assist1.form-control(type='text' name='assist1')
                         div.form-group
                             label.col-sm-3.control-label(for='assist2') Assist2
                             div.col-sm-9
-                                input#assist2.form-control(type='text', name='assist2')
+                                input#assist2.form-control(type='text' name='assist2')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
-                        button.btn.btn-primary(type="submit") Save            
+                        button#submit2.btn.btn-primary(type="button") Save            
     div#homePenaltyModal.modal.fade(tabIndex="-3" role="dialog" aria-labelledby="homePenaltyModalLabel")
         div.modal-dialog(role="document")
             div.modal-content
@@ -160,7 +149,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='periodOptions') Period
                             div.col-sm-9
-                                input#streamId(type="hidden" value="#{stream_id}")                            
+                                <input type="hidden" name="streamId" id ="streamId" value="#{stream_id}">
                                 label.radio-inline 
                                     input#periodOption1(type='radio' name='periodOptions' value='1')
                                     | 1
@@ -176,30 +165,30 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='time') Time
                             div.col-sm-9
-                                input#time.form-control(type='text', name='time')
+                                input#time.form-control(type='text' name='time')
                         div.form-group
                             label.col-sm-3.control-label(for='player') Player
                             div.col-sm-9
-                                input#player.form-control(type='text', name='player')
+                                input#player.form-control(type='text' name='player')
                         div.form-group
                             label.col-sm-3.control-label(for='offense') Offense
                             div.col-sm-9
-                                input#offense.form-control(type='text', name='offense')
+                                input#offense.form-control(type='text' name='offense')
                         div.form-group
                             label.col-sm-3.control-label(for='min') Minutes
                             div.col-sm-9
-                                input#min.form-control(type='text', name='min')
+                                input#min.form-control(type='text' name='min')
                         div.form-group
                             label.col-sm-3.control-label(for='off') Off
                             div.col-sm-9
-                                input#off.form-control(type='text', name='off')
+                                input#off.form-control(type='text' name='off')
                         div.form-group
                             label.col-sm-3.control-label(for='on') On
                             div.col-sm-9
-                                input#on.form-control(type='text', name='on')
+                                input#on.form-control(type='text' name='on')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
-                        button.btn.btn-primary(type="submit") Save            
+                        button#submit3.btn.btn-primary(type="button") Save            
     div#guestScoreModal.modal.fade(tabIndex="-4" role="dialog" aria-labelledby="guestScoreModalLabel")
         div.modal-dialog(role="document")
             div.modal-content
@@ -212,7 +201,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='periodOptions') Period
                             div.col-sm-9
-                                input#streamId(type="hidden" value="#{stream_id}")                        
+                                <input type="hidden" name="streamId" id ="streamId" value="#{stream_id}">
                                 label.radio-inline 
                                     input#periodOption1(type='radio' name='periodOptions' value='1')
                                     | 1
@@ -228,7 +217,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='time') Time
                             div.col-sm-9
-                                input#time.form-control(type='text', name='time')
+                                input#time.form-control(type='text' name='time')
                         div.form-group
                             label.col-sm-3.control-label(for='kindOptions') Kind
                             div.col-sm-9
@@ -247,18 +236,18 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='score') Score
                             div.col-sm-9
-                                input#score.form-control(type='text', name='score')
+                                input#score.form-control(type='text' name='score')
                         div.form-group
                             label.col-sm-3.control-label(for='assist1') Assist1
                             div.col-sm-9
-                                input#assist1.form-control(type='text', name='assist1')
+                                input#assist1.form-control(type='text' name='assist1')
                         div.form-group
                             label.col-sm-3.control-label(for='assist2') Assist2
                             div.col-sm-9
-                                input#assist2.form-control(type='text', name='assist2')
+                                input#assist2.form-control(type='text' name='assist2')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
-                        button.btn.btn-primary(type="submit") Save            
+                        button#submit4.btn.btn-primary(type="button") Save            
     div#guestPenaltyModal.modal.fade(tabIndex="-5" role="dialog" aria-labelledby="guestPenaltyModalLabel")
         div.modal-dialog(role="document")
             div.modal-content
@@ -271,7 +260,7 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='periodOptions') Period
                             div.col-sm-9
-                                input#streamId(type="hidden" value="#{stream_id}")                                                    
+                                <input type="hidden" name="streamId" id ="streamId" value="#{stream_id}">
                                 label.radio-inline 
                                     input#periodOption1(type='radio' name='periodOptions' value='1')
                                     | 1
@@ -287,30 +276,30 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='time') Time
                             div.col-sm-9
-                                input#time.form-control(type='text', name='time')
+                                input#time.form-control(type='text' name='time')
                         div.form-group
                             label.col-sm-3.control-label(for='player') Player
                             div.col-sm-9
-                                input#player.form-control(type='text', name='player')
+                                input#player.form-control(type='text' name='player')
                         div.form-group
                             label.col-sm-3.control-label(for='offense') Offense
                             div.col-sm-9
-                                input#offense.form-control(type='text', name='offense')
+                                input#offense.form-control(type='text' name='offense')
                         div.form-group
                             label.col-sm-3.control-label(for='min') Minutes
                             div.col-sm-9
-                                input#min.form-control(type='text', name='min')
+                                input#min.form-control(type='text' name='min')
                         div.form-group
                             label.col-sm-3.control-label(for='off') Off
                             div.col-sm-9
-                                input#off.form-control(type='text', name='off')
+                                input#off.form-control(type='text' name='off')
                         div.form-group
                             label.col-sm-3.control-label(for='on') On
                             div.col-sm-9
-                                input#on.form-control(type='text', name='on')
+                                input#on.form-control(type='text' name='on')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
-                        button.btn.btn-primary(type="submit") Save            
+                        button#submit5.btn.btn-primary(type="button") Save            
     div#gameEndModal.modal.fade(tabIndex="-6" role="dialog" aria-labelledby="gameEndModalLabel")
         div.modal-dialog(role="document")
             div.modal-content
@@ -323,15 +312,15 @@ block content
                         div.form-group
                             label.col-sm-3.control-label(for='date') Date
                             div.col-sm-9
-                                input#streamId(type="hidden" value="#{stream_id}")                                                    
-                                input#date.form-control(type='date', name='date')
+                                <input type="hidden" name="streamId" id ="streamId" value="#{stream_id}">
+                                input#date.form-control(type='date' name='date')
                         div.form-group
                             label.col-sm-3.control-label(for='time') Time
                             div.col-sm-9
-                                input#time.form-control(type='time', name='time')
+                                input#time.form-control(type='time' name='time')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
-                        button.btn.btn-primary(type="submit") Save            
+                        button#submit6.btn.btn-primary(type="button") Save            
 
 block scripts
     <!-- D3 Chart JavaScript -->
@@ -359,9 +348,185 @@ block scripts
     script(type="text/javascript").
         $(document).ready(function() {
             $('#datatable-gameevents').DataTable({
-                responsive: true
+                "responsive": true,
+                "bPaginate": true,
+                "bJQueryUI": true,
+                "bLengthChange": false,
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": true,
+                "bAutoWidth": true,
+                "bProcessing": true,
+                "iDisplayLength": 10,
+                "ajax": "/gameentry/fetchevents/#{stream_id}",
+                "columns": [
+                    {"data": "number"},
+                    {"data": "type"},
+                    {"data": "json"}
+                ],
+                "createdRow": function(row, data, index) {
+                    $('td', row).eq(2).html("<pre>" + JSON.stringify(data.json, undefined, 4) + "</pre>");
+                },
             });
+                
         });
 
+    script(type="text/javascript").
+        $(function() {
+            $("#submit1").on('click', function() {
+                var postData = $("#gameStartForm").serializeArray();
+                console.log(postData);
+                var formURL = $("#gameStartForm").attr("action");
+                $.ajax(
+                    {
+                        url : formURL,
+                        type: "POST",
+                        data : postData,
+                        success:function(data, textStatus, jqXHR) {
+                            $("#gameStartModal").modal('hide');
+                            setTimeout(function() {
+                                $('#datatable-gameevents').DataTable().ajax.reload(function(json) {
+                                    if (json.gamestart) {
+                                        $("#btnGameStart").prop('disabled', true);
+                                        $("#btnHomeScore").prop('disabled', false);
+                                        $("#btnHomePenalty").prop('disabled', false);
+                                        $("#btnGuestScore").prop('disabled', false);
+                                        $("#btnGuestPenalty").prop('disabled', false);
+                                        $("#btnGameEnd").prop('disabled', false);
+                                    } 
+                                });
+                            }, 1000);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+                });
+            });
 
+    script(type="text/javascript").
+        $(function() {
+            $("#submit2").on('click', function() {
+                var postData = $("#homeScoreForm").serializeArray();
+                console.log(postData);
+                var formURL = $("#homeScoreForm").attr("action");
+                $.ajax(
+                    {
+                        url : formURL,
+                        type: "POST",
+                        data : postData,
+                        success:function(data, textStatus, jqXHR) {
+                            $("#homeScoreModal").modal('hide');
+                            setTimeout(function() {
+                                $('#datatable-gameevents').DataTable().ajax.reload(function(json) {
+                                });
+                            }, 1000);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+                });
+            });
+
+    script(type="text/javascript").
+        $(function() {
+            $("#submit3").on('click', function() {
+                var postData = $("#homePenaltyForm").serializeArray();
+                console.log(postData);
+                var formURL = $("#homePenaltyForm").attr("action");
+                $.ajax(
+                    {
+                        url : formURL,
+                        type: "POST",
+                        data : postData,
+                        success:function(data, textStatus, jqXHR) {
+                            $("#homePenaltyModal").modal('hide');
+                            setTimeout(function() {
+                                $('#datatable-gameevents').DataTable().ajax.reload(function(json) {
+                                });
+                            }, 1000);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+                });
+            });
+
+    script(type="text/javascript").
+        $(function() {
+            $("#submit4").on('click', function() {
+                var postData = $("#guestScoreForm").serializeArray();
+                console.log(postData);
+                var formURL = $("#guestScoreForm").attr("action");
+                $.ajax(
+                    {
+                        url : formURL,
+                        type: "POST",
+                        data : postData,
+                        success:function(data, textStatus, jqXHR) {
+                            $("#guestScoreModal").modal('hide');
+                            setTimeout(function() {
+                                $('#datatable-gameevents').DataTable().ajax.reload(function(json) {
+                                });
+                            }, 1000);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+                });
+            });
+
+    script(type="text/javascript").
+        $(function() {
+            $("#submit5").on('click', function() {
+                var postData = $("#guestPenaltyForm").serializeArray();
+                console.log(postData);
+                var formURL = $("#guestPenaltyForm").attr("action");
+                $.ajax(
+                    {
+                        url : formURL,
+                        type: "POST",
+                        data : postData,
+                        success:function(data, textStatus, jqXHR) {
+                            $("#guestPenaltyModal").modal('hide');
+                            setTimeout(function() {
+                                $('#datatable-gameevents').DataTable().ajax.reload(function(json) {
+                                });
+                            }, 1000);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+                });
+            });
+
+    script(type="text/javascript").
+        $(function() {
+            $("#submit6").on('click', function() {
+                var postData = $("#gameEndForm").serializeArray();
+                console.log(postData);
+                var formURL = $("#gameEndForm").attr("action");
+                $.ajax(
+                    {
+                        url : formURL,
+                        type: "POST",
+                        data : postData,
+                        success:function(data, textStatus, jqXHR) {
+                            $("#gameEndModal").modal('hide');
+                            setTimeout(function() {
+                                $('#datatable-gameevents').DataTable().ajax.reload(function(json) {
+                                    if (json.gameover) {
+                                       $("#btnHomeScore").prop('disabled', true);
+                                        $("#btnHomePenalty").prop('disabled', true);
+                                        $("#btnGuestScore").prop('disabled', true);
+                                        $("#btnGuestPenalty").prop('disabled', true);
+                                        $("#btnGameEnd").prop('disabled', true);                                        
+                                    }
+                                });
+                            }, 1000);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+                });
+            });
             

@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
                 players_stats.push(item);
             }
             console.log(players_stats);
-            res.render('players_stats.pug', { title: 'Players Stats', 'players_stats': players_stats});        
+            res.render('players_stats.pug', { title: 'Skater Stats', 'players_stats': players_stats});        
         });
     });
 });

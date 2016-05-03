@@ -41,4 +41,10 @@ How to run the project:
 17. The url to check team stats: http://host:port/teamstats (e.g. http://localhost:3000/teamstats)
 18. The url to check player stats: http://host:port/playerstats/12 (e.g. http://localhost:3000/playerstats/12)
 
+19. Jade variable doesn't work in tag input's value attribute, e.g. the following statment won't work
+input#streamId(type="hidden" value="#{stream_id}")
+however we can use the html tag
+<input type="hidden" name="streamId" id ="streamId", value="#{stream_id}">
+
+
 

@@ -52,16 +52,6 @@ block content
                                     th Arena
                                     th Type
                             tbody
-                                // each game in games
-                                //     tr
-                                //         td
-                                //             a(href="/gameentry/" + encodeURIComponent(game.streamid)) #{game.number} 
-                                //         td #{game.date}
-                                //         td #{game.time}
-                                //         td #{game.opponent}
-                                //         td #{game.homeaway}
-                                //         td #{game.arena}
-                                //         td #{game.type}
                                         
     div#scheduleGameModal.modal.fade(tabIndex="-1" role="dialog" aria-labelledby="scheduleGameModalLabel")
         div.modal-dialog(role="document")
@@ -149,7 +139,16 @@ block scripts
     script(type="text/javascript").
         $(document).ready(function() {
             $('#datatable-schedulegames').DataTable({
-                responsive: true,
+                "responsive": true,
+                "bPaginate": true,
+                "bJQueryUI": true,
+                "bLengthChange": false,
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": true,
+                "bAutoWidth": true,
+                "bProcessing": true,
+                "iDisplayLength": 10,
                 "ajax": "/gameentry/fetch",
                 "columns": [
                     {"data": "number"},
@@ -159,7 +158,10 @@ block scripts
                     {"data": "homeaway"},
                     {"data": "arena"},
                     {"data": "type"}                    
-                ]
+                ],
+                "createdRow": function(row, data, index) {
+                    $('td', row).eq(0).html("<a href=/gameentry/" + data.streamid + ">" + data.number + "</a>");
+                }
             });
         });
                                       
@@ -176,20 +178,9 @@ block scripts
                         data : postData,
                         success:function(data, textStatus, jqXHR) {
                             $("#scheduleGameModal").modal('hide');
-                            $('#datatable-schedulegames').DataTable().fnDestroy();
-                            $('#datatable-schedulegames').DataTable({
-                                responsive: true,
-                                "ajax": "/gameentry/fetch",
-                                "columns": [
-                                    {"data": "number"},
-                                    {"data": "date"},
-                                    {"data": "time"},
-                                    {"data": "opponent"},
-                                    {"data": "homeaway"},
-                                    {"data": "arena"},
-                                    {"data": "type"}                    
-                                ]
-                            });
+                            setTimeout(function() {
+                                $('#datatable-schedulegames').DataTable().ajax.reload();
+                            }, 1000);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                         }
