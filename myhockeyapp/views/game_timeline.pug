@@ -1,0 +1,223 @@
+extends layout
+
+block links
+
+    <!-- C3 Chart CSS -->
+    link(href='/bower_components/c3/c3.css' rel='stylesheet' type='text/css')
+    
+    link(href="/stylesheets/style.css" rel="stylesheet" type="text/css")
+    
+    <!-- Bootstrap Core CSS -->
+    link(href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css")
+
+    <!-- MetisMenu CSS -->
+    link(href="/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet" type="text/css")
+
+    <!-- Timeline CSS -->
+    link(href="/stylesheets/timeline.css" rel="stylesheet" type="text/css")
+    
+    <!-- DataTables CSS -->
+    link(href="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css")
+
+    <!-- DataTables Responsive CSS -->
+    link(href="bower_components/datatables-responsive/css/responsive.dataTables.scss" rel="stylesheet")
+    
+    <!-- Custom CSS -->
+    link(href="/bower_components/sb-admin-2/css/sb-admin-2.css" rel="stylesheet" type="text/css")
+
+    <!-- Custom Fonts -->
+    link(href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css")
+    
+block content
+    div.row
+        div.col-lg-12
+            h1.page-header #{title}
+            ol.breadcrumb
+                li
+                    i.fa.fa-list-ul
+                    a(href="/gameentry") 
+                        | Games  
+                li
+                    i.fa.fa-edit
+                    | 
+                    <a href="/gameentry/#{stream_id}">#{stream_id}</a> 
+                li
+                    i.fa.fa-clock-o
+                    | Timeline 
+                     
+    div.row
+        div.col-lg-12
+            div.panel.panel-default
+                div.panel-heading
+                    i.fa.fa-clock-o.fa-fw
+                    | Responsive Timeline
+                div.panel-body
+                    ul.timeline
+                        each game_event in game_events
+                            case game_event.type                                           
+                                when 'GameStarted'
+                                    li.timeline-inverted
+                                        div.timeline-badge.primary
+                                            i.fa.fa-play     
+                                        div.timeline-panel
+                                            div.timeline-heading
+                                                small.text-muted
+                                                    i.fa.fa-clock-o
+                                                    | 
+                                                    | game started at 
+                                                    strong #{game_event.json.time} 
+                                                    | on 
+                                                    strong #{game_event.json.date}
+                                            div.timeline-body
+                                                                       
+                                when 'GameEnded'
+                                    li.timeline-inverted
+                                        div.timeline-badge.primary
+                                            i.fa.fa-stop     
+                                        div.timeline-panel
+                                            div.timeline-heading
+                                                small.text-muted
+                                                    i.fa.fa-clock-o
+                                                    | 
+                                                    | game ended at 
+                                                    strong #{game_event.json.time} 
+                                                    | on 
+                                                    strong #{game_event.json.date}
+                                            div.timeline-body
+                                                                                                       
+                                when 'GoalScored'
+                                    li
+                                        div.timeline-badge.success
+                                            i.fa.fa-smile-o    
+                                        div.timeline-panel
+                                            div.timeline-heading
+                                                small.text-muted
+                                                    i.fa.fa-clock-o
+                                                    | 
+                                                    case game_event.json.kind
+                                                        when 'even'
+                                                            | goal 
+                                                        when 'pp'
+                                                            strong power play 
+                                                            | goal 
+                                                        when 'sh'
+                                                            strong short hand 
+                                                            | goal 
+                                                        when 'en'
+                                                            strong empty net 
+                                                            | goal                                                                
+                                                    | scored at 
+                                                    strong #{game_event.json.time} 
+                                                    | in period 
+                                                    strong #{game_event.json.period} 
+                                                    | by 
+                                                    strong ##{game_event.json.score}
+                                                    | 
+                                                    if (game_event.json.assist1) 
+                                                        | from 
+                                                        strong ##{game_event.json.assist1}
+                                                    if (game_event.json.assist2) 
+                                                        | , 
+                                                        strong ##{game_event.json.assist2} 
+                                            div.timeline-body
+                                                                                                                                        
+                                when 'PenaltyTaken'
+                                    li
+                                        div.timeline-badge.warning
+                                            i.fa.fa-ban      
+                                        div.timeline-panel
+                                            div.timeline-heading
+                                                small.text-muted
+                                                    i.fa.fa-clock-o
+                                                    | 
+                                                    strong #{game_event.json.min} 
+                                                    | minutes 
+                                                    strong #{game_event.json.offense} 
+                                                    | for 
+                                                    strong ##{game_event.json.player} 
+                                                    | occurred at 
+                                                    strong #{game_event.json.time} 
+                                                    | in period 
+                                                    strong #{game_event.json.period}
+                                            div.timeline-body
+                                                                                                      
+                                when 'OpponentGoalScored'
+                                    li.timeline-inverted
+                                        div.timeline-badge.danger
+                                            i.fa.fa-frown-o
+                                        div.timeline-panel
+                                            div.timeline-heading
+                                                small.text-muted
+                                                    i.fa.fa-clock-o
+                                                    | 
+                                                    case game_event.json.kind
+                                                        when 'even'
+                                                            | goal 
+                                                        when 'pp'
+                                                            strong power play 
+                                                            | goal 
+                                                        when 'sh'
+                                                            strong short hand 
+                                                            | goal 
+                                                        when 'en'
+                                                            strong empty net 
+                                                            | goal                                                                
+                                                    | scored at 
+                                                    strong #{game_event.json.time} 
+                                                    | in period 
+                                                    strong #{game_event.json.period} 
+                                                    | by 
+                                                    strong ##{game_event.json.score}
+                                                    | 
+                                                    if (game_event.json.assist1) 
+                                                        | from 
+                                                        strong ##{game_event.json.assist1}
+                                                    if (game_event.json.assist2) 
+                                                        | , 
+                                                        strong ##{game_event.json.assist2} 
+                                            div.timeline-body
+                                            
+                                when 'OpponentPenaltyTaken'
+                                    li.timeline-inverted
+                                        div.timeline-badge
+                                            i.fa.fa-ban
+                                        div.timeline-panel
+                                            div.timeline-heading
+                                                small.text-muted
+                                                    i.fa.fa-clock-o
+                                                    | 
+                                                    strong #{game_event.json.min} 
+                                                    | minutes 
+                                                    strong #{game_event.json.offense} 
+                                                    | for 
+                                                    strong ##{game_event.json.player} 
+                                                    | occurred at 
+                                                    strong #{game_event.json.time} 
+                                                    | in period 
+                                                    strong #{game_event.json.period}
+                                            div.timeline-body
+                                    
+
+block scripts
+    <!-- D3 Chart JavaScript -->
+    script(src='/bower_components/d3/d3.min.js' charset='utf-8' type='text/javascript')
+
+    <!-- C3 Chart JavaScript -->
+    script(src='/bower_components/c3/c3.min.js' type='text/javascript')
+
+    <!-- jQuery -->
+    script(src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript")
+    
+    <!-- Bootstrap Core JavaScript -->
+    script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript")
+
+    <!-- Metis Menu Plugin JavaScript -->
+    script(src="/bower_components/metisMenu/dist/metisMenu.min.js" type="text/javascript")
+
+    <!-- DataTables JavaScript -->
+    script(src="/bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript")
+    script(src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js" type="text/javascript")
+
+    <!-- Custom Theme JavaScript -->
+    script(src="/bower_components/sb-admin-2/js/sb-admin-2.js" type="text/javascript")
+         

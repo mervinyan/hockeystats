@@ -65,6 +65,7 @@ router.post('/add', function (req, res, next) {
 
 
 router.get('/:streamid', function (req, res, next) {
+    var game_events = [];
     var streamid = req.params.streamid;
     var connection = ges({ host: '127.0.0.1' });
     connection.on('connect', function () {
@@ -81,12 +82,32 @@ router.get('/:streamid', function (req, res, next) {
                 if (gameover == false && event.EventType == 'GameEnded') {
                     gameover = true;
                 }
+                game_events[i] = { number: event.EventNumber, type: event.EventType, json: JSON.parse(util.bin2String(event.Data.toJSON().data)) };
             }
-            res.render('game_entry.pug', { title: 'Game Events', 'stream_id': streamid, 'gamestart': gamestart, 'gameover': gameover });
+            res.render('game_entry.pug', { title: 'Game Events', 'stream_id': streamid, 'game_events': game_events, 'gamestart': gamestart, 'gameover': gameover });
         });
     });
 
 });
+
+router.get('/:streamid/timeline', function (req, res, next) {
+    var game_events = [];
+    var streamid = req.params.streamid;
+    var connection = ges({ host: '127.0.0.1' });
+    connection.on('connect', function () {
+        console.log('connecting to geteventstore...');
+        connection.readStreamEventsBackward(streamid, { start: -1, count: 1000 }, function (err, readResult) {
+            if (err) return console.log('Ooops!', err);
+            for (var i = 0; i < readResult.Events.length; i++) {
+                var event = readResult.Events[i].Event;
+                game_events[i] = { number: event.EventNumber, type: event.EventType, json: JSON.parse(util.bin2String(event.Data.toJSON().data)) };
+            }
+            res.render('game_timeline.pug', { title: 'Game Timeline', 'stream_id': streamid, 'game_events': game_events});
+        });
+    });
+
+});
+
 
 router.get('/fetchevents/:streamid', function (req, res, next) {
     var game_events = [];
@@ -109,9 +130,6 @@ router.get('/fetchevents/:streamid', function (req, res, next) {
                 }
                 game_events[i] = { number: event.EventNumber, type: event.EventType, json: JSON.parse(util.bin2String(event.Data.toJSON().data)) };
             }
-            console.log(game_events);
-            console.log(gamestart);
-            console.log(gameover);
             res.json({ 'data': game_events, 'stream_id': streamid, 'gamestart': gamestart, 'gameover': gameover });
         });
     });

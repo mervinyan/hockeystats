@@ -33,10 +33,11 @@ block content
                 li
                     i.fa.fa-list-ul
                     a(href="/gameentry") 
-                        | Scheduled Games  
+                        | Games  
                 li
                     i.fa.fa-edit
-                    <a href="/gameentry/#{stream_id}">#{stream_id}</a> 
+                    | 
+                    | #{stream_id}                     
     div.row
         div.col-lg-12
             div.panel.panel-default
@@ -46,7 +47,9 @@ block content
                     button#btnHomePenalty.btn.btn-default(disabled=!gamestart || gameover data-toggle="modal" data-target="#homePenaltyModal") Home Penalty
                     button#btnGuestScore.btn.btn-default(disabled=!gamestart || gameover data-toggle="modal" data-target="#guestScoreModal") Guest Score
                     button#btnGuestPenalty.btn.btn-default(disabled=!gamestart || gameover data-toggle="modal" data-target="#guestPenaltyModal") Guest Penalty
-                    button#btnGameEnd.btn.btn-default(disabled=!gamestart ||gameover data-toggle="modal" data-target="#gameEndModal") Game End  
+                    button#btnGameEnd.btn.btn-default(disabled=!gamestart ||gameover data-toggle="modal" data-target="#gameEndModal") Game End
+                    div.pull-right
+                        <a class="btn btn-info" href="/gameentry/#{stream_id}/timeline" role="button">Timeline</a>
                 div.panel-body
                     div.dataTable_wrapper
                         table#datatable-gameevents.table.table-hover
@@ -56,14 +59,17 @@ block content
                                     th Event Type
                                     th Event Data
                             tbody
-    
+                            
     div#gameStartModal.modal.fade(tabIndex="-1" role="dialog" aria-labelledby="gameStartModalLabel")
         div.modal-dialog(role="document")
             div.modal-content
                 div.modal-header
                     button.close(type="button" data-dismiss="modal" aria-label="Close")
                         span(aria-hidden="true") &times;
-                    h4#gameStartModalLabel.mdoal-title Game Start
+                    h4#gameStartModalLabel.modal-title 
+                        i.fa.fa-play
+                        |                          
+                        | Game Start
                 form#gameStartForm.form-horizontal(name='game_start' method='post' action="/gameentry/gamestart")
                     div.modal-body
                         div.form-group
@@ -84,7 +90,10 @@ block content
                 div.modal-header
                     button.close(type="button" data-dismiss="modal" aria-label="Close")
                         span(aria-hidden="true") &times;
-                    h4#homeScoreModalLabel.mdoal-title Home Score
+                    h4#homeScoreModalLabel.modal-title 
+                        i.fa.fa-smile-o
+                        |                          
+                        | Home Score
                 form#homeScoreForm.form-horizontal(name='home_score' method='post' action='/gameentry/homescore')
                     div.modal-body
                         div.form-group
@@ -111,16 +120,16 @@ block content
                             label.col-sm-3.control-label(for='kindOptions') Kind
                             div.col-sm-9
                                 label.radio-inline 
-                                    input#kindOption0(type='radio' name='kindOptions' value='Even')
+                                    input#kindOption0(type='radio' name='kindOptions' value='even')
                                     | Even
                                 label.radio-inline 
-                                    input#kindOption1(type='radio' name='kindOptions' value='Power Play')
+                                    input#kindOption1(type='radio' name='kindOptions' value='pp')
                                     | Power Play
                                 label.radio-inline
-                                    input#kindOption2(type='radio' name='kindOptions' value='Short Hand') 
+                                    input#kindOption2(type='radio' name='kindOptions' value='sh') 
                                     | Short Hand                        
                                 label.radio-inline
-                                    input#kindOption3(type='radio' name='kindOptions' value='Empty Net') 
+                                    input#kindOption3(type='radio' name='kindOptions' value='en') 
                                     | Empty Net                        
                         div.form-group
                             label.col-sm-3.control-label(for='score') Score
@@ -143,7 +152,10 @@ block content
                 div.modal-header
                     button.close(type="button" data-dismiss="modal" aria-label="Close")
                         span(aria-hidden="true") &times;
-                    h4#homePenaltyModalLabel.mdoal-title Home Penalty
+                    h4#homePenaltyModalLabel.modal-title 
+                        i.fa.fa-ban
+                        |                          
+                        | Home Penalty
                 form#homePenaltyForm.form-horizontal(name='home_penalty' method='post' action='/gameentry/homepenalty')
                     div.modal-body
                         div.form-group
@@ -195,7 +207,10 @@ block content
                 div.modal-header
                     button.close(type="button" data-dismiss="modal" aria-label="Close")
                         span(aria-hidden="true") &times;
-                    h4#guestScoreModalLabel.mdoal-title Guest Score
+                    h4#guestScoreModalLabel.modal-title 
+                        i.fa.fa-frown-o
+                        |                          
+                        | Guest Score
                 form#guestScoreForm.form-horizontal(name='guest_score' method='post' action='/gameentry/guestscore')
                     div.modal-body
                         div.form-group
@@ -222,16 +237,16 @@ block content
                             label.col-sm-3.control-label(for='kindOptions') Kind
                             div.col-sm-9
                                 label.radio-inline 
-                                    input#kindOption0(type='radio' name='kindOptions' value='Even')
+                                    input#kindOption0(type='radio' name='kindOptions' value='even')
                                     | Even
                                 label.radio-inline 
-                                    input#kindOption1(type='radio' name='kindOptions' value='Power Play')
+                                    input#kindOption1(type='radio' name='kindOptions' value='pp')
                                     | Power Play
                                 label.radio-inline
-                                    input#kindOption2(type='radio' name='kindOptions' value='Short Hand') 
+                                    input#kindOption2(type='radio' name='kindOptions' value='sh') 
                                     | Short Hand                        
                                 label.radio-inline
-                                    input#kindOption3(type='radio' name='kindOptions' value='Empty Net') 
+                                    input#kindOption3(type='radio' name='kindOptions' value='en') 
                                     | Empty Net                        
                         div.form-group
                             label.col-sm-3.control-label(for='score') Score
@@ -254,7 +269,10 @@ block content
                 div.modal-header
                     button.close(type="button" data-dismiss="modal" aria-label="Close")
                         span(aria-hidden="true") &times;
-                    h4#guestPenaltyModalLabel.mdoal-title Guest Penalty
+                    h4#guestPenaltyModalLabel.modal-title 
+                        i.fa.fa-ban
+                        |                          
+                        | Guest Penalty
                 form#guestPenaltyForm.form-horizontal(name='guest_penalty' method='post' action='/gameentry/guestpenalty')
                     div.modal-body
                         div.form-group
@@ -306,7 +324,10 @@ block content
                 div.modal-header
                     button.close(type="button" data-dismiss="modal" aria-label="Close")
                         span(aria-hidden="true") &times;
-                    h4#gameEndModalLabel.mdoal-title Game End
+                    h4#gameEndModalLabel.modal-title
+                        i.fa.fa-stop
+                        |                          
+                        | Game End
                 form#gameEndForm.form-horizontal(name='game_end' method='post' action='/gameentry/gameend')
                     div.modal-body
                         div.form-group
