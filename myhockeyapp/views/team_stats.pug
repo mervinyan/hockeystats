@@ -78,16 +78,20 @@ block content
                             h3.panel-title 
                                 i.fa.fa-bar-chart-o 
                                     | Goals For, Goals Against, Penalty in Minutes By Date
+                                div.pull-right
+                                    div.btn-group
+                                        button.btn.btn-default.btn-xs.dropdown-toggle(type="button" data-toggle="dropdown")
+                                            | Bar 
+                                            span.caret
+                                        ul.dropdown-menu.pull-right(role="menu")
+                                            li
+                                                a()
+                                                    | Bar
+                                            li
+                                                a()
+                                                    | TimeSeries                                      
                         div.panel-body
                             div(id='chart00' class='c3chart' data-layout='bar' data-xvalue='date' data-yvalues='gf|ga|pim') 
-            div.row
-                div.col-lg-12
-                    div.panel.panel-primary
-                        div.panel-heading
-                            h3.panel-title 
-                                i.fa.fa-line-chart 
-                                    | Goals For, Goals Against, Penalty in Minutes By Date
-                        div.panel-body
                             div(id='chart10' class='c3chart' data-layout='timeseries' data-xvalue='date' data-yvalues='gf|ga|pim')                                      
             div.row
                 div.col-lg-12
@@ -205,6 +209,20 @@ block scripts
                 "bProcessing": true,
                 "iDisplayLength": 10,
             });
+            $("#chart10").hide();
+        });
+
+    script(type='text/javascript').
+        $(".dropdown-menu li a").click(function(){
+            var selText = $(this).text();
+            $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+            if (selText == "Bar") {
+                $("#chart00").show();
+                $("#chart10").hide();
+            } else {
+                $("#chart00").hide();
+                $("#chart10").show();
+            }
         });
 
     script(type='text/javascript').
