@@ -42,32 +42,6 @@ block content
                     i.fa.fa-line-chart
                     a(href="/playerstats/#{player_id}") 
                         | Player ##{player_id}                      
-    // div.row
-    //     div.col-lg-12
-    //         div.panel.panel-default
-    //             div.panel-heading
-    //                 | Game Stats
-    //             div.panel-body
-    //                 div.dataTable_wrapper
-    //                     table#datatable-gamestats.table.table-hover
-    //                         thead
-    //                             tr
-    //                                 th Period
-    //                                 th Time
-    //                                 th Kind
-    //                                 th Score
-    //                                 th Assist1
-    //                                 th Assist2
-    //                         tbody
-    //                             each s in s_s
-    //                                 tr
-    //                                     td #{s.period}
-    //                                     td #{s.time}
-    //                                     td #{s.kind}
-    //                                     td #{s.score}
-    //                                     td #{s.assist1}
-    //                                     td #{s.assist2}
-        
     div.row
         div.col-lg-12
             div.panel.panel-primary
@@ -216,7 +190,7 @@ block scripts
         var chart = c3.generate({
             bindto: '#chart00',
             data: {
-                json: !{JSON.stringify(homescore)},
+                json: !{JSON.stringify(player_stats_0.occurred_at)},
                 keys: {
                     x:'time',
                     value: ['g', 'a', 'penalty'],
@@ -268,7 +242,7 @@ block scripts
         var chart0 = c3.generate({
             bindto: '#chart10',
             data: {
-                json: !{JSON.stringify(gamestats)},
+                json: !{JSON.stringify(player_stats_1.gamestats)},
                 keys: {
                     x: 'date',
                     value: ['g', 'a', 'ppg', 'shg', 'eng', 'pts', 'pim']
@@ -288,7 +262,7 @@ block scripts
         var chart0 = c3.generate({
             bindto: '#chart20',
             data: {
-                json: !{JSON.stringify(opponent_stats)},
+                json: !{JSON.stringify(player_stats_1.opponent_stats)},
                 keys: {
                     x: 'opponent',
                     value: ['g', 'a', 'ppg', 'shg', 'eng', 'pts', 'pim']
@@ -312,7 +286,7 @@ block scripts
         var chart0 = c3.generate({
             bindto: '#chart30',
             data: {
-                json: !{JSON.stringify(rink_stats)},
+                json: !{JSON.stringify(player_stats_1.rink_stats)},
                 keys: {
                     x: 'rink',
                     value: ['g', 'a', 'ppg', 'shg', 'eng', 'pts', 'pim']
@@ -339,7 +313,7 @@ block scripts
                 width: 240
             },
             data: {
-                json: !{JSON.stringify(goalbyperiod)},
+                json: !{JSON.stringify(player_stats_0.goal_by_period)},
                 type: 'pie',
             },
             pie: {
@@ -358,7 +332,7 @@ block scripts
                 width: 240
             },        
             data: {
-                json: !{JSON.stringify(assistbyperiod)},
+                json: !{JSON.stringify(player_stats_0.assist_by_period)},
                 type: 'pie',
             },
             pie: {
@@ -377,7 +351,7 @@ block scripts
                 width: 240
             },        
             data: {
-                json: !{JSON.stringify(pointbyperiod)},
+                json: !{JSON.stringify(player_stats_0.point_by_period)},
                 type: 'pie',
             },
             pie: {
@@ -397,7 +371,7 @@ block scripts
                 width: 240
             },
             data: {
-                json: !{JSON.stringify(goalbykind)},
+                json: !{JSON.stringify(player_stats_0.goal_by_kind)},
                 type: 'pie',
             },
             pie: {
@@ -416,7 +390,7 @@ block scripts
                 width: 240
             },
             data: {
-                json: !{JSON.stringify(assistfrombyplayer)},
+                json: !{JSON.stringify(player_stats_0.assist_from_by_player)},
                 type: 'pie',
             },
             pie: {
@@ -435,7 +409,7 @@ block scripts
                 width: 240
             },        
             data: {
-                json: !{JSON.stringify(assisttobyplayer)},
+                json: !{JSON.stringify(player_stats_0.assist_to_by_player)},
                 type: 'pie',
             },
             pie: {
@@ -454,7 +428,7 @@ block scripts
                 width: 240
             },        
             data: {
-                json: !{JSON.stringify(penaltybyperiod)},
+                json: !{JSON.stringify(player_stats_0.penalty_by_period)},
                 type: 'pie',
             },
             pie: {
@@ -473,7 +447,7 @@ block scripts
                 width: 480
             },        
             data: {
-                json: !{JSON.stringify(penaltybykind)},
+                json: !{JSON.stringify(player_stats_0.penalty_by_kind)},
                 type: 'pie',
             },
             legend: {
@@ -495,7 +469,7 @@ block scripts
                 width: 240
             },        
             data: {
-                json: !{JSON.stringify(pimbyperiod)},
+                json: !{JSON.stringify(player_stats_0.pim_by_period)},
                 type: 'pie',
             },
             pie: {
@@ -514,7 +488,7 @@ block scripts
                 width: 480
             },        
             data: {
-                json: !{JSON.stringify(pimbykind)},
+                json: !{JSON.stringify(player_stats_0.pim_by_kind)},
                 type: 'pie',
             },
             legend: {

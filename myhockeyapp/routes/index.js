@@ -2,11 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var ges = require('ges-client');
-    
+var util = require('./util.js');    
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-// res.send({ title: 'Express' });
     var dashboard = {w: 0, l: 0, t: 0, o: 0, gf: 0, ppg:0, shg: 0, eng:0, ga: 0, so: 0, p: 0, pim: 0, goal_leaders: [], ppg_leaders: [], shg_leaders: [], eng_leaders: [], assist_leaders: [], point_leaders: [], pim_leaders: []};
     var players = {};
     var connection = ges({host:'127.0.0.1'});
@@ -15,7 +13,7 @@ router.get('/', function(req, res, next) {
         connection.readStreamEventsForward('gamestats', {start: 0, count: 1000}, function(err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
-                var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data);
+                var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
                 var eventDataJson = JSON.parse(eventDataStr);
                 dashboard.gf += eventDataJson.gf;
                 dashboard.ga += eventDataJson.ga;
@@ -39,7 +37,7 @@ router.get('/', function(req, res, next) {
               for (var i = 0; i < readResult.Events.length; i++) {
                 var event = readResult.Events[i].Event;
                 // var eventData = JSON.parse(bin2String(event.Data.toJSON().data));
-                var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
+                var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data)
                 // console.log(eventDataStr);
                 var eventData = JSON.parse(eventDataStr);
                 var player_number = eventData.playernumber;
@@ -60,7 +58,7 @@ router.get('/', function(req, res, next) {
               for (var player in players) {
                 players_stats.push([player, players[player].g, players[player].ppg, players[player].shg, players[player].eng, players[player].a, players[player].pts, players[player].pim]);
               }
-              console.log(players_stats);
+
               players_stats.sort(function (a, b) {
                 return b[1] - a[1];
               });
@@ -135,7 +133,6 @@ router.get('/', function(req, res, next) {
                   }                  
                 }
               }  
-              console.log(dashboard);                                      
               res.render('index.pug', { title: 'Dashboard', 'dashboard': dashboard}); 
             });
         
@@ -144,14 +141,5 @@ router.get('/', function(req, res, next) {
     });
     
 });
-
-function bin2String(array) {
-    var result = "";
-    for (var i = 0; i < array.length; i++) {
-        result += String.fromCharCode(array[i]);
-    }
-    return result;
-}
-
 
 module.exports = router;

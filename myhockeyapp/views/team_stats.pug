@@ -59,7 +59,7 @@ block content
                                     th Goals Against
                                     th Penalty in Minutes
                             tbody
-                                each game in game_stats
+                                each game in team_stats_0.game_stats
                                     tr
                                         td #{game.number}
                                         td #{game.date}
@@ -215,7 +215,7 @@ block scripts
         var chart = c3.generate({
             bindto: '#chart00',
             data: {
-                json: !{JSON.stringify(game_stats)},
+                json: !{JSON.stringify(team_stats_0.game_stats)},
                 keys: {
                     x: xvalue,
                     value: yvalues,
@@ -243,7 +243,7 @@ block scripts
         var chart1 = c3.generate({
             bindto: '#chart10',
             data: {
-                json: !{JSON.stringify(game_stats)},
+                json: !{JSON.stringify(team_stats_0.game_stats)},
                 keys: {
                     x: xvalue1,
                     value: yvalues1
@@ -269,7 +269,7 @@ block scripts
         var chart = c3.generate({
             bindto: '#chart20',
             data: {
-                json: !{JSON.stringify(team_time_stats)},
+                json: !{JSON.stringify(team_stats_1.team_time_stats)},
                 keys: {
                     x:'time',
                     value: ['gf', 'ga', 'penalty'],
@@ -325,7 +325,7 @@ block scripts
         var chart = c3.generate({
             bindto: '#chart30',
             data: {
-                json: !{JSON.stringify(opponent_stats)},
+                json: !{JSON.stringify(team_stats_0.opponent_stats)},
                 keys: {
                     x: xvalue,
                     value: yvalues,
@@ -353,7 +353,7 @@ block scripts
         var chart = c3.generate({
             bindto: '#chart40',
             data: {
-                json: !{JSON.stringify(rink_stats)},
+                json: !{JSON.stringify(team_stats_0.rink_stats)},
                 keys: {
                     x: xvalue,
                     value: yvalues,
@@ -381,7 +381,7 @@ block scripts
                 width: 240
             },
             data: {
-                json: !{JSON.stringify(goalbyperiod)},
+                json: !{JSON.stringify(team_stats_1.goal_by_period)},
                 type: 'pie',
             },
             pie: {
@@ -401,7 +401,7 @@ block scripts
                 width: 480
             },
             data: {
-                json: !{JSON.stringify(goalbykind)},
+                json: !{JSON.stringify(team_stats_1.goal_by_kind)},
                 type: 'pie',
             },
             legend: {
@@ -424,7 +424,7 @@ block scripts
                 width: 240
                 },
                 data: {
-                    json: !{JSON.stringify(penaltybyperiod)},
+                    json: !{JSON.stringify(team_stats_1.penalty_by_period)},
                     type: 'pie',
                 },                          
                 pie: {
@@ -444,7 +444,7 @@ block scripts
                 width: 480
             },
             data: {
-                json: !{JSON.stringify(penaltybykind)},
+                json: !{JSON.stringify(team_stats_1.penalty_by_kind)},
                 type: 'pie',
             },
             legend: {
@@ -467,7 +467,7 @@ block scripts
                 width: 240
             },
             data: {
-                json: !{JSON.stringify(pimbyperiod)},
+                json: !{JSON.stringify(team_stats_1.pim_by_period)},
                 type: 'pie',
             },                     
             pie: {
@@ -487,7 +487,7 @@ block scripts
                 width: 480
             },
             data: {
-                json: !{JSON.stringify(pimbykind)},
+                json: !{JSON.stringify(team_stats_1.pim_by_kind)},
                 type: 'pie',
             },
             legend: {
