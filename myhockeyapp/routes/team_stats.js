@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 
     connection.on('connect', function () {
         console.log('connecting to geteventstore...');
-        connection.readStreamEventsForward('gamestats', { start: 0, count: 1000 }, function (err, readResult) {
+        connection.readStreamEventsBackward('gamestats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             
             var team_stats_0 = gatherTeamStats0(readResult);
@@ -133,7 +133,7 @@ router.get('/wins', function (req, res, next) {
     var connection = ges({ host: '127.0.0.1' });
     connection.on('connect', function () {
         console.log('connecting to geteventstore...');
-        connection.readStreamEventsForward('gamestats', { start: 0, count: 1000 }, function (err, readResult) {
+        connection.readStreamEventsBackward('gamestats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
                 console.log(readResult.Events[i].Event.EventType);
@@ -153,7 +153,7 @@ router.get('/losses', function (req, res, next) {
     var connection = ges({ host: '127.0.0.1' });
     connection.on('connect', function () {
         console.log('connecting to geteventstore...');
-        connection.readStreamEventsForward('gamestats', { start: 0, count: 1000 }, function (err, readResult) {
+        connection.readStreamEventsBackward('gamestats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
                 console.log(readResult.Events[i].Event.EventType);
@@ -173,7 +173,7 @@ router.get('/shutouts', function (req, res, next) {
     var connection = ges({ host: '127.0.0.1' });
     connection.on('connect', function () {
         console.log('connecting to geteventstore...');
-        connection.readStreamEventsForward('gamestats', { start: 0, count: 1000 }, function (err, readResult) {
+        connection.readStreamEventsBackward('gamestats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
                 console.log(readResult.Events[i].Event.EventType);
@@ -195,7 +195,7 @@ router.get('/ties', function (req, res, next) {
     var connection = ges({ host: '127.0.0.1' });
     connection.on('connect', function () {
         console.log('connecting to geteventstore...');
-        connection.readStreamEventsForward('gamestats', { start: 0, count: 1000 }, function (err, readResult) {
+        connection.readStreamEventsBackward('gamestats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
                 console.log(readResult.Events[i].Event.EventType);
