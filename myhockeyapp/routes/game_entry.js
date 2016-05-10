@@ -30,37 +30,52 @@ router.get('/fetch', function (req, res, next) {
 });
 
 router.post('/add', function (req, res, next) {
-    var stream = 'game-' + uuid.v4();
-    var connection = ges({ host: '127.0.0.1' });
-    connection.on('connect', function () {
-        console.log('connecting to geteventstore...');
-        var appendData = {
-            expectedVersion: ges.expectedVersion.emptyStream,
-            events: [
-                {
-                    EventId: uuid.v4(),
-                    Type: 'GameScheduled',
-                    Data: new Buffer(JSON.stringify({
-                        number: req.body.number,
-                        date: req.body.date,
-                        time: req.body.time,
-                        type: req.body.typeOptions,
-                        homeaway: req.body.homeawayOptions,
-                        opponent: req.body.opponent,
-                        arena: req.body.arena
-                    })),
-                    IsJson: true
-                }
-            ]
-        };
-        console.log(appendData);
-        connection.appendToStream(stream, appendData, function (err, appendResult) {
-            if (err) return console.log('Oops!', err);
-            console.log(appendResult);
-            res.json(appendResult);
+    req.checkBody('number', 'Number is required').notEmpty();
+    req.checkBody('date', 'Date is required').notEmpty();
+    req.checkBody('time', 'Time is required').notEmpty();
+    req.checkBody('type', 'Type is required').notEmpty();
+    req.checkBody('homeaway', 'HomeAway is required').notEmpty();
+    req.checkBody('opponent', 'Opponent is required').notEmpty();
+    req.checkBody('arena', 'Arena is required').notEmpty();
+    
+    var errors = req.validationErrors();
+    
+    console.log(errors);
+    
+    if (errors) {
+        res.json({ flash: { type: 'alert-danger', messages: errors }});
+    } else {
+        var stream = 'game-' + uuid.v4();
+        var connection = ges({ host: '127.0.0.1' });
+        connection.on('connect', function () {
+            console.log('connecting to geteventstore...');
+            var appendData = {
+                expectedVersion: ges.expectedVersion.emptyStream,
+                events: [
+                    {
+                        EventId: uuid.v4(),
+                        Type: 'GameScheduled',
+                        Data: new Buffer(JSON.stringify({
+                            number: req.body.number,
+                            date: req.body.date,
+                            time: req.body.time,
+                            type: req.body.type,
+                            homeaway: req.body.homeaway,
+                            opponent: req.body.opponent,
+                            arena: req.body.arena
+                        })),
+                        IsJson: true
+                    }
+                ]
+            };
+            console.log(appendData);
+            connection.appendToStream(stream, appendData, function (err, appendResult) {
+                if (err) return console.log('Oops!', err);
+                console.log(appendResult);
+                res.json(appendResult);
+            });
         });
-    });
-
+    }
 });
 
 

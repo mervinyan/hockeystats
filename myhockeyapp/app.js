@@ -4,22 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var validator = require('express-validator');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var team_stats = require('./routes/team_stats');
 var player_stats = require('./routes/player_stats');
 var game_entry = require('./routes/game_entry');
-// var todos = require('./routes/todos');
-
-// var mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/todoApp', function(err) {
-//     if(err) {
-//         console.log('connection error', err);
-//     } else {
-//         console.log('connection successful');
-//     }
-// });
 
 var app = express();
 
@@ -37,6 +28,7 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator())
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
