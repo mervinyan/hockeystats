@@ -283,24 +283,24 @@ block content
                             thead
                                 tr
                                     th Player #
-                                    th Penalty in Minutes
+                                    th PIM
                             tbody
                                 each leader in dashboard.pim_leaders
                                     tr
                                         td #{leader[0]}
                                         td #{leader[7]}
-        div.col-lg-3.col-md-6
-            div.panel.panel-default
-                div.panel-heading
-                    |Top Goals Against Average
-                div.panel-body
-                    div.dataTable_wrapper
-                        table#datatable-gaolieleaders.table.table-bordered.table-hover.table-striped
-                            thead
-                                tr
-                                    th Player #
-                                    th Goals Against Average
-                            tbody
+        //- div.col-lg-3.col-md-6
+        //-     div.panel.panel-default
+        //-         div.panel-heading
+        //-             |Top Goals Against Average
+        //-         div.panel-body
+        //-             div.dataTable_wrapper
+        //-                 table#datatable-gaolieleaders.table.table-bordered.table-hover.table-striped
+        //-                     thead
+        //-                         tr
+        //-                             th Player #
+        //-                             th Goals Against Average
+        //-                     tbody
                                 // each leader in dashboard.pim_leaders
                                 //     tr
                                 //         td #{leader[0]}
