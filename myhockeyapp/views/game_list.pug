@@ -44,7 +44,6 @@ block content
                         table#datatable-schedulegames.table.table-hover
                             thead
                                 tr
-                                    th #
                                     th Date
                                     th Time
                                     th Opponent
@@ -66,10 +65,6 @@ block content
                 include messages                        
                 form#scheduleGameForm.form-horizontal(name='game_schedule' method='post' action='/gameentry/add' novalidate)
                     div.modal-body
-                        div.form-group
-                            label.col-sm-3.control-label(for='number') Game Number
-                            div.col-sm-9
-                                input#number.form-control(type='text', name='number')
                         div.form-group
                             label.col-sm-3.control-label(for='date') Date
                             div.col-sm-9
@@ -171,7 +166,6 @@ block scripts
                 "iDisplayLength": 10,
                 "ajax": "/gameentry/fetch",
                 "columns": [
-                    {"data": "number"},
                     {"data": "date"},
                     {"data": "time"},
                     {"data": "opponent"},
@@ -180,7 +174,7 @@ block scripts
                     {"data": "type"}                    
                 ],
                 "createdRow": function(row, data, index) {
-                    $('td', row).eq(0).html("<a href=/gameentry/" + data.streamid + ">" + data.number + "</a>");
+                    $('td', row).eq(0).html("<a href=/gameentry/" + data.streamid + ">" + data.date + "</a>");
                 }
             });
             
@@ -193,9 +187,6 @@ block scripts
                 ignore: ":hidden",
                 onsubmit: false,
                 rules: {
-                    number: {
-                        required: true                        
-                    },
                     date: {
                         required: true
                     },
@@ -226,7 +217,6 @@ block scripts
             $("#submit1").on('click', function() {
                 if ($("#scheduleGameForm").valid()) {
                     var postData = {
-                        "number": $("#number").val(),
                         "date": $("#date").val(),
                         "time": $("#time").val(),
                         "type": $("#typeOptions").text().trim(),

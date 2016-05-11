@@ -3,7 +3,6 @@
             "eventId": "bd5ce4b8-5c64-4235-bcc9-f9a1794f37bc",
             "eventType": "GameScheduled",
             "data": {
-                "number": "2",
                 "date": "2015-10-24",
                 "time": "17:00",
                 "type": "regular",

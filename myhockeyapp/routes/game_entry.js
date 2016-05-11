@@ -20,7 +20,7 @@ router.get('/fetch', function (req, res, next) {
                 var event = readResult.Events[i].Event;
                 var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data)
                 var eventData = JSON.parse(eventDataStr);
-                var game_event = { streamid: event.EventStreamId, number: eventData.number, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type }
+                var game_event = { streamid: event.EventStreamId, date: eventData.date, time: eventData.time, opponent: eventData.opponent, homeaway: eventData.homeaway, arena: eventData.arena, type: eventData.type }
                 games[i] = game_event;
             }
             console.log(games);
@@ -30,7 +30,6 @@ router.get('/fetch', function (req, res, next) {
 });
 
 router.post('/add', function (req, res, next) {
-    req.checkBody('number', 'Number is required').notEmpty();
     req.checkBody('date', 'Date is required').notEmpty();
     req.checkBody('time', 'Time is required').notEmpty();
     req.checkBody('type', 'Type is required').notEmpty();
@@ -56,7 +55,6 @@ router.post('/add', function (req, res, next) {
                         EventId: uuid.v4(),
                         Type: 'GameScheduled',
                         Data: new Buffer(JSON.stringify({
-                            number: req.body.number,
                             date: req.body.date,
                             time: req.body.time,
                             type: req.body.type,
@@ -97,7 +95,7 @@ router.get('/:streamid', function (req, res, next) {
                 if (gameover == false && event.EventType == 'GameEnded') {
                     gameover = true;
                 }
-                game_events[i] = { number: event.EventNumber, type: event.EventType, json: JSON.parse(util.bin2String(event.Data.toJSON().data)) };
+                game_events[i] = { type: event.EventType, json: JSON.parse(util.bin2String(event.Data.toJSON().data)) };
             }
             res.render('game_entry.pug', { title: 'Game Events', 'stream_id': streamid, 'game_events': game_events, 'gamestart': gamestart, 'gameover': gameover });
         });
@@ -115,7 +113,7 @@ router.get('/:streamid/timeline', function (req, res, next) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
                 var event = readResult.Events[i].Event;
-                game_events[i] = { number: event.EventNumber, type: event.EventType, json: JSON.parse(util.bin2String(event.Data.toJSON().data)) };
+                game_events[i] = { type: event.EventType, json: JSON.parse(util.bin2String(event.Data.toJSON().data)) };
             }
             res.render('game_timeline.pug', { title: 'Game Timeline', 'stream_id': streamid, 'game_events': game_events});
         });
@@ -143,7 +141,7 @@ router.get('/fetchevents/:streamid', function (req, res, next) {
                 if (gameover == false && event.EventType == 'GameEnded') {
                     gameover = true;
                 }
-                game_events[i] = { number: event.EventNumber, type: event.EventType, json: JSON.parse(util.bin2String(event.Data.toJSON().data)) };
+                game_events[i] = {  type: event.EventType, json: JSON.parse(util.bin2String(event.Data.toJSON().data)) };
             }
             res.json({ 'data': game_events, 'stream_id': streamid, 'gamestart': gamestart, 'gameover': gameover });
         });

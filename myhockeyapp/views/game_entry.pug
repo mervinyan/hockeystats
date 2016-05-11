@@ -55,7 +55,6 @@ block content
                         table#datatable-gameevents.table.table-hover
                             thead
                                 tr
-                                    th Event#
                                     th Event Type
                                     th Event Data
                             tbody
@@ -381,12 +380,11 @@ block scripts
                 "iDisplayLength": 10,
                 "ajax": "/gameentry/fetchevents/#{stream_id}",
                 "columns": [
-                    {"data": "number"},
                     {"data": "type"},
                     {"data": "json"}
                 ],
                 "createdRow": function(row, data, index) {
-                    $('td', row).eq(2).html("<pre>" + JSON.stringify(data.json, undefined, 4) + "</pre>");
+                    $('td', row).eq(1).html("<pre>" + JSON.stringify(data.json, undefined, 4) + "</pre>");
                 },
             });
                 

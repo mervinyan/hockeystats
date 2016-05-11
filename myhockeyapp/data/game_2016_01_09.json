@@ -3,7 +3,6 @@
             "eventId": "5b968e34-fefb-4ce2-b80f-44577cc3b0da",
             "eventType": "GameScheduled",
             "data": {
-                "number": "17",
                 "date": "2016-01-09",
                 "time": "12:30",
                 "type": "regular",

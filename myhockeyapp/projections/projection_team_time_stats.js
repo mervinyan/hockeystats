@@ -1,10 +1,9 @@
 fromCategory('game')
     .when({
         $init: function() {
-            return {gamenumber: "", gameday: "", gamestartat: "", opponent: "", homeaway: "", kind: "", rink: ""};
+            return {gameday: "", gamestartat: "", opponent: "", homeaway: "", kind: "", rink: ""};
         },
         "GameScheduled": function(state, ev) {
-            state.gamenumber = ev.body.number;
             state.gameday = ev.body.date;
             state.gamestartat = ev.body.time;
             state.opponent = ev.body.opponent;
@@ -21,7 +20,6 @@ fromCategory('game')
             emit('team_time_stats',  
                 ev.eventType,
                 {
-                    'gamenumber': state.gamenumber,
                     "gameday": state.gameday,
                     "gamestartat": state.gamestartat,
                     "opponent": state.opponent,
@@ -42,7 +40,6 @@ fromCategory('game')
             emit('team_time_stats',  
                 ev.eventType,
                 {
-                    'gamenumber': state.gamenumber,
                     "gameday": state.gameday,
                     "gamestartat": state.gamestartat,
                     "opponent": state.opponent,
@@ -63,7 +60,6 @@ fromCategory('game')
             emit('team_time_stats',  
                 ev.eventType,
                 {
-                    'gamenumber': state.gamenumber,
                     "gameday": state.gameday,
                     "gamestartat": state.gamestartat,
                     "opponent": state.opponent,
@@ -77,7 +73,6 @@ fromCategory('game')
                 });
         },
         "GameEnded": function(state, ev) {
-            state.gamenumber = "";
             state.gameday = "";
             state.gamestartat = "";
             state.opponent = "";

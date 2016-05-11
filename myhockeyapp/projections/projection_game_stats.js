@@ -2,10 +2,9 @@ fromCategory('game')
     .foreachStream()
     .when({
         $init: function() {
-            return {number: "", date: "", time: "", opponent: "", homeaway: "", kind: "", rink: "",  gf: 0, ga: 0, p: 0, pim: 0};
+            return {date: "", time: "", opponent: "", homeaway: "", kind: "", rink: "",  gf: 0, ga: 0, p: 0, pim: 0};
         },
         "GameScheduled": function(state, ev) {
-            state.number = ev.body.number;
             state.date = ev.body.date;
             state.time = ev.body.time;
             state.opponent = ev.body.opponent;
@@ -48,7 +47,6 @@ fromCategory('game')
             emit('gamestats',  
                 eventType,
                 {
-                    'number': state.number,
                     "date": state.date,
                     "time": state.time,
                     "opponent": state.opponent,
@@ -60,7 +58,6 @@ fromCategory('game')
                     "p": state.p,
                     "pim": state.pim
                 });
-            state.number = "";
             state.date = "";
             state.time = "";
             state.opponent = "";
