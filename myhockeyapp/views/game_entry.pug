@@ -27,7 +27,7 @@ block links
     
 block content
     div.row
-        div.col-lg-12
+        div.col-md-12
             h1.page-header #{title}
             ol.breadcrumb
                 li
@@ -39,7 +39,7 @@ block content
                     | 
                     | #{stream_id}                     
     div.row
-        div.col-lg-12
+        div.col-md-12
             div.panel.panel-default
                 div.panel-heading
                     button#btnGameStart.btn.btn-default(disabled=gamestart data-toggle="modal" data-target="#gameStartModal") Game Start
@@ -72,14 +72,14 @@ block content
                 form#gameStartForm.form-horizontal(name='game_start' method='post' action="/gameentry/gamestart")
                     div.modal-body
                         div.form-group
-                            label.col-sm-3.control-label(for='date') Date
-                            div.col-sm-9
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='date') Date
+                            div.col-xs-6.col-sm-8.col-md-8
                                 <input type="hidden" name="streamId" id ="streamId1" value="#{stream_id}">
-                                input#date1.form-control(type='date' name='date')
+                                input#date1.form-control(type='date' name='date1')
                         div.form-group
-                            label.col-sm-3.control-label(for='time') Time
-                            div.col-sm-9
-                                input#time1.form-control(type='time' name='time')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='time') Time
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#time1.form-control(type='time' name='time1')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
                         button#submit1.btn.btn-primary(type="button") Save            
@@ -96,8 +96,8 @@ block content
                 form#homeScoreForm.form-horizontal(name='home_score' method='post' action='/gameentry/homescore')
                     div.modal-body
                         div.form-group
-                            label.col-sm-3.control-label(for='periodOptions') Period
-                            div.col-sm-9.dropdown
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='periodOptions') Period
+                            div.col-xs-6.col-sm-8.col-md-8.dropdown
                                 div.btn-group
                                     <input type="hidden" name="streamId" id ="streamId2" value="#{stream_id}">
                                     button#periodOptions2.btn.btn-default.dropdown-toggle.form-control(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
@@ -118,12 +118,12 @@ block content
                                             a()
                                                 | Overtime
                         div.form-group
-                            label.col-sm-3.control-label(for='time') Time
-                            div.col-sm-9
-                                input#time2.form-control(type='text', name='time')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='time') Time
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#time2.form-control(type='text', name='time2')
                         div.form-group
-                            label.col-sm-3.control-label(for='kindOptions') Kind
-                            div.col-sm-9.dropdown
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='kindOptions') Kind
+                            div.col-xs-6.col-sm-8.col-md-8.dropdown
                                 div.btn-group
                                     button#kindOptions2.btn.btn-default.dropdown-toggle.form-control(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
                                         | even
@@ -143,17 +143,17 @@ block content
                                             a()
                                                 | en
                         div.form-group
-                            label.col-sm-3.control-label(for='score') Score
-                            div.col-sm-9
-                                input#score2.form-control(type='text' name='score')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='score') Score
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#score2.form-control(type='text' name='score2')
                         div.form-group
-                            label.col-sm-3.control-label(for='assist1') Assist1
-                            div.col-sm-9
-                                input#assist12.form-control(type='text' name='assist1')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='assist1') Assist1
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#assist12.form-control(type='text' name='assist12')
                         div.form-group
-                            label.col-sm-3.control-label(for='assist2') Assist2
-                            div.col-sm-9
-                                input#assist22.form-control(type='text' name='assist2')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='assist2') Assist2
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#assist22.form-control(type='text' name='assist22')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
                         button#submit2.btn.btn-primary(type="button") Save            
@@ -170,8 +170,8 @@ block content
                 form#homePenaltyForm.form-horizontal(name='home_penalty' method='post' action='/gameentry/homepenalty')
                     div.modal-body
                         div.form-group
-                            label.col-sm-3.control-label(for='periodOptions') Period
-                            div.col-sm-9.dropdown
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='periodOptions') Period
+                            div.col-xs-6.col-sm-8.col-md-8.dropdown
                                 div.btn-group
                                     <input type="hidden" name="streamId" id ="streamId3" value="#{stream_id}">
                                     button#periodOptions3.btn.btn-default.dropdown-toggle.form-control(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
@@ -192,29 +192,29 @@ block content
                                             a()
                                                 | Overtime
                         div.form-group
-                            label.col-sm-3.control-label(for='time') Time
-                            div.col-sm-9
-                                input#time3.form-control(type='text' name='time')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='time') Time
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#time3.form-control(type='text' name='time3')
                         div.form-group
-                            label.col-sm-3.control-label(for='player') Player
-                            div.col-sm-9
-                                input#player3.form-control(type='text' name='player')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='player') Player
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#player3.form-control(type='text' name='player3')
                         div.form-group
-                            label.col-sm-3.control-label(for='offense') Offense
-                            div.col-sm-9
-                                input#offense3.form-control(type='text' name='offense')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='offense') Offense
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#offense3.form-control(type='text' name='offense3')
                         div.form-group
-                            label.col-sm-3.control-label(for='min') Minutes
-                            div.col-sm-9
-                                input#min3.form-control(type='text' name='min')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='min') Minutes
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#min3.form-control(type='text' name='min3')
                         div.form-group
-                            label.col-sm-3.control-label(for='off') Off
-                            div.col-sm-9
-                                input#off3.form-control(type='text' name='off')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='off') Off
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#off3.form-control(type='text' name='off3')
                         div.form-group
-                            label.col-sm-3.control-label(for='on') On
-                            div.col-sm-9
-                                input#on3.form-control(type='text' name='on')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='on') On
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#on3.form-control(type='text' name='on3')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
                         button#submit3.btn.btn-primary(type="button") Save            
@@ -231,8 +231,8 @@ block content
                 form#guestScoreForm.form-horizontal(name='guest_score' method='post' action='/gameentry/guestscore')
                     div.modal-body
                         div.form-group
-                            label.col-sm-3.control-label(for='periodOptions') Period
-                            div.col-sm-9.dropdown
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='periodOptions') Period
+                            div.col-xs-6.col-sm-8.col-md-8.dropdown
                                 div.btn-group
                                     <input type="hidden" name="streamId" id ="streamId4" value="#{stream_id}">
                                     button#periodOptions4.btn.btn-default.dropdown-toggle.form-control(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
@@ -253,12 +253,12 @@ block content
                                             a()
                                                 | Overtime
                         div.form-group
-                            label.col-sm-3.control-label(for='time') Time
-                            div.col-sm-9
-                                input#time4.form-control(type='text' name='time')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='time') Time
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#time4.form-control(type='text' name='time4')
                         div.form-group
-                            label.col-sm-3.control-label(for='kindOptions') Kind
-                            div.col-sm-9.dropdown
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='kindOptions') Kind
+                            div.col-xs-6.col-sm-8.col-md-8.dropdown
                                 div.btn-group
                                     button#kindOptions4.btn.btn-default.dropdown-toggle.form-control(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
                                         | even
@@ -278,17 +278,17 @@ block content
                                             a()
                                                 | en               
                         div.form-group
-                            label.col-sm-3.control-label(for='score') Score
-                            div.col-sm-9
-                                input#score4.form-control(type='text' name='score')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='score') Score
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#score4.form-control(type='text' name='score4')
                         div.form-group
-                            label.col-sm-3.control-label(for='assist1') Assist1
-                            div.col-sm-9
-                                input#assist14.form-control(type='text' name='assist1')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='assist1') Assist1
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#assist14.form-control(type='text' name='assist14')
                         div.form-group
-                            label.col-sm-3.control-label(for='assist2') Assist2
-                            div.col-sm-9
-                                input#assist24.form-control(type='text' name='assist2')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='assist2') Assist2
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#assist24.form-control(type='text' name='assist24')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
                         button#submit4.btn.btn-primary(type="button") Save            
@@ -305,8 +305,8 @@ block content
                 form#guestPenaltyForm.form-horizontal(name='guest_penalty' method='post' action='/gameentry/guestpenalty')
                     div.modal-body
                         div.form-group
-                            label.col-sm-3.control-label(for='periodOptions') Period
-                            div.col-sm-9.dropdown
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='periodOptions') Period
+                            div.col-xs-6.col-sm-8.col-md-8.dropdown
                                 div.btn-group
                                     <input type="hidden" name="streamId" id ="streamId5" value="#{stream_id}">
                                     button#periodOptions5.btn.btn-default.dropdown-toggle.form-control(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
@@ -327,29 +327,29 @@ block content
                                             a()
                                                 | Overtime
                         div.form-group
-                            label.col-sm-3.control-label(for='time') Time
-                            div.col-sm-9
-                                input#time5.form-control(type='text' name='time')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='time') Time
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#time5.form-control(type='text' name='time5')
                         div.form-group
-                            label.col-sm-3.control-label(for='player') Player
-                            div.col-sm-9
-                                input#player5.form-control(type='text' name='player')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='player') Player
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#player5.form-control(type='text' name='player5')
                         div.form-group
-                            label.col-sm-3.control-label(for='offense') Offense
-                            div.col-sm-9
-                                input#offense5.form-control(type='text' name='offense')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='offense') Offense
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#offense5.form-control(type='text' name='offense5')
                         div.form-group
-                            label.col-sm-3.control-label(for='min') Minutes
-                            div.col-sm-9
-                                input#min5.form-control(type='text' name='min')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='min') Minutes
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#min5.form-control(type='text' name='min5')
                         div.form-group
-                            label.col-sm-3.control-label(for='off') Off
-                            div.col-sm-9
-                                input#off5.form-control(type='text' name='off')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='off') Off
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#off5.form-control(type='text' name='off5')
                         div.form-group
-                            label.col-sm-3.control-label(for='on') On
-                            div.col-sm-9
-                                input#on5.form-control(type='text' name='on')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='on') On
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#on5.form-control(type='text' name='on5')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
                         button#submit5.btn.btn-primary(type="button") Save            
@@ -366,14 +366,14 @@ block content
                 form#gameEndForm.form-horizontal(name='game_end' method='post' action='/gameentry/gameend')
                     div.modal-body
                         div.form-group
-                            label.col-sm-3.control-label(for='date') Date
-                            div.col-sm-9
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='date') Date
+                            div.col-xs-6.col-sm-8.col-md-8
                                 <input type="hidden" name="streamId" id ="streamId6" value="#{stream_id}">
-                                input#date6.form-control(type='date' name='date')
+                                input#date6.form-control(type='date' name='date6')
                         div.form-group
-                            label.col-sm-3.control-label(for='time') Time
-                            div.col-sm-9
-                                input#time6.form-control(type='time' name='time')
+                            label.col-xs-6.col-sm-4.col-md-4.control-label(for='time') Time
+                            div.col-xs-6.col-sm-8.col-md-8
+                                input#time6.form-control(type='time' name='time6')
                     div.modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
                         button#submit6.btn.btn-primary(type="button") Save            
