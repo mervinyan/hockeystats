@@ -89,8 +89,8 @@ block content
                                                 a()
                                                     | TimeSeries                                      
                         div.panel-body
-                            div(id='chart00' class='c3chart' data-layout='bar' data-xvalue='date' data-yvalues='gf|ga|pim') 
-                            div(id='chart10' class='c3chart' data-layout='timeseries' data-xvalue='date' data-yvalues='gf|ga|pim')                                      
+                            div(id='chart00' class='c3chart') 
+                            div(id='chart10' class='c3chart')                                      
             div.row
                 div.col-lg-12
                     div.panel.panel-primary
@@ -108,7 +108,7 @@ block content
                                 i.fa.fa-bar-chart-o 
                                     | Goals For, Goals Against, Penalty in Minutes By Opponent
                         div.panel-body
-                            div(id='chart30' class='c3chart' data-layout='bar' data-xvalue='opponent' data-yvalues='gf|ga|pim') 
+                            div(id='chart30' class='c3chart') 
             div.row
                 div.col-lg-12
                     div.panel.panel-primary
@@ -117,7 +117,7 @@ block content
                                 i.fa.fa-bar-chart-o 
                                     | Goals For, Goals Against, Penalty in Minutes By Rink
                         div.panel-body
-                            div(id='chart40' class='c3chart' data-layout='bar' data-xvalue='rink' data-yvalues='gf|ga|pim') 
+                            div(id='chart40' class='c3chart') 
             div.row
                 div.col-lg-4
                     div.panel.panel-green
@@ -210,7 +210,6 @@ block scripts
             $("#chart10").hide();
         });
 
-    script(type='text/javascript').
         $(".dropdown-menu li a").click(function(){
             var selText = $(this).text();
             $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
@@ -223,20 +222,15 @@ block scripts
             }
         });
 
-    script(type='text/javascript').
-        var chartdiv = d3.select('#chart00');
-        var layout = chartdiv.attr('data-layout');
-        var xvalue = chartdiv.attr('data-xvalue');
-        var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
-        var chart = c3.generate({
+        c3.generate({
             bindto: '#chart00',
             data: {
                 json: !{JSON.stringify(team_stats_0.game_stats)},
                 keys: {
-                    x: xvalue,
-                    value: yvalues,
+                    x: 'date',
+                    value: ['gf', 'ga', 'pim'],
                 },
-                type: layout
+                type: 'bar'
             },
             legend: {
                 position: 'inset',
@@ -251,18 +245,13 @@ block scripts
             }
         }); 
 
-    script(type='text/javascript').
-        var chartdiv1 = d3.select('#chart10');
-        var layout1 = chartdiv1.attr('data-layout');
-        var xvalue1 = chartdiv1.attr('data-xvalue');
-        var yvalues1 = chartdiv1.attr('data-yvalues')?chartdiv1.attr('data-yvalues').split('|'):null;
-        var chart1 = c3.generate({
+        c3.generate({
             bindto: '#chart10',
             data: {
                 json: !{JSON.stringify(team_stats_0.game_stats)},
                 keys: {
-                    x: xvalue1,
-                    value: yvalues1
+                    x: 'date',
+                    value: ['gf', 'ga', 'pim'],
                 }
             },
             legend: {
@@ -273,7 +262,7 @@ block scripts
             },                        
             axis: {
                 x: {
-                    type: layout1,
+                    type: 'timeseries',
                     tick: {
                         format: '%Y-%m-%d'
                     }
@@ -281,8 +270,7 @@ block scripts
             }
         });
 
-    script(type='text/javascript').
-        var chart = c3.generate({
+        c3.generate({
             bindto: '#chart20',
             data: {
                 json: !{JSON.stringify(team_stats_1.team_time_stats)},
@@ -333,20 +321,16 @@ block scripts
                 }
             }
         });  
-    script(type='text/javascript').
-        var chartdiv = d3.select('#chart30');
-        var layout = chartdiv.attr('data-layout');
-        var xvalue = chartdiv.attr('data-xvalue');
-        var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
-        var chart = c3.generate({
+        
+        c3.generate({
             bindto: '#chart30',
             data: {
                 json: !{JSON.stringify(team_stats_0.opponent_stats)},
                 keys: {
-                    x: xvalue,
-                    value: yvalues,
+                    x: 'opponent',
+                    value: ['gf', 'ga', 'pim'],
                 },
-                type: layout
+                type: 'bar'
             },
             legend: {
                 position: 'inset',
@@ -361,20 +345,15 @@ block scripts
             }
         }); 
 
-    script(type='text/javascript').
-        var chartdiv = d3.select('#chart40');
-        var layout = chartdiv.attr('data-layout');
-        var xvalue = chartdiv.attr('data-xvalue');
-        var yvalues = chartdiv.attr('data-yvalues')?chartdiv.attr('data-yvalues').split('|'):null;
-        var chart = c3.generate({
+        c3.generate({
             bindto: '#chart40',
             data: {
                 json: !{JSON.stringify(team_stats_0.rink_stats)},
                 keys: {
-                    x: xvalue,
-                    value: yvalues,
+                    x: 'rink',
+                    value: ['gf', 'ga', 'pim'],
                 },
-                type: layout
+                type: 'bar'
             },
             legend: {
                 position: 'inset',
@@ -389,8 +368,7 @@ block scripts
             }
         }); 
     
-    script(type='text/javascript').
-        var chart = c3.generate({
+        c3.generate({
             bindto: '#chart50',
             size: {
                 height: 240,
@@ -409,8 +387,7 @@ block scripts
             }
         });              
 
-    script(type='text/javascript').
-        var chart = c3.generate({
+        c3.generate({
             bindto: '#chart51',
             size: {
                 height: 240,
@@ -432,8 +409,7 @@ block scripts
             }
         });
     
-    script(type='text/javascript').
-        var chart = c3.generate({
+        c3.generate({
             bindto: '#chart60',
             size: {
                 height: 240,
@@ -452,8 +428,7 @@ block scripts
                 }
             });    
 
-    script(type='text/javascript').                                       
-        var chart = c3.generate({
+        c3.generate({
             bindto: '#chart61',
             size: {
                 height: 240,
@@ -475,8 +450,7 @@ block scripts
             }
         });
 
-    script(type='text/javascript').
-        var chart = c3.generate({
+        c3.generate({
             bindto: '#chart70',
             size: {
                 height: 240,
@@ -495,8 +469,7 @@ block scripts
             }
         });                  
 
-    script(type='text/javascript').
-        var chart = c3.generate({
+        c3.generate({
             bindto: '#chart71',
             size: {
                 height: 240,
