@@ -1,0 +1,136 @@
+extends layout
+
+block links
+
+    <!-- C3 Chart CSS -->
+    link(href='/bower_components/c3/c3.css' rel='stylesheet' type='text/css')
+    
+    link(href="/stylesheets/style.css" rel="stylesheet" type="text/css")
+    
+    <!-- Bootstrap Core CSS -->
+    link(href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css")
+
+    <!-- MetisMenu CSS -->
+    link(href="/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet" type="text/css")
+
+    <!-- DataTables CSS -->
+    link(href="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css")
+
+    <!-- DataTables Responsive CSS -->
+    link(href="bower_components/datatables-responsive/css/responsive.dataTables.scss" rel="stylesheet")
+    
+    <!-- Custom CSS -->
+    link(href="/bower_components/sb-admin-2/css/sb-admin-2.css" rel="stylesheet" type="text/css")
+
+    <!-- Custom Fonts -->
+    link(href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css")
+
+block content
+    div.row
+        div.col-lg-12
+            h1.page-header #{title}
+            ol.breadcrumb
+                li
+                    i.fa.fa-dashboard
+                    a(href="/") 
+                        | Dashboard
+                li
+                    i.fa.fa-users
+                    a(href="/teamstats") 
+                        | Team Stats
+                li
+                    i.fa
+                        | 
+                        | Penalties
+    div.row
+        div.col-lg-12
+            div.panel.panel-default
+                div.panel-heading
+                    | Penalties
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-penalties.table.table-hover
+                            thead
+                                tr
+                                    th Game
+                                    th Period
+                                    th Time
+                                    th Offense 
+                                    th Mins
+                                    th Player
+                                    th Off
+                                    th On
+                            tbody
+                                each penalty in penalties
+                                    tr
+                                        td 
+                                            | #{penalty.homeaway} game vs. #{penalty.opponent} played at #{penalty.start} on #{penalty.date} at rink #{penalty.rink}
+                                        td #{penalty.period}
+                                        td #{penalty.time}
+                                        td #{penalty.offense}
+                                        td #{penalty.min}
+                                        td #{penalty.player}
+                                        td #{penalty.off}
+                                        td #{penalty.on}
+
+block scripts
+    <!-- D3 Chart JavaScript -->
+    script(src='/bower_components/d3/d3.min.js' charset='utf-8' type='text/javascript')
+
+    <!-- C3 Chart JavaScript -->
+    script(src='/bower_components/c3/c3.min.js' type='text/javascript')
+
+    <!-- jQuery -->
+    script(src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript")
+    
+    <!-- Bootstrap Core JavaScript -->
+    script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript")
+
+    <!-- Metis Menu Plugin JavaScript -->
+    script(src="/bower_components/metisMenu/dist/metisMenu.min.js" type="text/javascript")
+
+    <!-- DataTables JavaScript -->
+    script(src="/bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript")
+    script(src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js" type="text/javascript")
+
+    <!-- Custom Theme JavaScript -->
+    script(src="/bower_components/sb-admin-2/js/sb-admin-2.js" type="text/javascript")
+    
+    script(type="text/javascript").
+        $(document).ready(function() {
+            $('#datatable-penalties').DataTable({
+                "responsive": true,
+                "bPaginate": true,
+                "bJQueryUI": true,
+                "bLengthChange": true,
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": true,
+                "bAutoWidth": true,
+                "bProcessing": true,
+                "iDisplayLength": 10,                
+                "columnDefs": [
+                    {
+                        "visible": false,
+                        "targets": 0 
+                    }
+                ],
+                "order": [
+                    [0,'desc']
+                ],
+                "drawCallback": function(settings) {
+                    var api = this.api();
+                    var rows = api.rows({page: 'current'}).nodes();
+                    var last = null;
+                    api.column(0, {page: 'current'}).data().each(function(group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before(
+                                '<tr class="group"><td colspan="7">'+group+'</td></tr>'
+                            );
+                            last = group;
+                        }
+                    });
+                }        
+            });
+        });
+

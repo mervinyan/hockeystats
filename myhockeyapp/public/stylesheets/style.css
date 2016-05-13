@@ -25,3 +25,8 @@ pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
 .c3-region.region-period3 {
   fill: yellow;
 }
+
+tr.group,
+tr.group:hover {
+    background-color: #ddd !important;
+}

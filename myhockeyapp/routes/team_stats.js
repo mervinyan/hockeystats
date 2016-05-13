@@ -210,4 +210,55 @@ router.get('/ties', function (req, res, next) {
     });
 });
 
+router.get('/goalfor', function (req, res, next) {
+    var goals_for = {};
+    var connection = ges({ host: '127.0.0.1' });
+    connection.on('connect', function () {
+        console.log('connecting to geteventstore...');
+        connection.readStreamEventsBackward('goal_for_stats', { start: -1, count: 1000 }, function (err, readResult) {
+            if (err) return console.log('Ooops!', err);
+            for (var i = 0; i < readResult.Events.length; i++) {
+                    var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
+                    var eventDataJson = JSON.parse(eventDataStr);
+                    goals_for[i] = eventDataJson;
+            }
+            res.render('team_stats_goals_for.pug', { title: 'Goals For', 'goals_for': goals_for });
+        });
+    });
+});
+
+router.get('/goalagainst', function (req, res, next) {
+    var goals_against = {};
+    var connection = ges({ host: '127.0.0.1' });
+    connection.on('connect', function () {
+        console.log('connecting to geteventstore...');
+        connection.readStreamEventsBackward('goal_against_stats', { start: -1, count: 1000 }, function (err, readResult) {
+            if (err) return console.log('Ooops!', err);
+            for (var i = 0; i < readResult.Events.length; i++) {
+                    var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
+                    var eventDataJson = JSON.parse(eventDataStr);
+                    goals_against[i] = eventDataJson;
+            }
+            res.render('team_stats_goals_against.pug', { title: 'Goals Against', 'goals_against': goals_against });
+        });
+    });
+});
+
+router.get('/penalty', function (req, res, next) {
+    var penalties = {};
+    var connection = ges({ host: '127.0.0.1' });
+    connection.on('connect', function () {
+        console.log('connecting to geteventstore...');
+        connection.readStreamEventsBackward('penalty_stats', { start: -1, count: 1000 }, function (err, readResult) {
+            if (err) return console.log('Ooops!', err);
+            for (var i = 0; i < readResult.Events.length; i++) {
+                    var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
+                    var eventDataJson = JSON.parse(eventDataStr);
+                    penalties[i] = eventDataJson;
+            }
+            res.render('team_stats_penalties.pug', { title: 'Penalties', 'penalties': penalties });
+        });
+    });
+});
+
 module.exports = router;
