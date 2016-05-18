@@ -52,11 +52,11 @@ PS c:\temp\stats\myhockeyapp > .\load_game_sheets.ps1
 
 10. How to access projection result
 
-curl -i -H "Content-Type:application.json" http://localhost:2113/projection/projection_player_stats
+curl -i -H "Accept:application/json" http://localhost:2113/projection/projection_player_stats
 
-curl -i -H "Content-Type:application.json" http://localhost:2113/projection/projection_player_stats/state
+curl -i -H "Accept:application/json" http://localhost:2113/projection/projection_player_stats/state
 
-curl -i -H "Content-Type:application.json" http://localhost:2113/projection/projection_player_stats/result
+curl -i -H "Accept:application/json" http://localhost:2113/projection/projection_player_stats/result
 
 
 
