@@ -1,7 +1,7 @@
 fromCategory('game')
     .when({
         $init: function() {
-            return {gp: 0, gf: 0, ga: 0, pim: 0, w: 0, l: 0, t: 0, gf1: 0, ga1: 0, opponents: {}, rinks: {}, opponent: "", rink: "", penalties: {}};
+            return {gp: 0, gf: 0, ga: 0, p: 0, pim: 0, w: 0, so:0, l: 0, t: 0, gf1: 0, ga1: 0, opponents: {}, rinks: {}, opponent: "", rink: "", penalties: {}};
         },
         "GameScheduled": function(state, ev) {
             state.gp++;
@@ -33,6 +33,7 @@ fromCategory('game')
             state.rinks[state.rink].ga++;
         },
         "PenaltyTaken": function(state, ev) {
+            state.p++;
             state.pim += parseInt(ev.body.min);
             state.opponents[state.opponent].pim += parseInt(ev.body.min);
             state.rinks[state.rink].pim += parseInt(ev.body.min);
@@ -45,6 +46,9 @@ fromCategory('game')
         "GameEnded": function(state, ev) {
             if (state.gf1 > state.ga1)
             {
+                if (state.ga1 == 0) {
+                    state.so++;
+                }
                 state.w++;
                 state.opponents[state.opponent].w++;
                 state.rinks[state.rink].w++;

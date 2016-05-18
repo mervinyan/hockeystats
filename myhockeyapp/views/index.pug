@@ -172,6 +172,64 @@ block content
                         div.clearfix            
 
     div.row
+        div.col-lg-6.col-md-12
+            div.panel.panel-default
+                div.panel-heading
+                    |Opponents
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-opponents.table.table-bordered.table-hover.table-striped
+                            thead
+                                tr
+                                    th opponent
+                                    th gp
+                                    th gf
+                                    th ga
+                                    th w
+                                    th l
+                                    th t
+                                    th pim                                    
+                            tbody
+                                each opponent, index in dashboard.opponents
+                                    tr
+                                        td #{index}
+                                        td #{opponent.gp}
+                                        td #{opponent.gf}
+                                        td #{opponent.ga}
+                                        td #{opponent.w}
+                                        td #{opponent.l}
+                                        td #{opponent.t}
+                                        td #{opponent.pim}
+        div.col-lg-6.col-md-12
+            div.panel.panel-default
+                div.panel-heading
+                    |Rinks
+                div.panel-body
+                    div.dataTable_wrapper
+                        table#datatable-rinks.table.table-bordered.table-hover.table-striped
+                            thead
+                                tr
+                                    th rink
+                                    th gp
+                                    th gf
+                                    th ga
+                                    th w
+                                    th l
+                                    th t
+                                    th pim                                    
+                            tbody
+                                each rink, index in dashboard.rinks
+                                    tr
+                                        td #{index}
+                                        td #{rink.gp}
+                                        td #{rink.gf}
+                                        td #{rink.ga}
+                                        td #{rink.w}
+                                        td #{rink.l}
+                                        td #{rink.t}
+                                        td #{rink.pim}
+
+    div.row
         div.col-lg-3.col-md-6
             div.panel.panel-default
                 div.panel-heading
