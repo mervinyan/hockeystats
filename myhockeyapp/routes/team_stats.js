@@ -4,129 +4,64 @@ var router = express.Router();
 var ges = require('ges-client');
 var util = require('./util.js');
 
+var http = require('http');
+
 router.get('/', function (req, res, next) {
-    var connection = ges({ host: '127.0.0.1' });
+    var options1 = {
+        host: 'localhost',
+        port: 2113,
+        path: '/projection/projection_team_stats/result',
+        method: 'GET'
+    }
 
-    connection.on('connect', function () {
-        console.log('connecting to geteventstore...');
-        connection.readStreamEventsBackward('gamestats', { start: -1, count: 1000 }, function (err, readResult) {
-            if (err) return console.log('Ooops!', err);
-            
-            var team_stats_0 = gatherTeamStats0(readResult);
-            
-            connection.readStreamEventsForward('team_time_stats', { start: 0, count: 1000 }, function (err, readResult) {
-                if (err) return console.log('Ooops!', err);
-                
-                var team_stats_1 = gatherTeamStats1(readResult);
+    http.request(options1, function (res1) {
+        res1.setEncoding('utf8');
+        var body = "";
+        res1.on('data', function (chunk) {
+            body += chunk;
+        });
+        res1.on('end', function () {
+            var data = JSON.parse(body);
 
-                res.render('team_stats.pug', { title: 'Team Stats', 'team_stats_0': team_stats_0, 'team_stats_1': team_stats_1});
-
+            var opponent_stats = [];
+            for (var opponent in data.opponents) {
+                var item = {};
+                item.opponent = opponent;
+                item.gp = data.opponents[opponent].gp;
+                item.gf = data.opponents[opponent].gf;
+                item.ga = data.opponents[opponent].ga;
+                item.pim = data.opponents[opponent].pim;
+                item.w = data.opponents[opponent].w;
+                item.l = data.opponents[opponent].l;
+                item.t = data.opponents[opponent].t;
+                opponent_stats.push(item);
+            }
+            opponent_stats.sort(function (a, b) {
+                return a.opponent.localeCompare(b.opponent);
             });
+            
+            var rink_stats = [];
+            for (var rink in data.rinks) {
+                var item = {};
+                item.rink = rink;
+                item.gp = data.rinks[rink].gp;
+                item.gf = data.rinks[rink].gf;
+                item.ga = data.rinks[rink].ga;
+                item.pim = data.rinks[rink].pim;
+                item.w = data.rinks[rink].w;
+                item.l = data.rinks[rink].l;
+                item.t = data.rinks[rink].t;
+                rink_stats.push(item);
+            }
+            rink_stats.sort(function (a, b) {
+                return a.rink.localeCompare(b.rink);
+            });
+
+            res.render('team_stats.pug', { title: 'Team Stats', 'data': data, 'opponent_stats': opponent_stats, 'rink_stats': rink_stats  });
         });
 
-    });
-
+    }).end();
 });
-
-gatherTeamStats0 = function (readResult) {
-    var game_stats = [];
-    var opponents = {};
-    var rinks = {};
-    for (var i = 0; i < readResult.Events.length; i++) {
-        var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
-        var eventDataJson = JSON.parse(eventDataStr);
-        game_stats[i] = eventDataJson;
-        if (!opponents[eventDataJson.opponent]) {
-            opponents[eventDataJson.opponent] = { gf: 0, ga: 0, pim: 0 };
-        }
-        opponents[eventDataJson.opponent].gf = opponents[eventDataJson.opponent].gf + eventDataJson.gf;
-        opponents[eventDataJson.opponent].ga = opponents[eventDataJson.opponent].ga + eventDataJson.ga;
-        opponents[eventDataJson.opponent].pim = opponents[eventDataJson.opponent].pim + eventDataJson.pim;
-
-        if (!rinks[eventDataJson.rink]) {
-            rinks[eventDataJson.rink] = { gf: 0, ga: 0, pim: 0 };
-        }
-        rinks[eventDataJson.rink].gf = rinks[eventDataJson.rink].gf + eventDataJson.gf;
-        rinks[eventDataJson.rink].ga = rinks[eventDataJson.rink].ga + eventDataJson.ga;
-        rinks[eventDataJson.rink].pim = rinks[eventDataJson.rink].pim + eventDataJson.pim;
-    }
-
-    var opponent_stats = [];
-    for (var opponent in opponents) {
-        var item = {};
-        item.opponent = opponent;
-        item.gf = opponents[opponent].gf;
-        item.ga = opponents[opponent].ga;
-        item.pim = opponents[opponent].pim;
-        opponent_stats.push(item);
-    }
-
-    var rink_stats = [];
-    for (var rink in rinks) {
-        var item = {};
-        item.rink = rink;
-        item.gf = rinks[rink].gf;
-        item.ga = rinks[rink].ga;
-        item.pim = rinks[rink].pim;
-        rink_stats.push(item);
-    }
-
-    return { 'game_stats': game_stats, 'opponent_stats': opponent_stats, 'rink_stats': rink_stats };
-}
-
-gatherTeamStats1 = function (readResult) {
-    var team_time_stats = [];
-    var goal_by_period = {};
-    var penalty_by_period = {};
-    var pim_by_period = {};
-    var goal_by_kind = {};
-    var penalty_by_kind = {};
-    var pim_by_kind = {};
-
-    for (var i = 0; i < readResult.Events.length; i++) {
-        var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
-        var eventDataJson = JSON.parse(eventDataStr);
-        
-        team_time_stats[i] = eventDataJson;
-        var period = 'Period 1';
-        if (eventDataJson.time > '40:00') {
-            period = 'Period 3';
-        } else if (eventDataJson.time > '20:00') {
-            period = 'Period 2';
-        }
-        if (readResult.Events[i].Event.EventType == 'GoalScored') {
-            if (!goal_by_period[period]) {
-                goal_by_period[period] = 0;
-            }
-            goal_by_period[period]++;
-            if (!goal_by_kind[eventDataJson.goalkind]) {
-                goal_by_kind[eventDataJson.goalkind] = 0;
-            }
-            goal_by_kind[eventDataJson.goalkind]++;
-
-        }
-        if (readResult.Events[i].Event.EventType == 'PenaltyTaken') {
-            if (!penalty_by_period[period]) {
-                penalty_by_period[period] = 0;
-            }
-            penalty_by_period[period]++;
-            if (!pim_by_period[period]) {
-                pim_by_period[period] = 0;
-            }
-            pim_by_period[period] += parseInt(eventDataJson.min);
-            if (!penalty_by_kind[eventDataJson.offense]) {
-                penalty_by_kind[eventDataJson.offense] = 0;
-            }
-            penalty_by_kind[eventDataJson.offense]++;
-            if (!pim_by_kind[eventDataJson.offense]) {
-                pim_by_kind[eventDataJson.offense] = 0;
-            }
-            pim_by_kind[eventDataJson.offense] += parseInt(eventDataJson.min);
-        }
-    }
-    
-    return {'team_time_stats': team_time_stats, 'goal_by_period': goal_by_period, 'goal_by_kind': goal_by_kind, 'penalty_by_period': penalty_by_period, 'pim_by_period': pim_by_period, 'penalty_by_kind': penalty_by_kind, 'pim_by_kind': pim_by_kind};
-}
 
 router.get('/wins', function (req, res, next) {
     var wins = {};
@@ -218,9 +153,9 @@ router.get('/goalfor', function (req, res, next) {
         connection.readStreamEventsBackward('goal_for_stats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
-                    var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
-                    var eventDataJson = JSON.parse(eventDataStr);
-                    goals_for[i] = eventDataJson;
+                var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
+                var eventDataJson = JSON.parse(eventDataStr);
+                goals_for[i] = eventDataJson;
             }
             res.render('team_stats_goals_for.pug', { title: 'Goals For', 'goals_for': goals_for });
         });
@@ -235,9 +170,9 @@ router.get('/goalagainst', function (req, res, next) {
         connection.readStreamEventsBackward('goal_against_stats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
-                    var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
-                    var eventDataJson = JSON.parse(eventDataStr);
-                    goals_against[i] = eventDataJson;
+                var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
+                var eventDataJson = JSON.parse(eventDataStr);
+                goals_against[i] = eventDataJson;
             }
             res.render('team_stats_goals_against.pug', { title: 'Goals Against', 'goals_against': goals_against });
         });
@@ -252,9 +187,9 @@ router.get('/penalty', function (req, res, next) {
         connection.readStreamEventsBackward('penalty_stats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
-                    var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
-                    var eventDataJson = JSON.parse(eventDataStr);
-                    penalties[i] = eventDataJson;
+                var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
+                var eventDataJson = JSON.parse(eventDataStr);
+                penalties[i] = eventDataJson;
             }
             res.render('team_stats_penalties.pug', { title: 'Penalties', 'penalties': penalties });
         });

@@ -172,64 +172,6 @@ block content
                         div.clearfix            
 
     div.row
-        div.col-lg-6.col-md-12
-            div.panel.panel-default
-                div.panel-heading
-                    |Opponents
-                div.panel-body
-                    div.dataTable_wrapper
-                        table#datatable-opponents.table.table-bordered.table-hover.table-striped
-                            thead
-                                tr
-                                    th opponent
-                                    th gp
-                                    th gf
-                                    th ga
-                                    th w
-                                    th l
-                                    th t
-                                    th pim                                    
-                            tbody
-                                each opponent in dashboard.opponents
-                                    tr
-                                        td #{opponent[0]}
-                                        td #{opponent[1]}
-                                        td #{opponent[2]}
-                                        td #{opponent[3]}
-                                        td #{opponent[4]}
-                                        td #{opponent[5]}
-                                        td #{opponent[6]}
-                                        td #{opponent[7]}
-        div.col-lg-6.col-md-12
-            div.panel.panel-default
-                div.panel-heading
-                    |Rinks
-                div.panel-body
-                    div.dataTable_wrapper
-                        table#datatable-rinks.table.table-bordered.table-hover.table-striped
-                            thead
-                                tr
-                                    th rink
-                                    th gp
-                                    th gf
-                                    th ga
-                                    th w
-                                    th l
-                                    th t
-                                    th pim                                    
-                            tbody
-                                each rink in dashboard.rinks
-                                    tr
-                                        td #{rink[0]}
-                                        td #{rink[1]}
-                                        td #{rink[2]}
-                                        td #{rink[3]}
-                                        td #{rink[4]}
-                                        td #{rink[5]}
-                                        td #{rink[6]}
-                                        td #{rink[7]}
-
-    div.row
         div.col-lg-3.col-md-6
             div.panel.panel-default
                 div.panel-heading
