@@ -2,181 +2,78 @@ var express = require('express');
 var router = express.Router();
 
 var ges = require('ges-client');
-var util = require('./util.js');  
+var util = require('./util.js');
 
-var http = require('http');  
+var http = require('http');
 
-router.get('/', function(req, res, next) {
-    var dashboard = {w: 0, l: 0, t: 0, o: 0, gf: 0, ppg:0, shg: 0, eng:0, ga: 0, so: 0, p: 0, pim: 0, goal_leaders: [], ppg_leaders: [], shg_leaders: [], eng_leaders: [], assist_leaders: [], point_leaders: [], pim_leaders: [], opponents: {}, rinks: {}};
+router.get('/', function (req, res, next) {
+  var dashboard = { w: 0, l: 0, t: 0, o: 0, gf: 0, ppg: 0, shg: 0, eng: 0, ga: 0, so: 0, p: 0, pim: 0, goal_leaders: [], ppg_leaders: [], shg_leaders: [], eng_leaders: [], assist_leaders: [], point_leaders: [], pim_leaders: [], opponents: [], rinks: [] };
 
-    var options = {
-      host: 'localhost',
-      port: 2113,
-      path: '/projection/projection_team_stats/result',
-      method: 'GET'
-    }
+  var options1 = {
+    host: 'localhost',
+    port: 2113,
+    path: '/projection/projection_dashboard/result',
+    method: 'GET'
+  }
 
-    http.request(options, function (res1) {
-      console.log('STATUS: ' + res1.statusCode);
-      console.log('HEADERS: ' + JSON.stringify(res1.headers));
-      res1.setEncoding('utf8');
-      res1.on('data', function (chunk) {
-        var data = JSON.parse(chunk);
-        dashboard.opponents = data.opponents;
-        dashboard.rinks = data.rinks;
-        dashboard.gp = data.gp;
-        dashboard.gf = data.gf;
-        dashboard.ga = data.ga;
-        dashboard.pim = data.pim;
-        dashboard.w = data.w;
-        dashboard.l = data.l;
-        dashboard.t = data.t;
-
-        var players = {};
-        var connection = ges({ host: '127.0.0.1' });
-        connection.on('connect', function () {
-          console.log('connecting to geteventstore...');
-          // connection.readStreamEventsForward('gamestats', {start: 0, count: 4000}, function(err, readResult) {
-          //     if (err) return console.log('Ooops!', err);
-          //     // console.log(readResult);
-          //     for (var i = 0; i < readResult.Events.length; i++) {
-          //         var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
-          //         var eventDataJson = JSON.parse(eventDataStr);
-          //         dashboard.gf += eventDataJson.gf;
-          //         dashboard.ga += eventDataJson.ga;
-          //         dashboard.p += eventDataJson.p;
-          //         dashboard.pim += eventDataJson.pim;
-          //         if (eventDataJson.gf > eventDataJson.ga) {
-          //           dashboard.w++;
-          //           if (eventDataJson.ga == 0) {
-          //             dashboard.so++;
-          //           }
-          //         } else if (eventDataJson.gf < eventDataJson.ga) {
-          //           dashboard.l++;
-          //         } else {
-          //           dashboard.t++;
-          //         }               
-          //     }
-
-          connection.readStreamEventsForward('player_gamestats', { start: 0, count: 4000, resolveLinkTos: true }, function (err, readResult) {
-            if (err) return console.log('Ooops!', err)
-            // console.log(readResult.Events);
-            for (var i = 0; i < readResult.Events.length; i++) {
-              var event = readResult.Events[i].Event;
-              // var eventData = JSON.parse(bin2String(event.Data.toJSON().data));
-              var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data)
-              // console.log(eventDataStr);
-              var eventData = JSON.parse(eventDataStr);
-              var player_number = eventData.playernumber;
-              if (event.EventType == 'PlayerGameStats') {
-                if (!players[player_number]) {
-                  players[player_number] = { g: 0, a: 0, pts: 0, ppg: 0, shg: 0, eng: 0, pim: 0 };
-                }
-                players[player_number].g = players[player_number].g + eventData.g;
-                players[player_number].ppg = players[player_number].ppg + eventData.ppg;
-                players[player_number].shg = players[player_number].shg + eventData.shg;
-                players[player_number].eng = players[player_number].eng + eventData.eng;
-                players[player_number].a = players[player_number].a + eventData.a;
-                players[player_number].pts = players[player_number].pts + eventData.pts;
-                players[player_number].pim = players[player_number].pim + eventData.pim;
-              }
-            }
-            var players_stats = [];
-            for (var player in players) {
-              players_stats.push([player, players[player].g, players[player].ppg, players[player].shg, players[player].eng, players[player].a, players[player].pts, players[player].pim]);
-            }
-
-            players_stats.sort(function (a, b) {
-              return b[1] - a[1];
-            });
-            for (var i = 0; i < players_stats.length; i++) {
-              if (i < 5) {
-                if (players_stats[i][1] > 0) {
-                  dashboard.goal_leaders.push(players_stats[i]);
-                }
-              }
-            }
-
-            players_stats.sort(function (a, b) {
-              return b[2] - a[2];
-            });
-            for (var i = 0; i < players_stats.length; i++) {
-              if (i < 5) {
-                if (players_stats[i][2] > 0) {
-                  dashboard.ppg_leaders.push(players_stats[i]);
-                }
-              }
-            }
-
-            players_stats.sort(function (a, b) {
-              return b[3] - a[3];
-            });
-            for (var i = 0; i < players_stats.length; i++) {
-              if (i < 5) {
-                if (players_stats[i][3] > 0) {
-                  dashboard.shg_leaders.push(players_stats[i]);
-                }
-              }
-            }
-
-            players_stats.sort(function (a, b) {
-              return b[4] - a[4];
-            });
-            for (var i = 0; i < players_stats.length; i++) {
-              if (i < 5) {
-                if (players_stats[i][4] > 0) {
-                  dashboard.eng_leaders.push(players_stats[i]);
-                }
-              }
-            }
-
-            players_stats.sort(function (a, b) {
-              return b[5] - a[5];
-            });
-            for (var i = 0; i < players_stats.length; i++) {
-              if (i < 5) {
-                if (players_stats[i][5] > 0) {
-                  dashboard.assist_leaders.push(players_stats[i]);
-                }
-              }
-            }
-            players_stats.sort(function (a, b) {
-              return b[6] - a[6];
-            });
-            for (var i = 0; i < players_stats.length; i++) {
-              if (i < 5) {
-                if (players_stats[i][6] > 0) {
-                  dashboard.point_leaders.push(players_stats[i]);
-                }
-              }
-            }
-            players_stats.sort(function (a, b) {
-              return b[7] - a[7];
-            });
-            for (var i = 0; i < players_stats.length; i++) {
-              if (i < 5) {
-                if (players_stats[i][7] > 0) {
-                  dashboard.pim_leaders.push(players_stats[i]);
-                }
-              }
-            }
-            console.log(dashboard);
-            res.render('index.pug', { title: 'Dashboard', 'dashboard': dashboard });
-          });
-
-
-        });
-      });
-    }).end();
-            
+  http.request(options1, function (res1) {
+    res1.setEncoding('utf8');
+    res1.on('data', function (chunk) {
+      var data = JSON.parse(chunk);
       
-    // });
-    
- 
+      dashboard.gp = data.gp;
+      dashboard.gf = data.gf;
+      dashboard.ga = data.ga;
+      dashboard.pim = data.pim;
+      dashboard.w = data.w;
+      dashboard.l = data.l;
+      dashboard.t = data.t;
+      dashboard.so = data.so;
+      dashboard.p = data.p;
+
+      for (var opponent in data.opponents) {
+        dashboard.opponents.push([opponent, data.opponents[opponent].gp, data.opponents[opponent].gf, data.opponents[opponent].ga, data.opponents[opponent].w, data.opponents[opponent].l, data.opponents[opponent].t, data.opponents[opponent].pim]);
+      }
+      dashboard.opponents.sort(function (a, b) {
+        return a[0].localeCompare(b[0]);
+      });
+
+      for (var rink in data.rinks) {
+        dashboard.rinks.push([rink, data.rinks[rink].gp, data.rinks[rink].gf, data.rinks[rink].ga, data.rinks[rink].w, data.rinks[rink].l, data.rinks[rink].t, data.rinks[rink].pim]);
+      }
+      dashboard.rinks.sort(function (a, b) {
+        return a[0].localeCompare(b[0]);
+      });
+      
+      var players_stats = [];
+      for (var player in data.players) {
+        players_stats.push([player, data.players[player].g, data.players[player].ppg, data.players[player].shg, data.players[player].eng, data.players[player].a, data.players[player].pts, data.players[player].pim]);
+      }
+
+      sort_and_push_first_five_elements(players_stats, 1, dashboard.goal_leaders);
+      sort_and_push_first_five_elements(players_stats, 2, dashboard.ppg_leaders);
+      sort_and_push_first_five_elements(players_stats, 3, dashboard.shg_leaders);
+      sort_and_push_first_five_elements(players_stats, 4, dashboard.eng_leaders);
+      sort_and_push_first_five_elements(players_stats, 5, dashboard.assist_leaders);
+      sort_and_push_first_five_elements(players_stats, 6, dashboard.point_leaders);
+      sort_and_push_first_five_elements(players_stats, 7, dashboard.pim_leaders);
+      
+      res.render('index.pug', { title: 'Dashboard', 'dashboard': dashboard });
+    });
+  }).end();
 });
 
-var cb0 = function(req, res, next) {
-  
+function sort_and_push_first_five_elements(source, index, target) {
+  source.sort(function (a, b) {
+    return b[index] - a[index];
+  });
+  for (var i = 0; i < source.length; i++) {
+    if (i < 5) {
+      if (source[i][index] > 0) {
+        target.push(source[i]);
+      }
+    }
+  }
 }
 
 module.exports = router;

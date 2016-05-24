@@ -190,16 +190,16 @@ block content
                                     th t
                                     th pim                                    
                             tbody
-                                each opponent, index in dashboard.opponents
+                                each opponent in dashboard.opponents
                                     tr
-                                        td #{index}
-                                        td #{opponent.gp}
-                                        td #{opponent.gf}
-                                        td #{opponent.ga}
-                                        td #{opponent.w}
-                                        td #{opponent.l}
-                                        td #{opponent.t}
-                                        td #{opponent.pim}
+                                        td #{opponent[0]}
+                                        td #{opponent[1]}
+                                        td #{opponent[2]}
+                                        td #{opponent[3]}
+                                        td #{opponent[4]}
+                                        td #{opponent[5]}
+                                        td #{opponent[6]}
+                                        td #{opponent[7]}
         div.col-lg-6.col-md-12
             div.panel.panel-default
                 div.panel-heading
@@ -218,16 +218,16 @@ block content
                                     th t
                                     th pim                                    
                             tbody
-                                each rink, index in dashboard.rinks
+                                each rink in dashboard.rinks
                                     tr
-                                        td #{index}
-                                        td #{rink.gp}
-                                        td #{rink.gf}
-                                        td #{rink.ga}
-                                        td #{rink.w}
-                                        td #{rink.l}
-                                        td #{rink.t}
-                                        td #{rink.pim}
+                                        td #{rink[0]}
+                                        td #{rink[1]}
+                                        td #{rink[2]}
+                                        td #{rink[3]}
+                                        td #{rink[4]}
+                                        td #{rink[5]}
+                                        td #{rink[6]}
+                                        td #{rink[7]}
 
     div.row
         div.col-lg-3.col-md-6
