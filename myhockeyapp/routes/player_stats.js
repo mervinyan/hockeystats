@@ -4,247 +4,118 @@ var router = express.Router();
 var ges = require('ges-client');
 var util = require('./util.js');
 
+var http = require('http');
+
 router.get('/', function (req, res, next) {
-    var connection = ges({ host: '127.0.0.1' });
-    connection.on('connect', function () {
-        console.log('connecting to geteventstore...');
-        connection.readStreamEventsForward('player_gamestats', { start: 0, count: 4000, resolveLinkTos: true }, function (err, readResult) {
-            if (err) return console.log('Ooops!', err)
-            var players_stats = gatherPlayersStats(readResult);
+    var options1 = {
+        host: 'localhost',
+        port: 2113,
+        path: '/projection/projection_dashboard/result',
+        method: 'GET'
+    }
+
+    http.request(options1, function (res1) {
+        res1.setEncoding('utf8');
+        var body = "";
+        res1.on('data', function (chunk) {
+            body += chunk;
+        });
+        res1.on('end', function () {
+            var data = JSON.parse(body);
+            var players_stats = [];
+            for (var player in data.players) {
+                var item = {};
+                item.no = player;
+                item.g = data.players[player].g;
+                item.ppg = data.players[player].ppg;
+                item.shg = data.players[player].shg;
+                item.eng = data.players[player].eng;
+                item.a = data.players[player].a;
+                item.pts = data.players[player].pts;
+                item.pim = data.players[player].pim;
+                players_stats.push(item);
+            }
             res.render('players_stats.pug', { title: 'Skater Stats', 'players_stats': players_stats });
         });
-    });
+    }).end();
 });
-
-gatherPlayersStats = function (readResult) {
-    var players = {};
-    for (var i = 0; i < readResult.Events.length; i++) {
-        var event = readResult.Events[i].Event;
-        var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data)
-        var eventData = JSON.parse(eventDataStr);
-        var player_number = eventData.playernumber;
-        if (event.EventType == 'PlayerGameStats') {
-            if (!players[player_number]) {
-                players[player_number] = { g: 0, a: 0, pts: 0, ppg: 0, shg: 0, eng: 0, pim: 0 };
-            }
-            players[player_number].g = players[player_number].g + eventData.g;
-            players[player_number].ppg = players[player_number].ppg + eventData.ppg;
-            players[player_number].shg = players[player_number].shg + eventData.shg;
-            players[player_number].eng = players[player_number].eng + eventData.eng;
-            players[player_number].a = players[player_number].a + eventData.a;
-            players[player_number].pts = players[player_number].pts + eventData.pts;
-            players[player_number].pim = players[player_number].pim + eventData.pim;
-        }
-    }
-    var players_stats = [];
-    for (var player in players) {
-        var item = {};
-        item.no = player;
-        item.g = players[player].g;
-        item.ppg = players[player].ppg;
-        item.shg = players[player].shg;
-        item.eng = players[player].eng;
-        item.a = players[player].a;
-        item.pts = players[player].pts;
-        item.pim = players[player].pim;
-        players_stats.push(item);
-    }
-    console.log(players_stats);
-    return players_stats;
-}
 
 router.get('/:player_number', function (req, res, next) {
     var player_number = req.params.player_number;
 
-    // res.send({ title: 'Express' });
+    var options1 = {
+        host: 'localhost',
+        port: 2113,
+        path: '/projection/projection_player_stats/result',
+        method: 'GET'
+    }
 
-    var connection = ges({ host: '127.0.0.1' });
-    connection.on('connect', function () {
-        console.log('connecting to geteventstore...');
-        var stream = player_number;
-        // console.log(stream);
-        connection.readStreamEventsForward(stream, { start: 0, count: 1000, resolveLinkTos: true }, function (err, readResult) {
-            if (err) return console.log('Ooops!', err)
-
-            var player_stats_0 = gatherPlayerStats0(readResult, player_number);
-
-            connection.readStreamEventsForward('player_' + player_number + '_gamestats', { start: 0, count: 1000, resolveLinkTos: true }, function (err, readResult) {
-                if (err) return console.log('Ooops!', err)
-                
-                var player_stats_1 = gatherPlayerStats1(readResult);
-                
-                res.render('player_stats.pug', { 'title': 'Stats for Player #' + player_number, 'player_id': player_number, 'player_stats_0': player_stats_0, 'player_stats_1': player_stats_1 });
-            });
+    http.request(options1, function (res1) {
+        res1.setEncoding('utf8');
+        var body = "";
+        res1.on('data', function (chunk) {
+            body += chunk;
         });
+        res1.on('end', function () {
+            var data = JSON.parse(body);
+            var player_stats = data[player_number];
 
-    });
+            var game_stats = [];
+            for (var game in player_stats.games) {
+                var item = {};
+                item.datetime = game;
+                item.date = player_stats.games[game].date;
+                item.time = player_stats.games[game].time;
+                item.g = player_stats.games[game].g;
+                item.ppg = player_stats.games[game].ppg;
+                item.shg = player_stats.games[game].shg;
+                item.eng = player_stats.games[game].eng;
+                item.a = player_stats.games[game].a;
+                item.pts = player_stats.games[game].pts;
+                item.pim = player_stats.games[game].pim;
+                game_stats.push(item);
+            }
+
+            console.log(game_stats);
+
+            var opponent_stats = [];
+            for (var opponent in player_stats.opponents) {
+                var item = {};
+                item.opponent = opponent;
+                item.g = player_stats.opponents[opponent].g;
+                item.ppg = player_stats.opponents[opponent].ppg;
+                item.shg = player_stats.opponents[opponent].shg;
+                item.eng = player_stats.opponents[opponent].eng;
+                item.a = player_stats.opponents[opponent].a;
+                item.pts = player_stats.opponents[opponent].pts;
+                item.pim = player_stats.opponents[opponent].pim;
+                opponent_stats.push(item);
+            }
+            opponent_stats.sort(function (a, b) {
+                return a.opponent.localeCompare(b.opponent);
+            });
+
+            var rink_stats = [];
+            for (var rink in player_stats.rinks) {
+                var item = {};
+                item.rink = rink;
+                item.g = player_stats.rinks[rink].g;
+                item.ppg = player_stats.rinks[rink].ppg;
+                item.shg = player_stats.rinks[rink].shg;
+                item.eng = player_stats.rinks[rink].eng;
+                item.a = player_stats.rinks[rink].a;
+                item.pts = player_stats.rinks[rink].pts;
+                item.pim = player_stats.rinks[rink].pim;
+                rink_stats.push(item);
+            }
+            rink_stats.sort(function (a, b) {
+                return a.rink.localeCompare(b.rink);
+            });
+
+            res.render('player_stats.pug', { 'title': 'Stats for Player #' + player_number, 'player_id': player_number, 'player_stats': player_stats, 'game_stats': game_stats, 'opponent_stats': opponent_stats, 'rink_stats': rink_stats });
+        });
+    }).end();
 });
 
-gatherPlayerStats0 = function (readResult, player_number) {
-    var player_stats = {
-        occurred_at: [],
-        goal_by_period: {},
-        assist_by_period: {},
-        point_by_period: {},
-        pim_by_period: {},
-        penalty_by_period: {},
-        assist_from_by_player: {},
-        assist_to_by_player: {},
-        goal_by_kind: {},
-        penalty_by_kind: {},
-        pim_by_kind: {}
-    };
-    var j = 0;
-    for (var i = 0; i < readResult.Events.length; i++) {
-        var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data)
-        var eventDataJson = JSON.parse(eventDataStr)
-
-        var pos = eventDataJson.time.indexOf(':');
-        var min = eventDataJson.time.substring(0, pos);
-        var sec = eventDataJson.time.substring(pos, eventDataJson.time.length);
-        var at = ((eventDataJson.period - 1) * 20 + parseInt(min)) + sec;
-
-        if (readResult.Events[i].Event.EventType == 'GoalScored') {
-            if (!player_stats.point_by_period['period' + eventDataJson.period]) {
-                player_stats.point_by_period['period' + eventDataJson.period] = 0;
-            }
-            player_stats.point_by_period['period' + eventDataJson.period]++;
-
-            if (eventDataJson.score == player_number) {
-                if (!player_stats.goal_by_kind[eventDataJson.kind]) {
-                    player_stats.goal_by_kind[eventDataJson.kind] = 0;
-                }
-                player_stats.goal_by_kind[eventDataJson.kind]++;
-                if (!player_stats.goal_by_period['period' + eventDataJson.period]) {
-                    player_stats.goal_by_period['period' + eventDataJson.period] = 0;
-                }
-                player_stats.goal_by_period['period' + eventDataJson.period]++;
-                if (eventDataJson.assist1) {
-                    if (!player_stats.assist_from_by_player[eventDataJson.assist1]) {
-                        player_stats.assist_from_by_player[eventDataJson.assist1] = 0;
-                    }
-                    player_stats.assist_from_by_player[eventDataJson.assist1]++;
-                }
-                if (eventDataJson.assist2) {
-                    if (!player_stats.assist_from_by_player[eventDataJson.assist2]) {
-                        player_stats.assist_from_by_player[eventDataJson.assist2] = 0;
-                    }
-                    player_stats.assist_from_by_player[eventDataJson.assist2]++;
-                }
-            } else {
-                if (!player_stats.assist_by_period['period' + eventDataJson.period]) {
-                    player_stats.assist_by_period['period' + eventDataJson.period] = 0;
-                }
-                player_stats.assist_by_period['period' + eventDataJson.period]++;
-                if (!player_stats.assist_to_by_player[eventDataJson.score]) {
-                    player_stats.assist_to_by_player[eventDataJson.score] = 0;
-                }
-                player_stats.assist_to_by_player[eventDataJson.score]++;
-            }
-            var assistfrom = "";
-            var assistto = "";
-            if (eventDataJson.score == player_number) {
-                if (eventDataJson.assist1) {
-                    assistfrom = eventDataJson.assist1;
-                } else {
-                    assistfrom = eventDataJson.score;
-                }
-                player_stats.occurred_at[j] = { 'time': at, 'g': assistfrom };
-            } else {
-                assistto = eventDataJson.score;
-                player_stats.occurred_at[j] = { 'time': at, 'a': assistto };
-            }
-        }
-        if (readResult.Events[i].Event.EventType == 'PenaltyTaken') {
-            if (!player_stats.penalty_by_period['period' + eventDataJson.period]) {
-                player_stats.penalty_by_period['period' + eventDataJson.period] = 0;
-            }
-            player_stats.penalty_by_period['period' + eventDataJson.period]++;
-
-            if (!player_stats.pim_by_period['period' + eventDataJson.period]) {
-                player_stats.pim_by_period['period' + eventDataJson.period] = 0;
-            }
-            player_stats.pim_by_period['period' + eventDataJson.period] += parseInt(eventDataJson.min);
-
-            if (!player_stats.penalty_by_kind[eventDataJson.offense]) {
-                player_stats.penalty_by_kind[eventDataJson.offense] = 0;
-            }
-            player_stats.penalty_by_kind[eventDataJson.offense]++;
-
-            if (!player_stats.pim_by_kind[eventDataJson.offense]) {
-                player_stats.pim_by_kind[eventDataJson.offense] = 0;
-            }
-            player_stats.pim_by_kind[eventDataJson.offense] += parseInt(eventDataJson.min);
-            player_stats.occurred_at[j] = { 'time': at, 'penalty': eventDataJson.player };
-        }
-        j++;
-    }
-    return player_stats;
-}
-
-gatherPlayerStats1 = function (readResult) {
-    var gamestats = [];
-    var opponents = {};
-    var rinks = {};
-    for (var i = 0; i < readResult.Events.length; i++) {
-        // console.log(readResult.Events[i]);
-        var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data)
-        // console.log(eventDataStr);
-        var eventDataJson = JSON.parse(eventDataStr)
-        gamestats[i] = eventDataJson;
-
-        if (!opponents[eventDataJson.opponent]) {
-            opponents[eventDataJson.opponent] = { g: 0, ppg: 0, shg: 0, eng: 0, a: 0, pts: 0, pim: 0 };
-        }
-        opponents[eventDataJson.opponent].g = opponents[eventDataJson.opponent].g + eventDataJson.g;
-        opponents[eventDataJson.opponent].ppg = opponents[eventDataJson.opponent].ppg + eventDataJson.ppg;
-        opponents[eventDataJson.opponent].shg = opponents[eventDataJson.opponent].shg + eventDataJson.shg;
-        opponents[eventDataJson.opponent].eng = opponents[eventDataJson.opponent].eng + eventDataJson.eng;
-        opponents[eventDataJson.opponent].a = opponents[eventDataJson.opponent].a + eventDataJson.a;
-        opponents[eventDataJson.opponent].pts = opponents[eventDataJson.opponent].pts + eventDataJson.pts;
-        opponents[eventDataJson.opponent].pim = opponents[eventDataJson.opponent].pim + eventDataJson.pim;
-
-        if (!rinks[eventDataJson.rink]) {
-            rinks[eventDataJson.rink] = { g: 0, ppg: 0, shg: 0, eng: 0, a: 0, pts: 0, pim: 0 };
-        }
-        rinks[eventDataJson.rink].g = rinks[eventDataJson.rink].g + eventDataJson.g;
-        rinks[eventDataJson.rink].ppg = rinks[eventDataJson.rink].ppg + eventDataJson.ppg;
-        rinks[eventDataJson.rink].shg = rinks[eventDataJson.rink].shg + eventDataJson.shg;
-        rinks[eventDataJson.rink].eng = rinks[eventDataJson.rink].eng + eventDataJson.eng;
-        rinks[eventDataJson.rink].a = rinks[eventDataJson.rink].a + eventDataJson.a;
-        rinks[eventDataJson.rink].pts = rinks[eventDataJson.rink].pts + eventDataJson.pts;
-        rinks[eventDataJson.rink].pim = rinks[eventDataJson.rink].pim + eventDataJson.pim;
-
-        var opponent_stats = [];
-        for (var opponent in opponents) {
-            var item = {};
-            item.opponent = opponent;
-            item.g = opponents[opponent].g;
-            item.ppg = opponents[opponent].ppg;
-            item.shg = opponents[opponent].shg;
-            item.eng = opponents[opponent].eng;
-            item.a = opponents[opponent].a;
-            item.pts = opponents[opponent].pts;
-            item.pim = opponents[opponent].pim;
-            opponent_stats.push(item);
-        }
-
-        var rink_stats = [];
-        for (var rink in rinks) {
-            var item = {};
-            item.rink = rink;
-            item.g = rinks[rink].g;
-            item.ppg = rinks[rink].ppg;
-            item.shg = rinks[rink].shg;
-            item.eng = rinks[rink].eng;
-            item.a = rinks[rink].a;
-            item.pts = rinks[rink].pts;
-            item.pim = rinks[rink].pim;
-            rink_stats.push(item);
-        }
-
-    }
-    return {'gamestats': gamestats, 'opponent_stats': opponent_stats, 'rink_stats': rink_stats};
-}
 
 module.exports = router;

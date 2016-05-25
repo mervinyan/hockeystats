@@ -1,7 +1,5 @@
-$projections = 'projection_game_stats', 'projection_player_game_stats', 'projection_player_stats'
-$projections = $projections + 'projection_scheduled_games', 'projection_team_stats', 'projection_team_time_stats'
-$projections = $projections + 'projection_gf_ga_pim_stats', 'projection_dashboard'
-
+$projections = 'projection_dashboard',  'projection_team_stats', 'projection_game_stats', 'projection_player_stats'
+$projections = $projections + 'projection_scheduled_games' 
 
 Foreach ($projection in $projections)
 {

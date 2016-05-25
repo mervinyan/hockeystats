@@ -71,7 +71,6 @@ router.get('/wins', function (req, res, next) {
         connection.readStreamEventsBackward('gamestats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
-                console.log(readResult.Events[i].Event.EventType);
                 if (readResult.Events[i].Event.EventType == 'Win') {
                     var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
                     var eventDataJson = JSON.parse(eventDataStr);
@@ -91,7 +90,6 @@ router.get('/losses', function (req, res, next) {
         connection.readStreamEventsBackward('gamestats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
-                console.log(readResult.Events[i].Event.EventType);
                 if (readResult.Events[i].Event.EventType == 'Loss') {
                     var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
                     var eventDataJson = JSON.parse(eventDataStr);
@@ -111,7 +109,6 @@ router.get('/shutouts', function (req, res, next) {
         connection.readStreamEventsBackward('gamestats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
-                console.log(readResult.Events[i].Event.EventType);
                 if (readResult.Events[i].Event.EventType == 'Win') {
                     var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
                     var eventDataJson = JSON.parse(eventDataStr);
@@ -133,7 +130,6 @@ router.get('/ties', function (req, res, next) {
         connection.readStreamEventsBackward('gamestats', { start: -1, count: 1000 }, function (err, readResult) {
             if (err) return console.log('Ooops!', err);
             for (var i = 0; i < readResult.Events.length; i++) {
-                console.log(readResult.Events[i].Event.EventType);
                 if (readResult.Events[i].Event.EventType == 'Tie') {
                     var eventDataStr = util.bin2String(readResult.Events[i].Event.Data.toJSON().data);
                     var eventDataJson = JSON.parse(eventDataStr);

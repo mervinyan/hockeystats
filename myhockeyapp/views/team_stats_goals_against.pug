@@ -67,8 +67,11 @@ block content
                                         td #{goal_against.time}
                                         td #{goal_against.goal}
                                         td #{goal_against.score}
-                                        td #{goal_against.assist1}, #{goal_against.assist2}
-
+                                        td 
+                                            | #{goal_against.assist1}
+                                            if goal_against.assist1 && goal_against.assist2
+                                                | , 
+                                            | #{goal_against.assist2}
 block scripts
     <!-- D3 Chart JavaScript -->
     script(src='/bower_components/d3/d3.min.js' charset='utf-8' type='text/javascript')

@@ -67,7 +67,11 @@ block content
                                         td #{goal_for.time}
                                         td #{goal_for.goal}
                                         td #{goal_for.score}
-                                        td #{goal_for.assist1}, #{goal_for.assist2}
+                                        td 
+                                            | #{goal_for.assist1}
+                                            if goal_for.assist1 && goal_for.assist2
+                                                | , 
+                                            | #{goal_for.assist2}
 
 block scripts
     <!-- D3 Chart JavaScript -->
