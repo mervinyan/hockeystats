@@ -65,13 +65,13 @@ block content
                                             | #{goal_for.homeaway} game vs. #{goal_for.opponent} played at #{goal_for.start} on #{goal_for.date} at rink #{goal_for.rink}
                                         td #{goal_for.period}
                                         td #{goal_for.time}
-                                        td #{goal_for.goal}
-                                        td #{goal_for.score}
+                                        td #{goal_for.goalkind}
+                                        td #{goal_for.gf}
                                         td 
-                                            | #{goal_for.assist1}
-                                            if goal_for.assist1 && goal_for.assist2
+                                            | #{goal_for.a1}
+                                            if goal_for.a1 && goal_for.a2
                                                 | , 
-                                            | #{goal_for.assist2}
+                                            | #{goal_for.a2}
 
 block scripts
     <!-- D3 Chart JavaScript -->
@@ -112,11 +112,17 @@ block scripts
                 "columnDefs": [
                     {
                         "visible": false,
-                        "targets": 0 
+                        "targets": [0],
+                        "orderData": [0, 1] 
+                    },
+                    {
+                        "targets": [1],
+                        "orderData": [1, 1] 
+                    },
+                    {
+                        "targets": [2],
+                        "orderData": [2, 0] 
                     }
-                ],
-                "order": [
-                    [0,'desc']
                 ],
                 "drawCallback": function(settings) {
                     var api = this.api();

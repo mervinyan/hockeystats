@@ -65,13 +65,13 @@ block content
                                             | #{goal_against.homeaway} game vs. #{goal_against.opponent} played at #{goal_against.start} on #{goal_against.date} at rink #{goal_against.rink}
                                         td #{goal_against.period}
                                         td #{goal_against.time}
-                                        td #{goal_against.goal}
-                                        td #{goal_against.score}
+                                        td #{goal_against.goalkind}
+                                        td #{goal_against.ga}
                                         td 
-                                            | #{goal_against.assist1}
-                                            if goal_against.assist1 && goal_against.assist2
+                                            | #{goal_against.a1}
+                                            if goal_against.a1 && goal_against.a2
                                                 | , 
-                                            | #{goal_against.assist2}
+                                            | #{goal_against.a2}
 block scripts
     <!-- D3 Chart JavaScript -->
     script(src='/bower_components/d3/d3.min.js' charset='utf-8' type='text/javascript')
@@ -111,12 +111,19 @@ block scripts
                 "columnDefs": [
                     {
                         "visible": false,
-                        "targets": 0 
+                        "targets": [0],
+                        "orderData": [0, 1] 
+                    },
+                    {
+                        "targets": [1],
+                        "orderData": [1, 1] 
+                    },
+                    {
+                        "targets": [2],
+                        "orderData": [2, 0] 
                     }
                 ],
-                "order": [
-                    [0,'desc']
-                ],
+
                 "drawCallback": function(settings) {
                     var api = this.api();
                     var rows = api.rows({page: 'current'}).nodes();

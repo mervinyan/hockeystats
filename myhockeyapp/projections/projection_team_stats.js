@@ -43,13 +43,16 @@ fromCategory('game')
             var sec = ev.body.time.substring(pos, ev.body.time.length);
             var at = ((ev.body.period -1) * 20 + parseInt(min)) + sec;
             state.events.push({
-                    "gameday": state.date1,
-                    "gamestartat": state.time1,
+                    "date": state.date1,
+                    "start": state.time1,
                     "opponent": state.opponent1,
                     "homeaway": state.homeaway1,
                     "kind": state.kind1,
                     "rink": state.rink1,
-                    "time": at,
+                    "period": ev.body.period,
+                    "time": ev.body.time,
+                    "at": at,
+                    "type": "gf",
                     "gf": ev.body.score,
                     "a1": ev.body.assist1,
                     "a2": ev.body.assist2,
@@ -77,14 +80,19 @@ fromCategory('game')
             var sec = ev.body.time.substring(pos, ev.body.time.length);
             var at = ((ev.body.period -1) * 20 + parseInt(min)) + sec;
             state.events.push({
-                    "gameday": state.date1,
-                    "gamestartat": state.time1,
+                    "date": state.date1,
+                    "start": state.time1,
                     "opponent": state.opponent1,
                     "homeaway": state.homeaway1,
                     "kind": state.kind1,
                     "rink": state.rink1,
-                    "time": at,
+                    "period": ev.body.period,
+                    "time": ev.body.time,
+                    "at": at,
+                    "type": "ga",
                     "ga": ev.body.score,
+                    "a1": ev.body.assist1,
+                    "a2": ev.body.assist2,
                     "goalkind": ev.body.kind
                 });
             
@@ -99,13 +107,16 @@ fromCategory('game')
             var sec = ev.body.time.substring(pos, ev.body.time.length);
             var at = ((ev.body.period -1) * 20 + parseInt(min)) + sec;
             state.events.push({
-                    "gameday": state.date1,
-                    "gamestartat": state.time1,
+                    "date": state.date1,
+                    "start": state.time1,
                     "opponent": state.opponent1,
                     "homeaway": state.homeaway1,
                     "kind": state.kind1,
                     "rink": state.rink1,
-                    "time": at,
+                    "period": ev.body.period,
+                    "time": ev.body.time,                    
+                    "at": at,
+                    "type": "p",
                     "penalty": ev.body.player,
                     "offense": ev.body.offense,
                     "min": ev.body.min,
@@ -154,7 +165,7 @@ fromCategory('game')
                     state.so++;
                     state.wlt1 = 'so';
                 } else {
-                    state.wlt1 = 'w/so';
+                    state.wlt1 = 'w';
                 }
                 state.w++;
                 state.opponents[state.opponent1].w++;
