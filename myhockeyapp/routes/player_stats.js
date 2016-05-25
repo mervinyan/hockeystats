@@ -76,8 +76,6 @@ router.get('/:player_number', function (req, res, next) {
                 game_stats.push(item);
             }
 
-            console.log(game_stats);
-
             var opponent_stats = [];
             for (var opponent in player_stats.opponents) {
                 var item = {};
