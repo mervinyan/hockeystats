@@ -1,9 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-var ges = require('ges-client');
-var util = require('./util.js');
-
 var http = require('http');
 
 router.get('/', function (req, res, next) {

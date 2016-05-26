@@ -40,11 +40,26 @@ block content
                         | Skater Stats                
     div.row
         div.col-lg-12
-            div.panel.panel-default
+            div.panel.panel-primary
                 div.panel-heading
-                    | Skater Stats
+                    h3.panel-title 
+                        i#i00.fa.fa-table 
+                            | Skater Stats   
+                        div.pull-right
+                            div.btn-group
+                                button#ddl00.btn.btn-default.btn-xs.dropdown-toggle(type="button" data-toggle="dropdown")
+                                    | Grid 
+                                    span.caret
+                                ul.dropdown-menu.pull-right(role="menu")
+                                    li
+                                        a()
+                                            | Bar
+                                    li
+                                        a()
+                                            | Grid                                                                  
                 div.panel-body
-                    div.dataTable_wrapper
+                    div(id='chart00' class='c3chart') 
+                    div#div00.dataTable_wrapper
                         table#datatable-gamestats.table.table-hover
                             thead
                                 tr
@@ -68,16 +83,6 @@ block content
                                         td #{player_stats.a}
                                         td #{player_stats.pts}
                                         td #{player_stats.pim}
-    div.row
-        div.col-lg-12
-            div.panel.panel-primary
-                div.panel-heading
-                    h3.panel-title 
-                        i.fa.fa-bar-chart-o 
-                            | Goals, Assists, Points, Penalty In Minutes By Player
-                div.panel-body
-                    div(id='chart00' class='c3chart') 
-
 block scripts
     <!-- D3 Chart JavaScript -->
     script(src='/bower_components/d3/d3.min.js' charset='utf-8' type='text/javascript')
@@ -102,6 +107,24 @@ block scripts
     script(src="/bower_components/sb-admin-2/js/sb-admin-2.js" type="text/javascript")   
     
     script(type="text/javascript").
+        $(document).ready(function() {
+            $("#chart00").hide();
+        });  
+          
+        $(".dropdown-menu li a").click(function(){
+            var selText = $(this).text();
+            $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+            if (selText == "Bar") {
+                $("#chart00").show();
+                $("#div00").hide();
+                $("#i00").removeClass('fa-table').addClass('fa-bar-chart-o');
+            } else {
+                $("#chart00").hide();
+                 $("#div00").show();
+                 $("#i00").removeClass('fa-bar-chart-o').addClass('fa-table');
+            }
+        });
+    
         c3.generate({
             bindto: '#chart00',
             data: {

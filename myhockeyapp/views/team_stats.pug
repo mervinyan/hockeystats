@@ -74,7 +74,7 @@ block content
                     div.panel.panel-primary
                         div.panel-heading
                             h3.panel-title 
-                                i.fa.fa-bar-chart-o 
+                                i#i1.fa.fa-bar-chart-o 
                                     | Goals For, Goals Against, Penalty in Minutes By Date
                                 div.pull-right
                                     div.btn-group
@@ -105,7 +105,7 @@ block content
                     div.panel.panel-primary
                         div.panel-heading
                             h3.panel-title 
-                                i.fa.fa-bar-chart-o 
+                                i#i2.fa.fa-bar-chart-o 
                                     | Goals For, Goals Against, Penalty in Minutes By Opponent
                                 div.pull-right
                                     div.btn-group
@@ -149,7 +149,7 @@ block content
                     div.panel.panel-primary
                         div.panel-heading
                             h3.panel-title 
-                                i.fa.fa-bar-chart-o 
+                                i#i3.fa.fa-bar-chart-o 
                                     | Goals For, Goals Against, Penalty in Minutes By Rink
                                 div.pull-right
                                     div.btn-group
@@ -291,23 +291,29 @@ block scripts
                 if (id == "ddl1") {
                     $("#chart00").show();
                     $("#chart10").hide();
+                    $("#i1").removeClass('fa-line-chart').addClass('fa-bar-chart-o');
                 } else if (id == "ddl2") {
                     $("#chart30").show();
                     $("#div30").hide();
+                    $("#i2").removeClass('fa-table').addClass('fa-bar-chart-o');
                 } else if (id == "ddl3") {
                     $("#chart40").show();
                     $("#div40").hide();
+                    $("#i3").removeClass('fa-table').addClass('fa-bar-chart-o');                    
                 }
             } else {
                 if (id == "ddl1") {
                     $("#chart00").hide();
                     $("#chart10").show();
+                    $("#i1").removeClass('fa-bar-chart-o').addClass('fa-line-chart');
                 } else if (id == "ddl2") {
                     $("#chart30").hide();
                     $("#div30").show();
+                    $("#i2").removeClass('fa-bar-chart-o').addClass('fa-table');
                 } else if (id == "ddl3") {
                     $("#chart40").hide();
                     $("#div40").show();
+                    $("#i3").removeClass('fa-bar-chart-o').addClass('fa-table');
                 }
             }
         });
