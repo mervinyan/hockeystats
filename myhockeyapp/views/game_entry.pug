@@ -71,6 +71,9 @@ block content
                         | Game Start
                 form#gameStartForm.form-horizontal(name='game_start' method='post' action="/gameentry/gamestart")
                     div.modal-body
+                        div.row
+                            div.col-xs-12.col-sm-12.col-md-12
+                                include messages
                         div.form-group
                             label.col-xs-6.col-sm-4.col-md-4.control-label(for='date') Date
                             div.col-xs-6.col-sm-8.col-md-8
@@ -95,6 +98,9 @@ block content
                         | Home Score
                 form#homeScoreForm.form-horizontal(name='home_score' method='post' action='/gameentry/homescore')
                     div.modal-body
+                        div.row
+                            div.col-xs-12.col-sm-12.col-md-12
+                                include messages                    
                         div.form-group
                             label.col-xs-6.col-sm-4.col-md-4.control-label(for='periodOptions') Period
                             div.col-xs-6.col-sm-8.col-md-8.dropdown
