@@ -55,8 +55,10 @@ block content
                         table#datatable-gameevents.table.table-hover
                             thead
                                 tr
-                                    th Event Type
-                                    th Event Data
+                                    th Event #
+                                    th Type
+                                    th Created Date
+                                    th Data
                             tbody
                             
     div#gameStartModal.modal.fade(tabIndex="-1" role="dialog" aria-labelledby="gameStartModalLabel")
@@ -426,11 +428,13 @@ block scripts
                 "iDisplayLength": 10,
                 "ajax": "/gameentry/fetchevents/#{stream_id}",
                 "columns": [
+                    {"data": "number"},
                     {"data": "type"},
+                    {"data": "createdDate"},
                     {"data": "json"}
                 ],
                 "createdRow": function(row, data, index) {
-                    $('td', row).eq(1).html("<pre>" + JSON.stringify(data.json, undefined, 4) + "</pre>");
+                    $('td', row).eq(3).html("<pre>" + JSON.stringify(data.json, undefined, 4) + "</pre>");
                 },
             });
 
