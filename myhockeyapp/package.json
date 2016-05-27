@@ -14,9 +14,11 @@
     "ejs": "~2.4.1",
     "express": "~4.13.1",
     "express-validator": "^2.20.4",
+    "jsoneditor": "^5.5.5",
     "morgan": "^1.7.0",
     "node-uuid": "*",
     "pug": "^2.0.0-alpha6",
+    "request-as-curl": "^0.1.0",
     "serve-favicon": "~2.3.0"
   }
 }

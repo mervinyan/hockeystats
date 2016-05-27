@@ -25,6 +25,9 @@ block links
     <!-- Custom Fonts -->
     link(href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css")
 
+    <!-- Json Editor CSS -->
+    link(href="/bower_components/jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css")
+    
 block content
     div.row
         div.col-lg-12
@@ -39,207 +42,219 @@ block content
                         | 
                         | Team Stats
     div.row
-        div.col-lg-12
-            div.panel.panel-default
-                div.panel-heading
-                    | Game Stats
-                div.panel-body
-                    div.dataTable_wrapper
-                        table#datatable-gamestats.table.table-hover
-                            thead
-                                tr
-                                    th Date
-                                    th Time
-                                    th Opponent
-                                    th Home/Away
-                                    th Type
-                                    th Rink
-                                    th Goals For
-                                    th Goals Against
-                                    th Penalty in Minutes
-                            tbody
-                                each game in data.games
-                                    tr
-                                        td #{game.date}
-                                        td #{game.time}
-                                        td #{game.opponent}
-                                        td #{game.homeaway}
-                                        td #{game.kind}
-                                        td #{game.rink}
-                                        td #{game.gf}
-                                        td #{game.ga}
-                                        td #{game.pim}
-            div.row
-                div.col-lg-12
-                    div.panel.panel-primary
-                        div.panel-heading
-                            h3.panel-title 
-                                i#i1.fa.fa-bar-chart-o 
-                                    | Goals For, Goals Against, Penalty in Minutes By Date
-                                div.pull-right
-                                    div.btn-group
-                                        button#ddl1.btn.btn-default.btn-xs.dropdown-toggle(type="button" data-toggle="dropdown")
-                                            | Bar 
-                                            span.caret
-                                        ul.dropdown-menu.pull-right(role="menu")
-                                            li
-                                                a()
-                                                    | Bar
-                                            li
-                                                a()
-                                                    | TimeSeries                                      
-                        div.panel-body
-                            div(id='chart00' class='c3chart') 
-                            div(id='chart10' class='c3chart')                                      
-            div.row
-                div.col-lg-12
-                    div.panel.panel-primary
-                        div.panel-heading
-                            h3.panel-title 
-                                i.fa.fa-area-chart 
-                                    | Goals For, Goals Against, Penalties By Period
-                        div.panel-body       
-                            div(id='chart20' class='c3chart') 
-            div.row
-                div.col-lg-12
-                    div.panel.panel-primary
-                        div.panel-heading
-                            h3.panel-title 
-                                i#i2.fa.fa-bar-chart-o 
-                                    | Goals For, Goals Against, Penalty in Minutes By Opponent
-                                div.pull-right
-                                    div.btn-group
-                                        button#ddl2.btn.btn-default.btn-xs.dropdown-toggle(type="button" data-toggle="dropdown")
-                                            | Bar 
-                                            span.caret
-                                        ul.dropdown-menu.pull-right(role="menu")
-                                            li
-                                                a()
-                                                    | Bar
-                                            li
-                                                a()
-                                                    | Grid                                      
-                        div.panel-body
-                            div(id='chart30' class='c3chart')
-                            div#div30.dataTable_wrapper
-                                table#datatable-opponentstats.table.table-hover
-                                    thead
-                                        tr
-                                            th Opponent
-                                            th Game Played
-                                            th Goals For
-                                            th Goals Against
-                                            th Penalty in Minutes
-                                            th Win
-                                            th Loss
-                                            th Tie                                            
-                                    tbody
-                                        each stats in opponent_stats
-                                            tr
-                                                td #{stats.opponent}
-                                                td #{stats.gp}
-                                                td #{stats.gf}
-                                                td #{stats.ga}
-                                                td #{stats.pim}
-                                                td #{stats.w}
-                                                td #{stats.l}
-                                                td #{stats.t}
-            div.row
-                div.col-lg-12
-                    div.panel.panel-primary
-                        div.panel-heading
-                            h3.panel-title 
-                                i#i3.fa.fa-bar-chart-o 
-                                    | Goals For, Goals Against, Penalty in Minutes By Rink
-                                div.pull-right
-                                    div.btn-group
-                                        button#ddl3.btn.btn-default.btn-xs.dropdown-toggle(type="button" data-toggle="dropdown")
-                                            | Bar 
-                                            span.caret
-                                        ul.dropdown-menu.pull-right(role="menu")
-                                            li
-                                                a()
-                                                    | Bar
-                                            li
-                                                a()
-                                                    | Grid                                      
-                        div.panel-body
-                            div(id='chart40' class='c3chart') 
-                            div#div40.dataTable_wrapper
-                                table#datatable-rinkstats.table.table-hover
-                                    thead
-                                        tr
-                                            th Opponent
-                                            th Game Played
-                                            th Goals For
-                                            th Goals Against
-                                            th Penalty in Minutes
-                                            th Win
-                                            th Loss
-                                            th Tie                                            
-                                    tbody
-                                        each stats in rink_stats
-                                            tr
-                                                td #{stats.rink}
-                                                td #{stats.gp}
-                                                td #{stats.gf}
-                                                td #{stats.ga}
-                                                td #{stats.pim}
-                                                td #{stats.w}
-                                                td #{stats.l}
-                                                td #{stats.t}
-                            
-            div.row
-                div.col-lg-4
-                    div.panel.panel-green
-                        div.panel-heading
-                            h3.panel-title 
-                                i.fa.fa-pie-chart 
-                                    | Goals By Period   
-                        div.panel-body       
-                            div(id='chart50' class='c3chart') 
-                div.col-lg-8
-                    div.panel.panel-green
-                        div.panel-heading
-                            h3.panel-title 
-                                i.fa.fa-pie-chart 
-                                    | Goals By Kind   
-                        div.panel-body                
-                            div(id='chart51' class='c3chart') 
-            div.row
-                div.col-lg-4     
-                    div.panel.panel-green
-                        div.panel-heading
-                            h3.panel-title 
-                                i.fa.fa-pie-chart 
-                                    | Penalties By Period   
-                        div.panel-body                       
-                            div(id='chart60' class='c3chart') 
-                div.col-lg-8 
-                    div.panel.panel-green
-                        div.panel-heading
-                            h3.panel-title 
-                                i.fa.fa-pie-chart 
-                                    | Penalties By Kind   
-                        div.panel-body                          
-                            div(id='chart61' class='c3chart') 
-            div.row
-                div.col-lg-4
-                    div.panel.panel-green
-                        div.panel-heading
-                            h3.panel-title 
-                                i.fa.fa-pie-chart 
-                                    | Penalty In Minutes By Period   
-                        div.panel-body               
-                            div(id='chart70' class='c3chart') 
-                div.col-lg-8                                                         
-                    div.panel.panel-green
-                        div.panel-heading
-                            h3.panel-title 
-                                i.fa.fa-pie-chart 
-                                    | Penalty In Minutes By Kind   
-                        div.panel-body                    
-                            div(id='chart71' class='c3chart') 
+        div.col-lg-12    
+            ul.nav.nav-tabs(role="tablist")
+                li.active(role="presentation")
+                    a(href="#graph" role="tab" data-toggle="tab") Graph
+                li(role="presentation")
+                    a(href="#data" role="tab" data-toggle="tab") Data                        
+            div.tab-content
+                div#graph.tab-pane.active(role="tabpanel")
+                    div.row
+                        div.col-lg-12
+                            div.panel.panel-default
+                                div.panel-heading
+                                    | Game Stats
+                                div.panel-body
+                                    div.dataTable_wrapper
+                                        table#datatable-gamestats.table.table-hover
+                                            thead
+                                                tr
+                                                    th Date
+                                                    th Time
+                                                    th Opponent
+                                                    th Home/Away
+                                                    th Type
+                                                    th Rink
+                                                    th Goals For
+                                                    th Goals Against
+                                                    th Penalty in Minutes
+                                            tbody
+                                                each game in data.games
+                                                    tr
+                                                        td #{game.date}
+                                                        td #{game.time}
+                                                        td #{game.opponent}
+                                                        td #{game.homeaway}
+                                                        td #{game.kind}
+                                                        td #{game.rink}
+                                                        td #{game.gf}
+                                                        td #{game.ga}
+                                                        td #{game.pim}
+                            div.row
+                                div.col-lg-12
+                                    div.panel.panel-primary
+                                        div.panel-heading
+                                            h3.panel-title 
+                                                i#i1.fa.fa-bar-chart-o 
+                                                    | Goals For, Goals Against, Penalty in Minutes By Date
+                                                div.pull-right
+                                                    div.btn-group
+                                                        button#ddl1.btn.btn-default.btn-xs.dropdown-toggle(type="button" data-toggle="dropdown")
+                                                            | Bar 
+                                                            span.caret
+                                                        ul.dropdown-menu.pull-right(role="menu")
+                                                            li
+                                                                a()
+                                                                    | Bar
+                                                            li
+                                                                a()
+                                                                    | TimeSeries                                      
+                                        div.panel-body
+                                            div(id='chart00' class='c3chart') 
+                                            div(id='chart10' class='c3chart')                                      
+                            div.row
+                                div.col-lg-12
+                                    div.panel.panel-primary
+                                        div.panel-heading
+                                            h3.panel-title 
+                                                i.fa.fa-area-chart 
+                                                    | Goals For, Goals Against, Penalties By Period
+                                        div.panel-body       
+                                            div(id='chart20' class='c3chart') 
+                            div.row
+                                div.col-lg-12
+                                    div.panel.panel-primary
+                                        div.panel-heading
+                                            h3.panel-title 
+                                                i#i2.fa.fa-bar-chart-o 
+                                                    | Goals For, Goals Against, Penalty in Minutes By Opponent
+                                                div.pull-right
+                                                    div.btn-group
+                                                        button#ddl2.btn.btn-default.btn-xs.dropdown-toggle(type="button" data-toggle="dropdown")
+                                                            | Bar 
+                                                            span.caret
+                                                        ul.dropdown-menu.pull-right(role="menu")
+                                                            li
+                                                                a()
+                                                                    | Bar
+                                                            li
+                                                                a()
+                                                                    | Grid                                      
+                                        div.panel-body
+                                            div(id='chart30' class='c3chart')
+                                            div#div30.dataTable_wrapper
+                                                table#datatable-opponentstats.table.table-hover
+                                                    thead
+                                                        tr
+                                                            th Opponent
+                                                            th Game Played
+                                                            th Goals For
+                                                            th Goals Against
+                                                            th Penalty in Minutes
+                                                            th Win
+                                                            th Loss
+                                                            th Tie                                            
+                                                    tbody
+                                                        each stats in opponent_stats
+                                                            tr
+                                                                td #{stats.opponent}
+                                                                td #{stats.gp}
+                                                                td #{stats.gf}
+                                                                td #{stats.ga}
+                                                                td #{stats.pim}
+                                                                td #{stats.w}
+                                                                td #{stats.l}
+                                                                td #{stats.t}
+                            div.row
+                                div.col-lg-12
+                                    div.panel.panel-primary
+                                        div.panel-heading
+                                            h3.panel-title 
+                                                i#i3.fa.fa-bar-chart-o 
+                                                    | Goals For, Goals Against, Penalty in Minutes By Rink
+                                                div.pull-right
+                                                    div.btn-group
+                                                        button#ddl3.btn.btn-default.btn-xs.dropdown-toggle(type="button" data-toggle="dropdown")
+                                                            | Bar 
+                                                            span.caret
+                                                        ul.dropdown-menu.pull-right(role="menu")
+                                                            li
+                                                                a()
+                                                                    | Bar
+                                                            li
+                                                                a()
+                                                                    | Grid                                      
+                                        div.panel-body
+                                            div(id='chart40' class='c3chart') 
+                                            div#div40.dataTable_wrapper
+                                                table#datatable-rinkstats.table.table-hover
+                                                    thead
+                                                        tr
+                                                            th Opponent
+                                                            th Game Played
+                                                            th Goals For
+                                                            th Goals Against
+                                                            th Penalty in Minutes
+                                                            th Win
+                                                            th Loss
+                                                            th Tie                                            
+                                                    tbody
+                                                        each stats in rink_stats
+                                                            tr
+                                                                td #{stats.rink}
+                                                                td #{stats.gp}
+                                                                td #{stats.gf}
+                                                                td #{stats.ga}
+                                                                td #{stats.pim}
+                                                                td #{stats.w}
+                                                                td #{stats.l}
+                                                                td #{stats.t}
+                                            
+                            div.row
+                                div.col-lg-4
+                                    div.panel.panel-green
+                                        div.panel-heading
+                                            h3.panel-title 
+                                                i.fa.fa-pie-chart 
+                                                    | Goals By Period   
+                                        div.panel-body       
+                                            div(id='chart50' class='c3chart') 
+                                div.col-lg-8
+                                    div.panel.panel-green
+                                        div.panel-heading
+                                            h3.panel-title 
+                                                i.fa.fa-pie-chart 
+                                                    | Goals By Kind   
+                                        div.panel-body                
+                                            div(id='chart51' class='c3chart') 
+                            div.row
+                                div.col-lg-4     
+                                    div.panel.panel-green
+                                        div.panel-heading
+                                            h3.panel-title 
+                                                i.fa.fa-pie-chart 
+                                                    | Penalties By Period   
+                                        div.panel-body                       
+                                            div(id='chart60' class='c3chart') 
+                                div.col-lg-8 
+                                    div.panel.panel-green
+                                        div.panel-heading
+                                            h3.panel-title 
+                                                i.fa.fa-pie-chart 
+                                                    | Penalties By Kind   
+                                        div.panel-body                          
+                                            div(id='chart61' class='c3chart') 
+                            div.row
+                                div.col-lg-4
+                                    div.panel.panel-green
+                                        div.panel-heading
+                                            h3.panel-title 
+                                                i.fa.fa-pie-chart 
+                                                    | Penalty In Minutes By Period   
+                                        div.panel-body               
+                                            div(id='chart70' class='c3chart') 
+                                div.col-lg-8                                                         
+                                    div.panel.panel-green
+                                        div.panel-heading
+                                            h3.panel-title 
+                                                i.fa.fa-pie-chart 
+                                                    | Penalty In Minutes By Kind   
+                                        div.panel-body                    
+                                            div(id='chart71' class='c3chart')             
+                div#data.tab-pane(role="tabpanel")
+                    div#jsoneditor()
+                                                
 
 block scripts
     <!-- D3 Chart JavaScript -->
@@ -264,6 +279,9 @@ block scripts
     <!-- Custom Theme JavaScript -->
     script(src="/bower_components/sb-admin-2/js/sb-admin-2.js" type="text/javascript")
     
+    <!-- Json Editor JavaScript -->
+    script(src="/bower_components/jsoneditor/dist/jsoneditor.min.js" type="text/javascript")
+    
     script(type="text/javascript").
         $(document).ready(function() {
             $('#datatable-gamestats').DataTable({
@@ -281,6 +299,9 @@ block scripts
             $("#chart10").hide();
             $("#div30").hide();
             $("#div40").hide();
+            
+            var editor = new JSONEditor(document.getElementById("jsoneditor"), {mode: 'code'});
+            editor.set(!{JSON.stringify(data)});
         });
 
         $(".dropdown-menu li a").click(function(){

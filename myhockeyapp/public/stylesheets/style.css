@@ -30,3 +30,7 @@ tr.group,
 tr.group:hover {
     background-color: #ddd !important;
 }
+
+#jsoneditor {
+  height: 500px;
+}
