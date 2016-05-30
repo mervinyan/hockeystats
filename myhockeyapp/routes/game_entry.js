@@ -66,7 +66,7 @@ router.get('/:streamid', function (req, res, next) {
             if (gameover == false && event.EventType == 'GameEnded') {
                 gameover = true;
             }
-            game_events[i] = { number: event.EventNumber, type: event.EventType, createdDate: event.Created, json: JSON.parse(bin2String(event.Data.toJSON().data)) };
+            game_events[i] = { number: event.EventNumber, type: event.EventType, createdDate: convert_to_date(event.CreatedEpoch), json: JSON.parse(bin2String(event.Data.toJSON().data)) };
         }
         res.render('game_entry.pug', { title: 'Game Events', 'stream_id': streamid, 'game_events': game_events, 'gamestart': gamestart, 'gameover': gameover });
     });
@@ -78,7 +78,7 @@ router.get('/:streamid/timeline', function (req, res, next) {
         var game_events = [];
         for (var i = 0; i < readResult.Events.length; i++) {
             var event = readResult.Events[i].Event;
-            game_events[i] = { number: event.EventNumber, type: event.EventType, createdDate: event.Created, json: JSON.parse(bin2String(event.Data.toJSON().data)) };
+            game_events[i] = { number: event.EventNumber, type: event.EventType, createdDate: convert_to_date(event.CreatedEpoch), json: JSON.parse(bin2String(event.Data.toJSON().data)) };
         }
         res.render('game_timeline.pug', { title: 'Game Timeline', 'stream_id': streamid, 'game_events': game_events });
     });
@@ -99,7 +99,7 @@ router.get('/fetchevents/:streamid', function (req, res, next) {
             if (gameover == false && event.EventType == 'GameEnded') {
                 gameover = true;
             }
-            game_events[i] = { number: event.EventNumber, type: event.EventType, createdDate: convert_to_date(event.Created), json: JSON.parse(bin2String(event.Data.toJSON().data)) };
+            game_events[i] = { number: event.EventNumber, type: event.EventType, createdDate: convert_to_date(event.CreatedEpoch), json: JSON.parse(bin2String(event.Data.toJSON().data)) };
         }
         res.json({ 'data': game_events, 'stream_id': streamid, 'gamestart': gamestart, 'gameover': gameover });
     });
@@ -286,10 +286,9 @@ function left_pad_zero(time) {
 }
 
 function convert_to_date(timestamp) {
-    var t = new moment(timestamp);
-    var formatted = t.format("dd.mm.yyyy hh:MM:ss");
-    console.log(formatted);
-    return formatted;
+    var t = moment(parseInt(timestamp)).format('YYYY-MM-DD HH:mm');
+    console.log(t);
+    return t;
 }
 
 module.exports = router;
