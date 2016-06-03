@@ -33,45 +33,24 @@ block content
                 li
                     i.fa.fa-dashboard
                     a(href="/") 
-                        | Dashboard
-                li
-                    i.fa.fa-users
-                    a(href="/teamstats") 
-                        | Team Stats
-                li
-                    i.fa
-                        | 
-                        | Goals For
+                        | Accounts
     div.row
-        div.col-lg-12
+        div.col-lg-6.col-md-6
             div.panel.panel-success
                 div.panel-heading
-                    | Goals For
+                    | Account Balances
                 div.panel-body
                     div.dataTable_wrapper
-                        table#datatable-goals_for.table.table-hover
+                        table#datatable-balances.table.table-hover
                             thead
                                 tr
-                                    th Game
-                                    th Period
-                                    th Time
-                                    th Goal 
-                                    th Scored By
-                                    th Assisted By
+                                    th Account
+                                    th Balance
                             tbody
-                                each goal_for in goals_for
+                                each account_balance in account_balances
                                     tr
-                                        td 
-                                            | #{goal_for.homeaway} game vs. #{goal_for.opponent} played at #{goal_for.start} on #{goal_for.date} at rink #{goal_for.rink}
-                                        td #{goal_for.period}
-                                        td #{goal_for.time}
-                                        td #{goal_for.goalkind}
-                                        td #{goal_for.gf}
-                                        td 
-                                            | #{goal_for.a1}
-                                            if goal_for.a1 && goal_for.a2
-                                                | , 
-                                            | #{goal_for.a2}
+                                        td #{account_balance[0]}
+                                        td(style="text-align:right") #{account_balance[1]}   
 
 block scripts
     <!-- D3 Chart JavaScript -->
@@ -98,9 +77,9 @@ block scripts
     
     script(type="text/javascript").
         $(document).ready(function() {
-            $('#datatable-goals_for').DataTable({
+            $('#datatable-balances').DataTable({
                 "responsive": true,
-                "bPaginate": true,
+                "bPaginate": false,
                 "bJQueryUI": true,
                 "bLengthChange": true,
                 "bFilter": false,
@@ -108,26 +87,7 @@ block scripts
                 "bInfo": true,
                 "bAutoWidth": true,
                 "bProcessing": true,
-                "iDisplayLength": 10,                
-                "columnDefs": [
-                    {
-                        "visible": false,
-                        "targets": [0]
-                    }
-                ],
-                "drawCallback": function(settings) {
-                    var api = this.api();
-                    var rows = api.rows({page: 'current'}).nodes();
-                    var last = null;
-                    api.column(0, {page: 'current'}).data().each(function(group, i) {
-                        if (last !== group) {
-                            $(rows).eq(i).before(
-                                '<tr class="group"><td colspan="5">'+group+'</td></tr>'
-                            );
-                            last = group;
-                        }
-                    });
-                }        
+                "iDisplayLength": 10,
             });
         });
 

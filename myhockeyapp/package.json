@@ -14,10 +14,12 @@
     "ejs": "~2.4.1",
     "express": "~4.13.1",
     "express-validator": "^2.20.4",
+    "fast-csv": "^2.0.0",
     "jsoneditor": "^5.5.5",
     "moment": "^2.13.0",
     "morgan": "^1.7.0",
     "node-uuid": "*",
+    "numeral": "^1.5.3",
     "pug": "^2.0.0-alpha6",
     "request-as-curl": "^0.1.0",
     "serve-favicon": "~2.3.0"
