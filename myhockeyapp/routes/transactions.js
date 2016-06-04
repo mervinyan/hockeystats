@@ -101,6 +101,11 @@ router.post('/addincomeforecast', function (req, res, next) {
             req.checkBody('date', 'Date is required').notEmpty().isDate();
             if (req.body.recurring == 'yes') {
                 req.checkBody('frequency', 'Frequency is required').notEmpty();
+                if (req.body.frequency == 'Semi-Monthly') {
+                    if (moment(req.body.date).date() > 28) {
+
+                    }
+                }
                 // req.checkBody('starts', 'Starts is required').notEmpty().isDate();
                 req.checkBody('endOptions', 'endOptions is required').notEmpty();
                 if (req.body.endOptions == 'after') {
@@ -236,20 +241,66 @@ function sort_by_date(a, b) {
 function calculate_dates(start, count, step, unit) {
     var dates = [];
     dates.push(moment(start));
-    for (var i = 0; i < count; i++) {
-        dates.push(moment(start).add(step * (i + 1), unit));
+    if (step < 15) {
+        for (var i = 1; i < count; i++) {
+            dates.push(moment(start).add(step * (i + 1), unit));
+        }
+    } else {
+        if (moment(start).date() <= 13) {
+            for (var i = 1; i < count; i++) {
+                if (i % 2 == 0) {
+                    dates.push(moment(start).add(Math.floor(i / 2), 'months'));
+                } else {
+                    dates.push(moment(start).add(Math.floor(i / 2), 'months').add(15, 'days'));
+                }
+            }
+        } else {
+            for (var i = 1; i < count; i++) {
+                if (i % 2 == 1) {
+                    if (moment(start).date() <= 15) {
+                        dates.push(moment(start).add(Math.floor((i + 1) / 2), 'months').subtract((moment(start).date() - 1), 'days'));
+                    } else {
+                        dates.push(moment(start).add(Math.floor((i + 1) / 2), 'months').subtract(15, 'days'));
+                    }
+                } else {
+                    dates.push(moment(start).add(Math.floor((i + 1) / 2), 'months'));
+                }
+            }
+        }
     }
+
     return dates;
 }
 
 function calculate_dates_until(start, end, step, unit) {
     var dates = [];
     dates.push(moment(start));
-    var i = 0;
-    while (moment(start).add(step * (i + 1), unit) <= moment(end)) {
-        dates.push(moment(start).add(step * (i + 1), unit));
-        i++;
+    if (step < 15) {
+        var i = 1;
+        while (moment(start).add(step * (i + 1), unit) <= moment(end)) {
+            dates.push(moment(start).add(step * (i + 1), unit));
+            i++;
+        }
+    } else {
+        if (moment(start).date() <= 13) {
+            var i = 1;
+            var next_date = (i % 2 == 0) ? moment(start).add(Math.floor(i / 2), 'months') : moment(start).add(Math.floor(i / 2), 'months').add(15, 'days');
+            while (next_date < moment(end)) {
+                dates.push(moment(next_date));
+                i++;
+                next_date = (i % 2 == 0) ? moment(start).add(Math.floor(i / 2), 'months') : moment(start).add(Math.floor(i / 2), 'months').add(15, 'days');
+            }
+        } else {
+            var i = 1;
+            var next_date = (i % 2 == 0) ? moment(start).add(Math.floor((i + 1) / 2), 'months') : (moment(start).date() <= 15 ? moment(start).add(Math.floor((i + 1) / 2), 'months').subtract((moment(start).date() - 1), 'days') : moment(start).add(Math.floor((i + 1) / 2), 'months').subtract(15, 'days'));
+            while (next_date < moment(end)) {
+                dates.push(moment(next_date));
+                i++;
+                next_date = (i % 2 == 0) ? moment(start).add(Math.floor((i + 1) / 2), 'months') : (moment(start).date() <= 15 ? moment(start).add(Math.floor((i + 1) / 2), 'months').subtract((moment(start).date() - 1), 'days') : moment(start).add(Math.floor((i + 1) / 2), 'months').subtract(15, 'days'));
+            }
+        }
     }
+
     return dates;
 }
 

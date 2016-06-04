@@ -6,8 +6,8 @@ $dates = $dates + '2016_02_13', '2016_02_14', '2016_02_16', '2016_02_20', '2016_
 
 Foreach ($date in $dates)
 {
-	$fileName = '@C:\temp\stats\myhockeyapp\data\game_' + $date + '.json'
+	$fileName = '@C:\my_workspaces\hockeystats\myhockeyapp\data\game_' + $date + '.json'
 	$streamId = 'http://127.0.0.1:2113/streams/game-' + [guid]::NewGuid()
 	$args = @('-i', '-d', $fileName, $streamId, '-H', 'Content-Type:application/vnd.eventstore.events+json')
-	& 'C:\temp\curl.exe' $args
+	& 'C:\my_workspaces\curl.exe' $args
 }
