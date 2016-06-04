@@ -77,15 +77,17 @@ router.get('/incomeforecasts', function (req, res, next) {
     res.render('income_forecasts.pug', { title: 'Income Forecasts' });
 });
 
-router.get('/fetchforecasts', function (req, res, next) {
+router.get('/fetchincomeforecasts', function (req, res, next) {
     fetch_events_backwards('forecasted_transactions', -1, 1000, true, function (readResult) {
         var forecasted_transactions = [];
         for (var i = 0; i < readResult.Events.length; i++) {
             var event = readResult.Events[i].Event;
-            var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
-            var eventData = JSON.parse(eventDataStr);
+            if (event.EventType == 'IncomeForecastAdded') {
+                var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
+                var eventData = JSON.parse(eventDataStr);
 
-            forecasted_transactions[i] = { date: eventData.date, account: eventData.account, from: eventData.from, amount: numeral(eventData.amount).format('$0,0.00'), type: eventData.type };
+                forecasted_transactions[i] = { date: eventData.date, account: eventData.account, from: eventData.from, amount: numeral(eventData.amount).format('$0,0.00'), type: eventData.type };
+            }
         }
         res.json({ "data": forecasted_transactions });
     });
@@ -166,6 +168,116 @@ router.post('/addincomeforecast', function (req, res, next) {
                             'from': req.body.from,
                             'amount': req.body.amount,
                             'type': req.body.type,
+                            'date': dates[i].format('YYYY-MM-DD')
+                        })),
+                        'IsJson': true
+                    }
+                );
+            }
+
+            return events;
+        }
+    );
+});
+
+router.get('/expenseforecasts', function (req, res, next) {
+    res.render('expense_forecasts.pug', { title: 'Expense Forecasts' });
+});
+
+router.get('/fetchexpenseforecasts', function (req, res, next) {
+    fetch_events_backwards('forecasted_transactions', -1, 1000, true, function (readResult) {
+        var forecasted_transactions = [];
+        for (var i = 0; i < readResult.Events.length; i++) {
+            var event = readResult.Events[i].Event;
+            if (event.EventType == 'ExpenseForecastAdded') {
+                var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
+                var eventData = JSON.parse(eventDataStr);
+
+                forecasted_transactions[i] = { date: eventData.date, account: eventData.account, to: eventData.to, for: eventData.for, amount: numeral(eventData.amount).format('$0,0.00'), category: eventData.category };
+
+            }
+        }
+        res.json({ "data": forecasted_transactions });
+    });
+});
+
+router.post('/addexpenseforecast', function (req, res, next) {
+    process(req, res,
+        function (req) {
+            req.checkBody('account', 'Account is required').notEmpty();
+            req.checkBody('to', 'To is required').notEmpty();
+            req.checkBody('for', 'For is required').notEmpty();
+            req.checkBody('amount', 'Amount is required').notEmpty().isDecimal();
+            req.checkBody('category', 'Category is required').notEmpty();
+            req.checkBody('date', 'Date is required').notEmpty().isDate();
+            if (req.body.recurring == 'yes') {
+                req.checkBody('frequency', 'Frequency is required').notEmpty();
+                if (req.body.frequency == 'Semi-Monthly') {
+                    if (moment(req.body.date).date() > 28) {
+
+                    }
+                }
+                // req.checkBody('starts', 'Starts is required').notEmpty().isDate();
+                req.checkBody('endOptions', 'endOptions is required').notEmpty();
+                if (req.body.endOptions == 'after') {
+                    req.checkBody('occurrences', 'Occurrences is required').notEmpty().isInt();
+                } else if (req.body.endOptions == 'on') {
+                    req.checkBody('ends', 'Ends is required').notEmpty().isDate();
+                }
+            }
+            var errors = req.validationErrors();
+            return errors;
+
+        },
+        function (req) {
+            return "account-" + req.body.account.toLowerCase().replace(/ /g, "_");
+        },
+        function (req) {
+            var dates = [];
+            var start = moment(req.body.date);
+            if (req.body.recurring == 'yes') {
+                var step = 0;
+                var unit = '';
+                if (req.body.frequency == 'Bi-Weekly') {
+                    step = 14;
+                    unit = 'days';
+                }
+                if (req.body.frequency == 'Semi-Monthly') {
+                    step = 15;
+                    unit = 'days';
+                }
+                if (req.body.frequency == 'Monthly') {
+                    step = 1;
+                    unit = 'months';
+                }
+                if (req.body.frequency == 'Yearly') {
+                    step = 1;
+                    unit = 'years';
+                }
+
+                if (req.body.endOptions == 'after') {
+                    var count = parseInt(req.body.occurrences);
+                    dates = calculate_dates(start, count, step, unit);
+                } else if (req.body.endOptions == 'on') {
+                    dates = calculate_dates_until(start, moment(req.body.ends), step, unit);
+                }
+            } else {
+                dates.push(start);
+            }
+
+            console.log(dates);
+            var events = [];
+            for (var i = 0; i < dates.length; i++) {
+                events.push(
+                    {
+                        'EventId': uuid.v4(),
+                        'Type': 'ExpenseForecastAdded',
+                        'Data': new Buffer(JSON.stringify({
+                            'account': req.body.account,
+                            'to': req.body.to,
+                            'for': req.body.for,
+                            'amount': req.body.amount,
+                            'category': req.body.category,
                             'date': dates[i].format('YYYY-MM-DD')
                         })),
                         'IsJson': true

@@ -44,10 +44,10 @@ block content
                                 tr
                                     th Date
                                     th Account
-                                    th From
-                                    th Type
+                                    th To
+                                    th For
+                                    th Category
                                     th Amount
-                                    
                             tbody
                                         
     div#addForecastModal.modal.fade(tabIndex="-1" role="dialog" aria-labelledby="addForecastModalLabel")
@@ -59,8 +59,8 @@ block content
                     h4#addForecastModalLabel.modal-title 
                         i.fa.fa-calendar-plus-o
                         |     
-                        | Add Income Forecast
-                form#addForecastForm.form-horizontal(name='add_forecast' method='post' action='/transactions/addincomeforecast' novalidate)
+                        | Add Expense Forecast
+                form#addForecastForm.form-horizontal(name='add_forecast' method='post' action='/transactions/addexpenseforecast' novalidate)
                     div.modal-body
                         div.form-group
                             label.col-md-3.control-label(for='account') Account
@@ -80,9 +80,13 @@ block content
                                             a()
                                                 | RBC Savings 
                         div.form-group
-                            label.col-md-3.control-label(for='from') From
+                            label.col-md-3.control-label(for='to') To
                             div.col-md-9
-                                input#from.form-control(type='text', name='from')
+                                input#to.form-control(type='text', name='to')
+                        div.form-group
+                            label.col-md-3.control-label(for='for') For
+                            div.col-md-9
+                                input#for.form-control(type='text', name='for')                                
                         div.form-group
                             label.col-md-3.control-label(for='amount') Amount
                             div.col-md-4
@@ -90,24 +94,9 @@ block content
                                     span.input-group-addon $
                                     input#amount.form-control.currency(type='number', name='amount' min='0' )  
                         div.form-group
-                            label.col-md-3.control-label(for='type') Type
+                            label.col-md-3.control-label(for='type') Category
                             div.col-md-9
-                                div.radio.input-group
-                                    label.radio-inline
-                                        input(type="radio" name="typeOptions" id="typeOption1" value="salary")
-                                        | Salary
-                                    label.radio-inline
-                                        input(type="radio" name="typeOptions" id="typeOption2" value="bonus")
-                                        | Bonus
-                                    label.radio-inline
-                                        input(type="radio" name="typeOptions" id="typeOptio3" value="grant")
-                                        | Grant  
-                                    label.radio-inline
-                                        input(type="radio" name="typeOptions" id="typeOption4" value="interest")
-                                        | Interest
-                                    label.radio-inline
-                                        input(type="radio" name="typeOptions" id="typeOption5" value="tax return")
-                                        | Tax Return 
+                                input#category.form-control(type='text', name='category')    
                         div.form-group
                             label.col-md-3.control-label(for='date') Date
                             div.col-md-4
@@ -200,18 +189,19 @@ block scripts
                 "bAutoWidth": true,
                 "bProcessing": true,
                 "iDisplayLength": 10,
-                "ajax": "/transactions/fetchincomeforecasts",
+                "ajax": "/transactions/fetchexpenseforecasts",
                 "columns": [
                     {"data": "date"},
                     {"data": "account"},
-                    {"data": "from"},
-                    {"data": "type"},                            
+                    {"data": "to"},
+                    {"data": "for"},                    
+                    {"data": "category"},                            
                     {"data": "amount"},
                 ],
                 "columnDefs": [
                     {
                         "className": "dt-body-right",
-                        "targets": [4] 
+                        "targets": [5] 
                     }
                 ],
             });
@@ -239,7 +229,7 @@ block scripts
                     account: {
                         required: true
                     },
-                    from: {
+                    to: {
                         required: true
                     },
                     amount: {
@@ -248,7 +238,7 @@ block scripts
                     date: {
                         required: true
                     },
-                    typeOptions: {
+                    category: {
                         required: true
                     }
                 },
@@ -264,9 +254,10 @@ block scripts
                 if ($("#addForecastForm").valid()) {
                     var postData = {
                         "account": $("#account").text().trim(),
-                        "from": $("#from").val(),
+                        "to": $("#to").val(),
+                        "for": $("#for").val(),    
+                        "category": $("#category").val(),                                            
                         "amount": $("#amount").val(),
-                        "type": $("#addForecastForm input[name='typeOptions']:checked").val(),
                         "date": $("#date").val(),
                         "recurring": $("#recurring").is(":checked") ? 'yes': 'no',
                         "frequency": $("#frequency").text().trim(),
