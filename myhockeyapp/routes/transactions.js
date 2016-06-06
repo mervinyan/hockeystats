@@ -80,13 +80,14 @@ router.get('/incomeforecasts', function (req, res, next) {
 router.get('/fetchincomeforecasts', function (req, res, next) {
     fetch_events_backwards('forecasted_transactions', -1, 1000, true, function (readResult) {
         var forecasted_transactions = [];
+        var j = 0;
         for (var i = 0; i < readResult.Events.length; i++) {
             var event = readResult.Events[i].Event;
             if (event.EventType == 'IncomeForecastAdded') {
                 var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
                 var eventData = JSON.parse(eventDataStr);
 
-                forecasted_transactions[i] = { date: eventData.date, account: eventData.account, from: eventData.from, amount: numeral(eventData.amount).format('$0,0.00'), type: eventData.type };
+                forecasted_transactions[j++] = { date: eventData.date, account: eventData.account, from: eventData.from, amount: numeral(eventData.amount).format('$0,0.00'), type: eventData.type };
             }
         }
         res.json({ "data": forecasted_transactions });
@@ -187,13 +188,14 @@ router.get('/expenseforecasts', function (req, res, next) {
 router.get('/fetchexpenseforecasts', function (req, res, next) {
     fetch_events_backwards('forecasted_transactions', -1, 1000, true, function (readResult) {
         var forecasted_transactions = [];
+        var j = 0;
         for (var i = 0; i < readResult.Events.length; i++) {
             var event = readResult.Events[i].Event;
             if (event.EventType == 'ExpenseForecastAdded') {
                 var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
                 var eventData = JSON.parse(eventDataStr);
 
-                forecasted_transactions[i] = { date: eventData.date, account: eventData.account, to: eventData.to, for: eventData.for, amount: numeral(eventData.amount).format('$0,0.00'), category: eventData.category };
+                forecasted_transactions[j++] = { date: eventData.date, account: eventData.account, to: eventData.to, for: eventData.for, amount: numeral(eventData.amount).format('$0,0.00'), category: eventData.category };
 
             }
         }
