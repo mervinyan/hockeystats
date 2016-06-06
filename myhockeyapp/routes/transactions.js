@@ -73,21 +73,68 @@ router.get('/load', function (req, res, next) {
         });
 });
 
+router.get('/cashflow', function (req, res, next) {
+
+    var options1 = {
+        host: 'localhost',
+        port: 2113,
+        path: '/projection/projection_cashflow/result',
+        method: 'GET'
+    }
+
+    http.request(options1, function (res1) {
+        res1.setEncoding('utf8');
+        var body = "";
+        res1.on('data', function (chunk) {
+            body += chunk;
+        });
+        res1.on('end', function () {
+            var data = JSON.parse(body);
+            
+            var cashflow = [];
+            for (var month in data.cashflow) {
+                var cashflow_accounts = [];
+                for (var account in data.cashflow[month]) {
+                    var cashflow_account = {
+                        "account": account,
+                        "begin": numeral(data.cashflow[month][account].begin).format('$0,0.00'),
+                        "in": numeral(data.cashflow[month][account].in).format('$0,0.00'),
+                        "out": numeral(data.cashflow[month][account].out).format('$0,0.00'),
+                        "end": numeral(data.cashflow[month][account].end).format('$0,0.00')
+                    };
+                    cashflow_accounts.push(cashflow_account);
+                    cashflow_accounts.sort(function(a, b) {
+                        return a.account.localeCompare(b.account);
+                    });
+                }
+                cashflow.push({ "month": month, "accounts": cashflow_accounts });
+            }
+
+            cashflow.sort(function (a, b) {
+                return a.month.localeCompare(b.month);
+            });
+            
+            console.log(cashflow);
+            
+            res.render('cashflow_forecast.pug', { title: 'Cashflow Forecast', 'cashflow': cashflow });
+        });
+    }).end();
+});
+
 router.get('/incomeforecasts', function (req, res, next) {
     res.render('income_forecasts.pug', { title: 'Income Forecasts' });
 });
 
 router.get('/fetchincomeforecasts', function (req, res, next) {
-    fetch_events_backwards('forecasted_transactions', -1, 1000, true, function (readResult) {
+    fetch_events_backwards('forecasted_income_transactions', -1, 1000, true, function (readResult) {
         var forecasted_transactions = [];
-        var j = 0;
         for (var i = 0; i < readResult.Events.length; i++) {
             var event = readResult.Events[i].Event;
             if (event.EventType == 'IncomeForecastAdded') {
                 var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
                 var eventData = JSON.parse(eventDataStr);
 
-                forecasted_transactions[j++] = { date: eventData.date, account: eventData.account, from: eventData.from, amount: numeral(eventData.amount).format('$0,0.00'), type: eventData.type };
+                forecasted_transactions[i] = { date: eventData.date, account: eventData.account, from: eventData.from, amount: numeral(eventData.amount).format('$0,0.00'), type: eventData.type };
             }
         }
         res.json({ "data": forecasted_transactions });
@@ -186,16 +233,15 @@ router.get('/expenseforecasts', function (req, res, next) {
 });
 
 router.get('/fetchexpenseforecasts', function (req, res, next) {
-    fetch_events_backwards('forecasted_transactions', -1, 1000, true, function (readResult) {
+    fetch_events_backwards('forecasted_expense_transactions', -1, 1000, true, function (readResult) {
         var forecasted_transactions = [];
-        var j = 0;
         for (var i = 0; i < readResult.Events.length; i++) {
             var event = readResult.Events[i].Event;
             if (event.EventType == 'ExpenseForecastAdded') {
                 var eventDataStr = bin2String(readResult.Events[i].Event.Data.toJSON().data)
                 var eventData = JSON.parse(eventDataStr);
 
-                forecasted_transactions[j++] = { date: eventData.date, account: eventData.account, to: eventData.to, for: eventData.for, amount: numeral(eventData.amount).format('$0,0.00'), category: eventData.category };
+                forecasted_transactions[i] = { date: eventData.date, account: eventData.account, to: eventData.to, for: eventData.for, amount: numeral(eventData.amount).format('$0,0.00'), category: eventData.category };
 
             }
         }
@@ -357,7 +403,7 @@ function calculate_dates(start, count, step, unit) {
     dates.push(moment(start));
     if (step < 15) {
         for (var i = 1; i < count; i++) {
-            dates.push(moment(start).add(step * (i + 1), unit));
+            dates.push(moment(start).add(step * (i), unit));
         }
     } else {
         if (moment(start).date() <= 13) {
@@ -391,8 +437,8 @@ function calculate_dates_until(start, end, step, unit) {
     dates.push(moment(start));
     if (step < 15) {
         var i = 1;
-        while (moment(start).add(step * (i + 1), unit) <= moment(end)) {
-            dates.push(moment(start).add(step * (i + 1), unit));
+        while (moment(start).add(step * (i), unit) <= moment(end)) {
+            dates.push(moment(start).add(step * (i), unit));
             i++;
         }
     } else {
