@@ -44,13 +44,13 @@ block content
                             table.table.table-bordered
                                 thead
                                     tr
-                                        th(rowspan="2" width="40%") Account
-                                        th(style="text-align:center" colspan="4" width="60%") #{cashflow_month.month}
+                                        th(rowspan="2") Account
+                                        th(colspan="4") #{cashflow_month.month}
                                     tr
-                                        th(style="text-align:center" width="15%") Begin
-                                        th(style="text-align:center" width="15%") In
-                                        th(style="text-align:center" width="15%") Out
-                                        th(style="text-align:center" width="15%") End
+                                        th Begin
+                                        th In
+                                        th Out
+                                        th End
                                 tbody
                                     each cashflow_month_account in cashflow_month.accounts
                                         tr
@@ -106,6 +106,18 @@ block scripts
                     {
                         "className": "dt-body-right",
                         "targets": [1, 2, 3, 4] 
+                    },
+                    {
+                        "className": "dt-head-center",
+                        "targets": [1, 2, 3, 4] 
+                    },                    
+                    {
+                        "width": "40%",
+                        "targets": [0]
+                    },
+                    {
+                        "width": "15%",
+                        "targets": [1, 2, 3, 4]
                     }
                 ],
             });
