@@ -122,7 +122,35 @@ router.get('/cashflow', function (req, res, next) {
 });
 
 router.get('/incomeforecasts', function (req, res, next) {
-    res.render('income_forecasts.pug', { title: 'Income Forecasts' });
+    var options1 = {
+        host: 'localhost',
+        port: 2113,
+        path: '/projection/projection_account_info/result',
+        method: 'GET'
+    }
+
+    http.request(options1, function (res1) {
+        if (res1.statusCode == 200) {
+            res1.setEncoding('utf8');
+            var body = "";
+            res1.on('data', function (chunk) {
+                body += chunk;
+            });
+            res1.on('end', function () {
+                var data = JSON.parse(body);
+                var accounts = [];
+                for (var account in data.accounts) {
+                    if (data.accounts[account].status == "Active") {
+                        accounts.push(account);
+                    }
+                }
+                res.render('income_forecasts.pug', { title: 'Income Forecasts', 'accounts': accounts });
+            });
+        } else {
+            res.render('income_forecasts.pug', { title: 'Income Forecasts', 'accounts': [] });
+        }
+    }).end();
+    
 });
 
 router.get('/fetchincomeforecasts', function (req, res, next) {
@@ -229,7 +257,34 @@ router.post('/addincomeforecast', function (req, res, next) {
 });
 
 router.get('/expenseforecasts', function (req, res, next) {
-    res.render('expense_forecasts.pug', { title: 'Expense Forecasts' });
+    var options1 = {
+        host: 'localhost',
+        port: 2113,
+        path: '/projection/projection_account_info/result',
+        method: 'GET'
+    }
+
+    http.request(options1, function (res1) {
+        if (res1.statusCode == 200) {
+            res1.setEncoding('utf8');
+            var body = "";
+            res1.on('data', function (chunk) {
+                body += chunk;
+            });
+            res1.on('end', function () {
+                var data = JSON.parse(body);
+                var accounts = [];
+                for (var account in data.accounts) {
+                    if (data.accounts[account].status == "Active") {
+                        accounts.push(account);
+                    }
+                }
+                res.render('expense_forecasts.pug', { title: 'Expense Forecasts', 'accounts': accounts });
+            });
+        } else {
+            res.render('expense_forecasts.pug', { title: 'Expense Forecasts', 'accounts': [] });
+        }
+    }).end();
 });
 
 router.get('/fetchexpenseforecasts', function (req, res, next) {
