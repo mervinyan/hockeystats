@@ -12,9 +12,6 @@ var team_stats = require('./routes/team_stats');
 var player_stats = require('./routes/player_stats');
 var game_entry = require('./routes/game_entry');
 
-var transactions = require('./routes/transactions');
-var account = require('./routes/account');
-
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -40,8 +37,7 @@ app.use('/users', users);
 app.use('/teamstats', team_stats);
 app.use('/playerstats', player_stats);
 app.use('/gameentry', game_entry);
-app.use('/transactions', transactions)
-app.use('/account', account)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
