@@ -32,12 +32,17 @@ router.get('/fetch', function (req, res, next) {
                 body += chunk;
             });
             res1.on('end', function () {
-                var data = JSON.parse(body);
-                var accounts = [];
-                for (var account in data.accounts) {
-                    accounts.push(data.accounts[account]);
+                if (body.trim().length > 0) {
+                    var data = JSON.parse(body);
+                    var accounts = [];
+                    for (var account in data.accounts) {
+                        accounts.push(data.accounts[account]);
+                    }
+                    res.json({ 'data': accounts });
+                } else {
+                    res.json({ 'data': [] });
                 }
-                res.json({ 'data': accounts });
+
             });
         } else {
             res.json({ 'data': [] });
