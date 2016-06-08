@@ -70,15 +70,10 @@ block content
                                         | 
                                         span.caret
                                     ul.dropdown-menu(aria-labelledby="account")
-                                        li
-                                            a()
-                                                | PC CHQ 
-                                        li
-                                            a()
-                                                | RBC CHQ 
-                                        li
-                                            a()
-                                                | RBC Savings 
+                                        each val in accounts
+                                            li
+                                                a()
+                                                    | #{val}
                         div.form-group
                             label.col-md-3.control-label(for='to') To
                             div.col-md-9
@@ -115,18 +110,10 @@ block content
                                             | Monthly
                                             span.caret
                                         ul.dropdown-menu(aria-labelledby="frequency")
-                                            li
-                                                a()
-                                                    | Bi-Weekly 
-                                            li
-                                                a()
-                                                    | Semi-Monthly 
-                                            li
-                                                a()
-                                                    | Monthly 
-                                            li
-                                                a()
-                                                    | Yearly 
+                                            each val in ["Bi-Weekly", "Semi-Monthly", "Monthly", "Yearly"]
+                                                li
+                                                    a()
+                                                        | #{val} 
                             div.form-group
                                 label.col-md-3.control-label(for='starts') Starts
                                 div.col-md-4
